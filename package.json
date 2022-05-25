@@ -4,7 +4,8 @@
   "description": "App used for electronic blockchain-bassed voting",
   "main": "index.js",
   "scripts": {
-    "test": "npm run test"
+    "test": "npm run test:unit",
+    "start": "node ./index.js"
   },
   "repository": {
     "type": "git",
