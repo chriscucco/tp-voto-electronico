@@ -6,6 +6,12 @@ App that contains logic for a electronic blockchain-bassed voting system.
 - Franco Cerquetti
 - Christian Cucco
 
+### Running app with docker
+
+```
+docker-compose up
+```
+
 ### Runing app
 
 ```
