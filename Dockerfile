@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM node:16.15.0
+FROM node:18-alpine
 
 WORKDIR /usr/src/app
 
@@ -12,4 +12,4 @@ COPY . .
 
 EXPOSE 8000
 
-CMD [ "node", "index.js" ] 
+CMD [ "npm", "run", "start" ] 

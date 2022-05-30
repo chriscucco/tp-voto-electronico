@@ -12,13 +12,23 @@ App that contains logic for a electronic blockchain-bassed voting system.
 docker-compose up
 ```
 
-### Runing app
+### Runing app(Backend + Fronend)
 
 ```
 npm run start
 ```
 
+### Runing only backend
 
+```
+npm run start-server
+```
+
+### Runing only frontend
+
+```
+npm run start-client
+```
 
 ### Testing app
 
