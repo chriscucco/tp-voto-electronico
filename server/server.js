@@ -27,5 +27,5 @@ router.get("/home",function(req,res){
 app.use(router);
 
 app.listen(PORT, function () {
-  console.log(`Example app listening on port ${PORT}!`)
+  console.log(`Listening on port ${PORT}!`)
 })
