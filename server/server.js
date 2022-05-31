@@ -6,7 +6,7 @@ var path = require("path");
 var router = express.Router();
 
 // Constants
-const PORT = 8000;
+const PORT = process.env.PORT ||  8000;
 const HOST = '0.0.0.0';
 
 app.use("/", express.static(path.join(__dirname, "..", "build")));
@@ -22,6 +22,6 @@ router.get("/home",function(req,res){
 
 app.use(router);
 
-app.listen(8000, function () {
+app.listen(PORT, function () {
   console.log('Example app listening on port 8000!')
 })
