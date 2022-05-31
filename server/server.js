@@ -1,13 +1,17 @@
 const { createUser } = require('./controllers/users/users');
 const express = require('express')
+const dotenv = require('dotenv')
+
+// Env variables and constants
+dotenv.config();
+const PORT = process.env.PORT;
+const HOST = '0.0.0.0';
+
 const app = express();
 var path = require("path");
 
 var router = express.Router();
 
-// Constants
-const PORT = process.env.PORT ||  8000;
-const HOST = '0.0.0.0';
 
 app.use("/", express.static(path.join(__dirname, "..", "build")));
 
@@ -23,5 +27,5 @@ router.get("/home",function(req,res){
 app.use(router);
 
 app.listen(PORT, function () {
-  console.log('Example app listening on port 8000!')
+  console.log(`Example app listening on port ${PORT}!`)
 })
