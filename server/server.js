@@ -1,4 +1,4 @@
-const { createUser } = require('./controllers/users/users');
+const { createUser, getUsers, getUserById } = require('./controllers/users/users');
 const express = require('express')
 const dotenv = require('dotenv')
 
@@ -11,7 +11,6 @@ const app = express();
 var path = require("path");
 
 var router = express.Router();
-const database = require('../dao/db')
 
 
 app.use("/", express.static(path.join(__dirname, "..", "build")));
@@ -24,12 +23,17 @@ router.use(function (req, res, next) {
 });
 
 router.get("/users", async(req,res) => {
-  const users = await database.select().from('users')
+  const users =  await getUsers(req, res)
+  res.json(users)
+});
+
+router.get("/user", async(req,res) => {
+  const users =  await getUserById(req, res)
   res.json(users)
 });
 
 router.post("/user", async (req, res) => {
-  const user = await database('users').insert({user_id: req.body.user_id, name: req.body.name, last_name: req.body.last_name }).returning('*')
+  const user = await createUser(req, res)
   res.json(user)
 });
 
