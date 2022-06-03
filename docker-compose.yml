@@ -12,9 +12,9 @@ services:
       DATABASE_URI: postgresql://root:toor@postgres/votoElectronico?sslmode=disable
     ports:
       - '8000:8000'
-  postgres:
+  db:
     container_name: voto-electronico-postgres
-    image: postgres:alpine
+    image: 'postgres'
     environment:
       POSTGRES_DB: votoElectronico
       POSTGRES_USER: root
