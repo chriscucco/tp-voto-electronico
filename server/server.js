@@ -1,4 +1,5 @@
 const { createUser, getUsers, getUserById } = require('../controllers/users/users');
+const {logInUser} = require('../controllers/users/login')
 const express = require('express')
 const dotenv = require('dotenv')
 
@@ -40,6 +41,16 @@ router.post("/user", async (req, res) => {
     res.status(response.status).json(response.message)
   }
 });
+
+router.post("/logIn", async (req, res) => {
+  const response = await logInUser(req, res)
+  if (response.valid) {
+    res.status(200).json(response.response)
+  } else {
+    res.status(response.status).json(response.message)
+  }
+});
+
 
 app.use(router);
 

@@ -11,7 +11,7 @@ exports.getUserById = async(user_id) => {
     return users
 };
 
-exports.createUser = async(user_id, name, last_name) => {
-    const user = await database('users').insert({user_id, name, last_name}).returning('*')
+exports.createUser = async(user_id, name, last_name, password) => {
+    const user = await database('users').insert({user_id, name, last_name, password}).returning('*')
     return user
 };
