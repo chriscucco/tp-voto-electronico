@@ -35,7 +35,8 @@ exports.getUsers = async(req, res) => {
 };
 
 exports.getUserById = async(req, res) => {
-    const response = await getUserById(req.query.user_id)
+    const user_id = req.query.user_id ? req.query.user_id : "0"
+    const response = await getUserById(user_id)
     return response
 };
 

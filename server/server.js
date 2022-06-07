@@ -1,4 +1,5 @@
 const { createUser, getUsers, getUserById } = require('../controllers/users/users');
+const { createRole, getRoles, getRoleByID } = require('../controllers/roles/roles');
 const {logInUser} = require('../controllers/users/login')
 const express = require('express')
 const dotenv = require('dotenv')
@@ -23,6 +24,8 @@ router.use(function (req, res, next) {
   next();
 });
 
+// USERS
+
 router.get("/users", async(req,res) => {
   const users =  await getUsers(req, res)
   res.json(users)
@@ -42,6 +45,8 @@ router.post("/user", async (req, res) => {
   }
 });
 
+// LOGIN
+
 router.post("/logIn", async (req, res) => {
   const response = await logInUser(req, res)
   if (response.valid) {
@@ -51,6 +56,26 @@ router.post("/logIn", async (req, res) => {
   }
 });
 
+// ROLES
+
+router.get("/roles", async(req,res) => {
+  const roles =  await getRoles(req, res)
+  res.json(roles)
+});
+
+router.get("/role", async(req,res) => {
+  const role =  await getRoleByID(req, res)
+  res.json(role)
+});
+
+router.post("/roles", async (req, res) => {
+  const response = await createRole(req, res)
+  if (response.valid) {
+    res.status(200).json(response.response)
+  } else {
+    res.status(response.status).json(response.message)
+  }
+});
 
 app.use(router);
 
