@@ -1,5 +1,6 @@
 const {getRegisteredVotes, getUserIDsByVotesRegistered, getVotesRegisteredByUserID, registerUserIDAndRoom} = require('../../../../controllers/votes_register/votes')
 var mockDb = require('mock-knex');
+
 var db = require('../../../../dao/db')
 var tracker = require('mock-knex').getTracker();
 
