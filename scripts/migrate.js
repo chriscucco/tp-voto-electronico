@@ -1,6 +1,6 @@
-const db = require('../dao/db')
+const db = require('../dao/db');
 
-;(async () => {
+(async () => {
   try {
     await db.schema.dropTableIfExists('users')
     await db.schema.dropTableIfExists('roles')
