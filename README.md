@@ -30,8 +30,13 @@ npm run start-server
 npm run start-client
 ```
 
-### Testing app
+### Testing app (react module)
 
 ```
 npm run test
+```
+### Testing app (APIs)
+
+```
+npm run test:unit
 ```

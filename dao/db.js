@@ -1,11 +1,5 @@
-const knex = require('knex')
 
-module.exports = knex({
-  client: 'postgres',
-  connection: {
-    host: 'db',
-    user: 'root',
-    password: 'toor',
-    database: 'votoElectronico',
-  },
-})
+var environment = process.env.NODE_ENV || 'development';
+var config = require('../knexfile')[environment];
+const knex = require('knex')
+module.exports = knex(config);
