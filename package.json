@@ -28,10 +28,10 @@
   "scripts": {
     "start-client": "GENERATE_SOURCEMAP=false react-app-rewired start",
     "start-server": "node ./server/server.js",
-    "start-dev": "GENERATE_SOURCEMAP=false npm run build && npm run migrate && node ./server/server.js",
+    "start-dev": "npm run build && npm run migrate && node ./server/server.js",
     "start": "npm run migrate && node ./server/server.js",
     "migrate": "node scripts/migrate.js",
-    "build": "react-app-rewired build",
+    "build": "GENERATE_SOURCEMAP=false  react-app-rewired build",
     "eject": "react-app-rewired eject",
     "test": " npm run test:unit && react-app-rewired test --watchAll"
   },
