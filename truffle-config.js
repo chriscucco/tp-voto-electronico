@@ -33,7 +33,7 @@ module.exports = {
    */
 
   contracts_directory: "./contracts/src",
-  contracts_build_directory: "./contracts/build",
+  contracts_build_directory: "./src/contracts",
   migrations_directory: "./contracts/migrations",
   test_directory: "./contracts/test",
   
@@ -51,7 +51,7 @@ module.exports = {
     },
     
     mumbai: {
-      provider: () => new HDWalletProvider(mnemonic, "https://matic-mumbai.chainstacklabs.com"),
+      provider: () => new HDWalletProvider(mnemonic, "https://rpc-mumbai.maticvigil.com"),
       network_id: 80001,
       gas: 5500000,
       confirmations: 1,
