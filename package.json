@@ -6,7 +6,7 @@
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
-    "@truffle/contract": "^4.5.13",
+    "@truffle/contract": "^4.5.14",
     "@truffle/hdwallet-provider": "^2.0.8",
     "assert": "^2.0.0",
     "dotenv": "^16.0.1",
@@ -28,7 +28,7 @@
   "scripts": {
     "start-client": "GENERATE_SOURCEMAP=false react-app-rewired start",
     "start-server": "node ./server/server.js",
-    "start": "npm run build && npm run migrate && node ./server/server.js",
+    "start": "GENERATE_SOURCEMAP=false npm run build && npm run migrate && node ./server/server.js",
     "migrate": "node scripts/migrate.js",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
