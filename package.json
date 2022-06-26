@@ -31,7 +31,7 @@
     "start-dev": "npm run build && npm run migrate && node ./server/server.js",
     "start": "npm run migrate && node ./server/server.js",
     "migrate": "node scripts/migrate.js",
-    "build": "GENERATE_SOURCEMAP=false  react-app-rewired build",
+    "build": "NODE_OPTIONS=--max_old_space_size=4096  GENERATE_SOURCEMAP=false  react-app-rewired build",
     "eject": "react-app-rewired eject",
     "test": " npm run test:unit && react-app-rewired test --watchAll"
   },
