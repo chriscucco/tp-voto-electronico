@@ -2,6 +2,9 @@
 
 FROM node:16.15.1-alpine
 
+RUN apk add g++ make py3-pip
+
+
 WORKDIR /usr/src/app
 
 COPY package*.json ./
