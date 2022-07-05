@@ -7,7 +7,6 @@ const db = require('../dao/db');
     await db.schema.dropTableIfExists('votes')
 
     await db.schema.withSchema('public').createTable('users', (table) => {
-      table.increments()
       table.string('user_id')
       table.string('name')
       table.string('last_name')
@@ -16,14 +15,12 @@ const db = require('../dao/db');
     console.log('Created users table!')
 
     await db.schema.withSchema('public').createTable('roles', (table) => {
-        table.increments()
         table.string('user_id')
         table.string('role')
     })
     console.log('Created roles table!')
 
     await db.schema.withSchema('public').createTable('votes', (table) => {
-        table.increments()
         table.string('user_id')
         table.string('room')
     })

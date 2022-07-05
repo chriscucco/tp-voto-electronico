@@ -81,8 +81,6 @@ router.post("/roles", async (req, res) => {
 
 // REGISTERED VOTES
 
-// ROLES
-
 router.get("/registered/votes", async(req,res) => {
   const roles =  await getRegisteredVotes(req, res)
   res.json(roles)
