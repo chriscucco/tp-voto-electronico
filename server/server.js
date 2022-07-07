@@ -1,9 +1,6 @@
-const {createUser, getUsers, getUserById} = require('../controllers/users/users');
-const {createRole, getRoles, getRoleByID} = require('../controllers/roles/roles');
-const {getRegisteredVotes, getUserIDsByVotesRegistered, getVotesRegisteredByUserID, registerUserIDAndRoom} = require('../controllers/votes_register/votes')
-const {logInUser} = require('../controllers/users/login')
 const express = require('express')
 const dotenv = require('dotenv')
+var session = require('express-session')
 
 // Env variables and constants
 dotenv.config();
@@ -11,10 +8,17 @@ const PORT = process.env.PORT;
 const HOST = '0.0.0.0';
 
 const app = express();
-var path = require("path");
-const { registerUserAndRoom } = require('../dao/interface');
 
-var router = express.Router();
+app.use(session({
+	secret: 'secret',
+	resave: true,
+  cookie: { maxAge: 15000 },
+  ttl: 0,
+	saveUninitialized: true
+}));
+
+var path = require("path");
+const router = express.Router();
 
 
 app.use("/", express.static(path.join(__dirname, "..", "build")));
@@ -26,87 +30,26 @@ router.use(function (req, res, next) {
   next();
 });
 
-// USERS
 
-router.get("/users", async(req,res) => {
-  const users =  await getUsers(req, res)
-  res.json(users)
-});
+/**
+ * Routers
+ */
 
-router.get("/user", async(req,res) => {
-  const users =  await getUserById(req, res)
-  res.json(users)
-});
+const loginRoute = require('../pages/login')
+const usersRoute = require('../pages/users')
+const votesRegisterRoute = require('../pages/registered_votes')
+const rolesRoute = require('../pages/roles')
 
-router.post("/user", async (req, res) => {
-  const response = await createUser(req, res)
-  if (response.valid) {
-    res.status(200).json(response.response)
-  } else {
-    res.status(response.status).json(response.message)
-  }
-});
+router.use('/login', loginRoute)
+router.use('/users', usersRoute)
+router.use('/registered/votes', votesRegisterRoute)
+router.use('/roles', rolesRoute)
 
-// LOGIN
-
-router.post("/logIn", async (req, res) => {
-  const response = await logInUser(req, res)
-  if (response.valid) {
-    res.status(200).json(response.response)
-  } else {
-    res.status(response.status).json(response.message)
-  }
-});
-
-// ROLES
-
-router.get("/roles", async(req,res) => {
-  const roles =  await getRoles(req, res)
-  res.json(roles)
-});
-
-router.get("/role", async(req,res) => {
-  const role =  await getRoleByID(req, res)
-  res.json(role)
-});
-
-router.post("/roles", async (req, res) => {
-  const response = await createRole(req, res)
-  if (response.valid) {
-    res.status(200).json(response.response)
-  } else {
-    res.status(response.status).json(response.message)
-  }
-});
-
-// REGISTERED VOTES
-
-router.get("/registered/votes", async(req,res) => {
-  const roles =  await getRegisteredVotes(req, res)
-  res.json(roles)
-});
-
-router.get("/registered/votes/users", async(req,res) => {
-  const role =  await getVotesRegisteredByUserID(req, res)
-  res.json(role)
-});
-
-router.get("/registered/votes/rooms", async(req,res) => {
-  const role =  await getUserIDsByVotesRegistered(req, res)
-  res.json(role)
-});
-
-router.post("/registered/votes", async (req, res) => {
-  const response = await registerUserIDAndRoom(req, res)
-  if (response.valid) {
-    res.status(200).json(response.response)
-  } else {
-    res.status(response.status).json(response.message)
-  }
-});
 
 app.use(router);
 
 app.listen(PORT, function () {
   console.log(`Started! Listening on port ${PORT}!`)
 })
+
+module.exports = router
