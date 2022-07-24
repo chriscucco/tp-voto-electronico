@@ -11,6 +11,7 @@
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "express-session": "^1.17.3",
+    "identity-obj-proxy": "^3.0.0",
     "knex": "^2.0.0",
     "pg": "^8.7.3",
     "react": "^18.1.0",
@@ -21,9 +22,9 @@
   },
   "scripts": {
     "start-client": "react-scripts start",
-    "start-server": "node ./server/server.js",
+    "start-server": "nodemon --exec babel-node ./server/server.js",
     "start-dev": "npm run build && npm run migrate && node ./server/server.js",
-    "start": "npm run migrate && node ./server/server.js",
+    "start": "npm run migrate && npm run start-server",
     "test:unit": "jest --config jest.config.js --coverage",
     "test": " npm run test:unit && react-scripts test --watchAll",
     "migrate": "node scripts/migrate.js && node scripts/seeds.js",
@@ -49,6 +50,16 @@
     ]
   },
   "devDependencies": {
-    "mock-knex": "^0.4.11"
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "7.2.2",
+    "@babel/node": "^7.0.0",
+    "@babel/plugin-proposal-class-properties": "7.2.3",
+    "@babel/plugin-transform-runtime": "7.2.0",
+    "@babel/preset-env": "7.2.3",
+    "@babel/preset-react": "7.0.0",
+    "jest-transform-stub": "^2.0.0",
+    "mock-knex": "^0.4.11",
+    "nodemon": "^2.0.19",
+    "sass": "^1.54.0"
   }
 }
