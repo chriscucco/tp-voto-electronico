@@ -1,12 +1,9 @@
 var express = require('express');
 var router = express.Router();
 const {logInUser} = require('../../controllers/users/login')
+const renderLogin = require('../../src/pages/login/login_index')
 
-
-router.get("", async(req, res) =>{
-    console.log('working')
-    res.status(200).send('working')
-});
+router.get("", renderLogin);
 
 
 router.post("", async (req, res) => {
