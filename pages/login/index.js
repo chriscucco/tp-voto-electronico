@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 const {logInUser} = require('../../controllers/users/login')
-const renderLogin = require('../../src/pages/login/login_index')
+var path = require("path");
 
-router.get("", renderLogin);
+router.get("", express.static(path.join(__dirname, "..", "..", "build")));
 
 
 router.post("", async (req, res) => {
