@@ -3,6 +3,7 @@ import './App.css';
 import Web3 from 'web3';
 import contract from '@truffle/contract';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 function App() {
 
@@ -32,14 +33,7 @@ function App() {
         <p>
           {msg}
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <Link to="/login" >Login</Link>
       </header>
     </div>
   );

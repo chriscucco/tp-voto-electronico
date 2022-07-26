@@ -5,21 +5,19 @@ import App from './App';
 import Login from './Login';
 import reportWebVitals from './reportWebVitals';
 import 'react-app-polyfill/stable';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={ <App /> } />
+        <Route path='login' element={ <Login /> } />
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>
 );
-
-const login = ReactDOM.createRoot(document.getElementById('login'));
-login.render(
-  <React.StrictMode>
-    <Login />
-  </React.StrictMode>
-)
-
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
