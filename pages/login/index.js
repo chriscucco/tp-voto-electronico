@@ -1,12 +1,9 @@
 var express = require('express');
 var router = express.Router();
 const {logInUser} = require('../../controllers/users/login')
+var path = require("path");
 
-
-router.get("", async(req, res) =>{
-    console.log('working')
-    res.status(200).send('working')
-});
+router.get("", express.static(path.join(__dirname, "..", "..", "build")));
 
 
 router.post("", async (req, res) => {

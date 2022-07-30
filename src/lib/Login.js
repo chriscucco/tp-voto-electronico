@@ -3,9 +3,8 @@ import './App.css';
 import Web3 from 'web3';
 import contract from '@truffle/contract';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 
-function App() {
+function Login() {
 
   const [contractInstance, setContractInstance] = useState();
   const [msg, setMsg] = useState();
@@ -31,12 +30,19 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          {msg}
+          Hola mundo!
         </p>
-        <Link to="/login" >Login</Link>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
       </header>
     </div>
   );
 }
 
-export default App;
+export default Login;
