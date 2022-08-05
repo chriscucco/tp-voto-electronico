@@ -11,7 +11,7 @@ router.post("", async (req, res) => {
     if (response.valid) {
       res.redirect('/')
     } else {
-      res.redirect('/login/retry')
+      res.redirect('/notImplemented')
     }
   });
 
