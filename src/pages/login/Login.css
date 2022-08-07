@@ -40,3 +40,7 @@ input[type=text], input[type=password] {
 a {
     color: white;
 }
+
+.LoginAlert{
+    color: red;
+}
