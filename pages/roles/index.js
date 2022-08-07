@@ -2,8 +2,6 @@ var express = require('express');
 var router = express.Router();
 const {createRole, getRoles, getRoleByID} = require('../../controllers/roles/roles');
 
-
-
 router.get("/all", async(req,res) => {
     const roles =  await getRoles(req, res)
     res.json(roles)

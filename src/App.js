@@ -33,7 +33,8 @@ function App() {
         <p>
           {msg}
         </p>
-        <a href='/login' class='button'>Log In</a>
+        <a href='/login' class='button'>Ingresar</a>
+        <a href='/users' class='button'>Crear cuenta</a>
       </header>
     </div>
   );

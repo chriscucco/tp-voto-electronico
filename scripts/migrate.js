@@ -8,6 +8,7 @@ const db = require('../dao/db');
 
     await db.schema.withSchema('public').createTable('users', (table) => {
       table.string('user_id')
+      table.string('dni')
       table.string('name')
       table.string('last_name')
       table.string('password')

@@ -7,13 +7,18 @@ exports.getUsers = async() => {
     return users
 };
 
-exports.getUserById = async(user_id) => {
+exports.getUserById = async(dni) => {
+    const users = await database.select().from('users').where('dni', dni)
+    return users
+};
+
+exports.getUserByUserId = async(user_id) => {
     const users = await database.select().from('users').where('user_id', user_id)
     return users
 };
 
-exports.createUser = async(user_id, name, last_name, password) => {
-    const user = await database('users').insert({user_id, name, last_name, password}).returning('*')
+exports.createUser = async(user_id, dni, name, last_name, password) => {
+    const user = await database('users').insert({user_id, dni, name, last_name, password}).returning('*')
     return user
 };
 

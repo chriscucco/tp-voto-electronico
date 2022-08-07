@@ -3,7 +3,6 @@ var router = express.Router();
 const {createUser, getUsers, getUserById} = require('../../controllers/users/users');
 var path = require("path");
 
-
 router.get("", express.static(path.join(__dirname, "..", "..", "build")));
 
 router.get("/all", async(req,res) => {
@@ -19,9 +18,9 @@ router.get("/all", async(req,res) => {
   router.post("", async (req, res) => {
     const response = await createUser(req, res)
     if (response.valid) {
-      res.status(200).json(response.response)
+      res.redirect('/')      
     } else {
-      res.status(response.status).json(response.message)
+      res.redirect('/users?retry=true')
     }
   });
 

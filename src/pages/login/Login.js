@@ -11,10 +11,7 @@ function Login() {
     const init = async () => {
       let value = searchParams.get('retry')
       if (value != null && value == "true") {
-        console.log("Value found!")
         setMsg('Usuario o contraseña invalido')
-      } else {
-        console.log("Value NOT found!")
       }
     }
     init();
@@ -31,7 +28,7 @@ function Login() {
             <input type="text" placeholder="Usuario" name="user_id" required/>
             <label for="password"><b>Contraseña</b></label>
             <input type="password" placeholder="Contraseña" name="password" required/>
-            <button type="submit">Login</button>
+            <button type="submit">Ingresar</button>
           </div>
         </form>
       </header>
