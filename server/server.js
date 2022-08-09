@@ -39,11 +39,13 @@ const loginRoute = require('../pages/login')
 const usersRoute = require('../pages/users')
 const votesRegisterRoute = require('../pages/registered_votes')
 const rolesRoute = require('../pages/roles')
+const authRoute = require('../pages/auth')
 
 router.use('/login', loginRoute)
 router.use('/users', usersRoute)
 router.use('/registered/votes', votesRegisterRoute)
 router.use('/roles', rolesRoute)
+router.use('/auth', authRoute)
 
 
 app.use(router);
