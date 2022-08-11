@@ -22,11 +22,8 @@ function App() {
       TestContract.setProvider(provider);
 
       const encryptedData = Cookies.get('bv_aT')
-      const iv = Cookies.get('bv_Iv')
-      if (encryptedData && iv){
-        console.log(encryptedData)
-        console.log(iv)
-        const data = processTokenDecrypt(encryptedData, iv)
+      if (encryptedData){
+        const data = processTokenDecrypt(encryptedData.toString("hex"))
         console.log("///////////////////")
         console.log(data)
         console.log("///////////////////")

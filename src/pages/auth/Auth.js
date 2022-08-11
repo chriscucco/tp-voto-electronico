@@ -10,8 +10,6 @@ function Auth() {
         const init = async () => {
             const value = searchParams.get('accessToken')
             Cookies.set('bv_aT', value)
-            const valueIv = searchParams.get('iv')
-            Cookies.set('bv_Iv', valueIv)
             let redirectUrl = searchParams.get('redirectUrl') ? searchParams.get('redirectUrl') : "/"
             window.location.href = redirectUrl
         }

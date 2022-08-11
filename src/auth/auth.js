@@ -5,20 +5,15 @@ const key = crypto.randomBytes(32);
 const iv = crypto.randomBytes(16);
 
 exports.processToken = (token) => {
-    let cipher = crypto.createCipheriv(algorithm, Buffer.from(key), iv);
-    let encrypted = cipher.update(token);
-    encrypted = Buffer.concat([encrypted, cipher.final()]);
-    return {
-        iv: iv.toString('hex'),
-        encryptedData: encrypted.toString('hex')
-    };
+    let cipher = crypto.createCipheriv(algorithm, key, iv);
+    let encrypted = cipher.update(token, "utf-8", "hex");
+    encrypted += cipher.final("hex");
+    return encrypted;
 }
 
-exports.processTokenDecrypt = (data, processedIv) => {
-    let iv = Buffer.from(processedIv, 'hex');
-    let encryptedText = Buffer.from(data, 'hex');
-    let decipher = crypto.createDecipheriv(algorithm, Buffer.from(key), iv);
-    let decrypted = decipher.update(encryptedText);
-    decrypted = Buffer.concat([decrypted, decipher.final()]);
-    return decrypted.toString();
+exports.processTokenDecrypt = (data) => {
+    const decipher = crypto.createDecipheriv(algorithm, key, iv);
+    let decryptedData = decipher.update(data, "hex", "utf-8");
+    decryptedData += decipher.final("utf8");
+    return decryptedData;
 }
