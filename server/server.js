@@ -37,6 +37,7 @@ router.use(function (req, res, next) {
  * Routers
  */
 
+const homeRoute = require('../pages/home')
 const loginRoute = require('../pages/login')
 const logoutRoute = require('../pages/logout')
 const usersRoute = require('../pages/users')
@@ -44,6 +45,7 @@ const votesRegisterRoute = require('../pages/registered_votes')
 const rolesRoute = require('../pages/roles')
 const authRoute = require('../pages/auth')
 
+router.use('/home', homeRoute)
 router.use('/login', loginRoute)
 router.use('/logout', logoutRoute)
 router.use('/users', usersRoute)

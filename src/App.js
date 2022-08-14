@@ -14,8 +14,8 @@ function App() {
 
     const init = async () => {
       const response = await fetch('/auth')
-      if (response.status != 200) {
-       window.location.href = '/login'
+      if (response.status == 200) {
+       window.location.href = '/home'
       }
       const TestContractArtifact = require('./contracts/TestContract.json');
       const provider = new Web3.providers.HttpProvider('https://rpc-mumbai.maticvigil.com');

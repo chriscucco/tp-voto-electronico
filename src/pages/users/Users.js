@@ -11,7 +11,7 @@ function Users() {
     const init = async () => {
       const response = await fetch('/auth')
       if (response.status == 200) {
-       window.location.href = '/'
+       window.location.href = '/home'
       }
       let value = searchParams.get('retry')
       if (value != null && value == "true") {
