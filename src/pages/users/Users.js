@@ -39,6 +39,7 @@ function Users() {
             <label for="password"><b>Contraseña</b></label>
             <input type="password" placeholder="Contraseña" name="password" required/>
             <button type="submit">Crear Cuenta</button>
+            <a href='/login' class='Users-link'>Ingresar</a>
           </div>
         </form>
       </header>
