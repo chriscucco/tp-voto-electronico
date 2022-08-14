@@ -1,61 +1,107 @@
 // SPDX-License-Identifier: UNLICENCED
 pragma solidity >= 0.4.22 < 0.9.0;
 
-contract TestContract {
+contract VotingPlatform {
 
     struct Proposal {
         string title;
         string description;
-        // Add voting options. Struct? String array? Mapping?
-        // Add results array
-        mapping (address => bool) voted;
+        string[] participants;
+        string[] candidates;
+        string[] votes;
+        mapping (uint32 => string) votesById;
+        // TODO - Add date
     }
 
     address owner;
-    uint proposalIndex;
-    mapping (uint => Proposal) proposals;
+    uint32 proposalIndex;
+    mapping (uint32 => Proposal) proposals;
 
     // Events
-    event ProposalEvent(string title, string description);
+    event RetrieveProposal(string title, string description, string[] candidates, uint32 proposalId);
+    event RetrieveVote(string candidate);
+    event RetrieveVotes(string[] votes);
 
     constructor() {
         // Set the owner of the contract to the address that deployed it
         owner = msg.sender;
     }
 
-    // Function modifier that only allows functions to be called by contract owner
-    modifier onylOwner() {
+    // Function modifiers
+    modifier onlyOwner() {
         require(msg.sender == owner, "Function only callable by contract owner");
         _;
     }
 
-    modifier onlyOnExsistantProposals(uint id) {
+    modifier onlyOnExsistantProposals(uint32 id) {
         require(id < proposalIndex, "Requested proposal does not exist");
         _;
     }
+
+    modifier voteIsValid(uint32 proposalId, string calldata userId, string calldata candidate) {
+        require(!didUserAlreadyVote(proposalId, userId), "User already voted");
+        require(candidateExistsInProposal(proposalId, candidate), "Candidate does not exist");
+        _;
+    }
+
+    function didUserAlreadyVote(uint32 proposalId, string calldata userId) private view returns(bool) {
+        bool voted = false;
+        Proposal storage proposal = proposals[proposalId];
+        for (uint32 i = 0; i < proposal.participants.length; i++) {
+            string memory currentParticipant = proposal.participants[i];
+            if (keccak256(bytes(currentParticipant)) == keccak256(bytes(userId))) {
+                voted = true;
+            }
+        }
+
+        return voted;
+    }
+
+    function candidateExistsInProposal(uint32 proposalId, string calldata candidate) private view returns(bool) {
+        bool exists = false;
+        Proposal storage proposal = proposals[proposalId];
+        for (uint32 i = 0; i < proposal.candidates.length; i++) {
+            string memory currentCandidate = proposal.candidates[i];
+            if (keccak256(bytes(currentCandidate)) == keccak256(bytes(candidate))) {
+                exists = true;
+            }
+        }
+
+        return exists;
+    }
     
-    // Create new prosal, only callable by owner
-    function createProposal(string memory title, string memory description) public onylOwner {
+
+    // All functions are only callable by the owner of the contract to prevent outside users interaction
+    function createProposal(string calldata title, string calldata description, string[] memory candidates) public onlyOwner {
         Proposal storage newProposal = proposals[proposalIndex++];
         newProposal.title = title;
         newProposal.description = description;
-        emit ProposalEvent(title, description);
+        newProposal.candidates = candidates;
+        emit RetrieveProposal(title, description, candidates, proposalIndex - 1);
     }
 
     // Retrieve proposal by id
-    function getProposals(uint id) public onlyOnExsistantProposals(id) {
-        emit ProposalEvent(proposals[id].title, proposals[id].description);
+    function getProposal(uint32 id) public onlyOnExsistantProposals(id) onlyOwner {
+        emit RetrieveProposal(proposals[id].title, proposals[id].description, proposals[id].candidates, id);
     }
 
-    // Voting function
-    function vote(uint proposalId, uint optionId) public onlyOnExsistantProposals(proposalId) {
+    // Voting function. TODO - Check for duplicate votes UID? Refactor vote to (Candidate, UID) to avoid mapping?
+    function vote(uint32 proposalId, uint32 voteUid, string calldata candidate, string calldata userId) public 
+        onlyOwner onlyOnExsistantProposals(proposalId) voteIsValid(proposalId, userId, candidate)
+    {
         Proposal storage proposal = proposals[proposalId];
-        proposal.voted[msg.sender] = true;
+        proposal.participants.push(userId);
+        proposal.votes.push(candidate);
+        proposal.votesById[voteUid] = candidate;
     }
 
-    // Check if the <voterAddress> voted the proposal <proposalId>
-    function getVotingStatus(uint proposalId, address voterAddress) public view onlyOnExsistantProposals(proposalId) returns (bool) {
-        Proposal storage proposal = proposals[proposalId];
-        return proposal.voted[voterAddress];
+    // Retrieve vote by uid
+    function getVoteById(uint32 proposalId, uint32 voteId) public onlyOwner onlyOnExsistantProposals(proposalId) {
+        emit RetrieveVote(proposals[proposalId].votesById[voteId]);
+    }
+
+    // Retrieve proposal votes
+    function getProposalVotes(uint32 proposalId) public onlyOwner onlyOnExsistantProposals(proposalId) {
+        emit RetrieveVotes(proposals[proposalId].votes);
     }
 }
