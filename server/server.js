@@ -1,6 +1,7 @@
 const express = require('express')
 const dotenv = require('dotenv')
 var session = require('express-session')
+var cookieParser = require('cookie-parser')
 
 // Env variables and constants
 dotenv.config();
@@ -8,12 +9,12 @@ const PORT = process.env.PORT;
 const HOST = '0.0.0.0';
 
 const app = express();
+const oneDay = 1000 * 60 * 60 * 24;
 
 app.use(session({
 	secret: 'secret',
 	resave: true,
-  cookie: { maxAge: 15000 },
-  ttl: 0,
+  cookie: { maxAge: oneDay },
 	saveUninitialized: true
 }));
 
@@ -24,6 +25,7 @@ const router = express.Router();
 app.use("/", express.static(path.join(__dirname, "..", "build")));
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use(cookieParser());
 
 router.use(function (req, res, next) {
   console.log("/" + req.method);

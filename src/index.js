@@ -7,7 +7,6 @@ import Users from './pages/users/Users';
 import reportWebVitals from './reportWebVitals';
 import 'react-app-polyfill/stable';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Auth from './pages/auth/Auth';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -17,7 +16,6 @@ root.render(
         <Route path='/' element={ <App /> } />
         <Route path='login' element={ <Login /> } />
         <Route path='users' element={ <Users />} />
-        <Route path='auth' element={ <Auth />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

@@ -2,8 +2,6 @@ var express = require('express');
 var router = express.Router();
 const {getRegisteredVotes, getUserIDsByVotesRegistered, getVotesRegisteredByUserID, registerUserIDAndRoom} = require('../../controllers/votes_register/votes')
 
-
-
 router.get("", async(req,res) => {
     const roles =  await getRegisteredVotes(req, res)
     res.json(roles)

@@ -4,9 +4,6 @@ import Web3 from 'web3';
 import contract from '@truffle/contract';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Cookies from 'js-cookie'
-import { processTokenDecrypt } from './auth/auth';
-
 
 function App() {
 
@@ -16,19 +13,14 @@ function App() {
   useEffect(() => {
 
     const init = async () => {
+      const response = await fetch('/auth')
+      if (response.status != 200) {
+       window.location.href = '/login'
+      }
       const TestContractArtifact = require('./contracts/TestContract.json');
       const provider = new Web3.providers.HttpProvider('https://rpc-mumbai.maticvigil.com');
       const TestContract = contract(TestContractArtifact);
-      TestContract.setProvider(provider);
-
-      const encryptedData = Cookies.get('bv_aT')
-      if (encryptedData){
-        const data = processTokenDecrypt(encryptedData.toString("hex"))
-        console.log("///////////////////")
-        console.log(data)
-        console.log("///////////////////")
-      }
-      
+      TestContract.setProvider(provider);      
       const instance = await TestContract.deployed();
       const result = await instance.message();
       setContractInstance(instance);
@@ -36,6 +28,8 @@ function App() {
     }
     init();
   }, []);
+
+
 
   return (
     <div className="App">

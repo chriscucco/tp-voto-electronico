@@ -9,7 +9,7 @@ router.get("", express.static(path.join(__dirname, "..", "..", "build")));
 router.post("", async (req, res) => {
     const response = await logInUser(req, res)
     if (response.valid) {
-      res.redirect('/auth?accessToken=' + response.loginInfo)
+      res.redirect('/')
     } else {
       res.redirect('/login?retry=true')
     }
