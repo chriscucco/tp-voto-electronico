@@ -9,6 +9,10 @@ function Login() {
 
   useEffect(() => {
     const init = async () => {
+      const response = await fetch('/auth')
+      if (response.status == 200) {
+       window.location.href = '/'
+      }
       let value = searchParams.get('retry')
       if (value != null && value == "true") {
         setMsg('Usuario o contraseña invalido')
