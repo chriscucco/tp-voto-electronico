@@ -6,7 +6,7 @@ const db = require('../dao/db');
     await db.schema.dropTableIfExists('roles')
     await db.schema.dropTableIfExists('votes')
     await db.schema.dropTableIfExists('rooms')
-    await db.schema.dropTableIfExists('roomsLists')
+    await db.schema.dropTableIfExists('roomLists')
     await db.schema.dropTableIfExists('lists')
     await db.schema.dropTableIfExists('candidates')
     await db.schema.dropTableIfExists('voters')
@@ -28,7 +28,7 @@ const db = require('../dao/db');
 
     await db.schema.withSchema('public').createTable('votes', (table) => {
         table.string('user_id')
-        table.string('room')
+        table.string('room_id')
     })
     console.log('Created votes table!')
 
@@ -38,22 +38,22 @@ const db = require('../dao/db');
     })
     console.log('Created rooms table!')
 
-    await db.schema.withSchema('public').createTable('roomsLists', (table) => {
+    await db.schema.withSchema('public').createTable('roomLists', (table) => {
       table.string('room_id')
       table.string('list_id')
     })
-    console.log('Created roomsLists table!')
+    console.log('Created roomLists table!')
 
     await db.schema.withSchema('public').createTable('lists', (table) => {
-      table.string('name')
       table.string('list_id')
-      table.string('icon')
+      table.string('name')
     })
     console.log('Created lists table!')
 
     await db.schema.withSchema('public').createTable('candidates', (table) => {
-      table.string('name')
       table.string('list_id')
+      table.string('candidate_id')
+      table.string('name')
       table.string('role')
     })
     console.log('Created candidates table!')

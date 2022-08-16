@@ -53,12 +53,133 @@ exports.getVotingRoomsByUserID = async(user_id) => {
     return roles
 }
 
-exports.getUserIDByVotingRooms = async(room) => {
-    const roles = await database.select().from('votes').where('room', room)
+exports.getUserIDByVotingRooms = async(room_id) => {
+    const roles = await database.select().from('votes').where('room_id', room_id)
     return roles
 }
 
-exports.registerUserAndRoom = async(user_id, room) => {
-    const result = await database('votes').insert({user_id, room}).returning('*')
+exports.registerUserAndRoom = async(user_id, room_id) => {
+    const result = await database('votes').insert({user_id, room_id}).returning('*')
     return result
 };
+
+// Rooms
+
+exports.createNewRoom = async(room_id, end_time) => {
+    const result = await database('rooms').insert({room_id, end_time}).returning('*')
+    return result
+}
+
+exports.getRoomData = async(room_id) => {
+    const data = await database.select().from('rooms').where('room_id', room_id)
+    return data
+}
+
+exports.getAllRooms = async() => {
+    const rooms = await database.select().from('rooms')
+    return rooms
+}
+
+
+// RoomLists
+
+exports.createNewRoomList = async(room_id, list_id) => {
+    const result = await database('roomLists').insert({room_id, list_id}).returning('*')
+    return result
+}
+
+exports.getListsByRooms = async(room_id) => {
+    const data = await database.select().from('roomLists').where('room_id', room_id)
+    return data
+}
+
+exports.getRoomsByLists = async(list_id) => {
+    const data = await database.select().from('roomLists').where('list_id', list_id)
+    return data
+}
+
+exports.getAllRoomLists = async() => {
+    const rooms = await database.select().from('roomLists')
+    return rooms
+}
+
+// Lists
+
+exports.createNewList = async(list_id, name) => {
+    const result = await database('lists').insert({list_id, name}).returning('*')
+    return result
+}
+
+exports.getListsData = async(list_id) => {
+    const data = await database.select().from('lists').where('list_id', list_id)
+    return data
+}
+
+exports.getListsDataByName = async(name) => {
+    const data = await database.select().from('lists').where('name', name)
+    return data
+}
+
+exports.getAllLists = async() => {
+    const lists = await database.select().from('lists')
+    return lists
+}
+
+// Candidates
+
+exports.createNewCandidate = async(list_id, candidate_id, name, role) => {
+    const result = await database('candidates').insert({list_id, candidate_id, name, role}).returning('*')
+    return result
+}
+
+exports.getCandidatesFromList = async(list_id) => {
+    const data = await database.select().from('candidates').where('list_id', list_id)
+    return data
+}
+
+exports.getCandidatesFromListAndRole = async(list_id, role) => {
+    const data = await database.select().from('candidates').where('list_id', list_id).andWhere('role', role)
+    return data
+}
+
+exports.getCandidatesByRoles = async(role) => {
+    const data = await database.select().from('candidates').where('role', role)
+    return data
+}
+
+exports.getCandidatesDataByName = async(name) => {
+    const data = await database.select().from('candidates').where('name', name)
+    return data
+}
+
+exports.getCandidatesDataByID = async(candidate_id) => {
+    const data = await database.select().from('candidates').where('candidate_id', candidate_id)
+    return data
+}
+
+exports.getAllCandidates = async() => {
+    const lists = await database.select().from('candidates')
+    return lists
+}
+
+// Voters
+
+exports.addVoterToRoom = async(room_id, user_id) => {
+    const result = await database('voters').insert({room_id, user_id}).returning('*')
+    return result
+}
+
+exports.getRoomsParticipatingByUserId = async(user_id) => {
+    const data = await database.select().from('voters').where('user_id', user_id)
+    return data
+}
+
+exports.getUsersParticipatingByRoom = async(room_id) => {
+    const data = await database.select().from('voters').where('room_id', room_id)
+    return data
+}
+
+exports.getAllVotersAndRooms = async() => {
+    const lists = await database.select().from('voters')
+    return lists
+}
