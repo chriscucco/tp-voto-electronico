@@ -98,6 +98,11 @@ exports.getRoomsByLists = async(list_id) => {
     return data
 }
 
+exports.getDataByListAndRoom = async(room_id, list_id) => {
+    const data = await database.select().from('roomLists').where('list_id', list_id).andWhere('room_id', room_id)
+    return data
+}
+
 exports.getAllRoomLists = async() => {
     const rooms = await database.select().from('roomLists')
     return rooms
@@ -169,13 +174,18 @@ exports.addVoterToRoom = async(room_id, user_id) => {
     return result
 }
 
-exports.getRoomsParticipatingByUserId = async(user_id) => {
+exports.getRoomsByUserId = async(user_id) => {
     const data = await database.select().from('voters').where('user_id', user_id)
     return data
 }
 
 exports.getUsersParticipatingByRoom = async(room_id) => {
     const data = await database.select().from('voters').where('room_id', room_id)
+    return data
+}
+
+exports.getRoomAndUser = async(room_id, user_id) => {
+    const data = await database.select().from('voters').where('user_id', user_id).andWhere('room_id', room_id)
     return data
 }
 

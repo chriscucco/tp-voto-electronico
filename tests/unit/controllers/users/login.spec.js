@@ -26,6 +26,7 @@ describe('Testing login functions', () => {
                 user_id: '123',
                 password: 'abc123'
             },
+            session: {}
         }
         const res = {}
         const response = await logInUser(req, res);

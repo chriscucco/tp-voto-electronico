@@ -41,9 +41,9 @@ exports.getUsers = async(req, res) => {
     return response
 };
 
-exports.getUserById = async(req, res) => {
+exports.getUserByUserId = async(req, res) => {
     const user_id = req.query.user_id ? req.query.user_id : "0"
-    const response = await getUserById(user_id)
+    const response = await getUserByUserId(user_id)
     return response
 };
 

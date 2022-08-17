@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const {createUser, getUsers, getUserById} = require('../../controllers/users/users');
+const {createUser, getUsers, getUserByUserId} = require('../../controllers/users/users');
 var path = require("path");
 
 router.get("", express.static(path.join(__dirname, "..", "..", "build")));
@@ -10,8 +10,8 @@ router.get("/all", async(req,res) => {
     res.json(users)
   });
   
-  router.get("/:id", async(req,res) => {
-    const users =  await getUserById(req, res)
+  router.get("/user", async(req,res) => {
+    const users =  await getUserByUserId(req, res)
     res.json(users)
   });
   

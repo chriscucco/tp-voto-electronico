@@ -44,6 +44,11 @@ const usersRoute = require('../pages/users')
 const votesRegisterRoute = require('../pages/registered_votes')
 const rolesRoute = require('../pages/roles')
 const authRoute = require('../pages/auth')
+const roomsRoute = require('../pages/rooms')
+const roomListRoute = require('../pages/roomList')
+const listsRoute = require('../pages/lists')
+const votersRoute = require('../pages/voters')
+const candidatesRoute = require('../pages/candidates')
 
 router.use('/home', homeRoute)
 router.use('/login', loginRoute)
@@ -52,6 +57,12 @@ router.use('/users', usersRoute)
 router.use('/registered/votes', votesRegisterRoute)
 router.use('/roles', rolesRoute)
 router.use('/auth', authRoute)
+router.use('/rooms', roomsRoute)
+router.use('/roomList', roomListRoute)
+router.use('/lists', listsRoute)
+router.use('/voters', votersRoute)
+router.use('/candidates', candidatesRoute)
+
 
 
 app.use(router);

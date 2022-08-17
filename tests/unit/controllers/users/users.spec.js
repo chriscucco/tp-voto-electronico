@@ -1,4 +1,4 @@
-const {createUser, getUsers, getUserById} = require('../../../../controllers/users/users')
+const {createUser, getUsers, getUserByUserId} = require('../../../../controllers/users/users')
 var mockDb = require('mock-knex');
 var db = require('../../../../dao/db')
 var tracker = require('mock-knex').getTracker();
@@ -21,6 +21,7 @@ describe('Testing user functions', () => {
       const req = {
         body: {
           user_id: '123',
+          dni: '123',
           name: 'testName',
           last_name: 'testLasName',
           password: 'abc123'
@@ -35,12 +36,13 @@ describe('Testing user functions', () => {
     test('testCreateFailsAlreadyExists', async () => {
       tracker.on('query', function sendResult(query) {
         query.response([
-          {user_id: '123', name:'testName', last_name: 'testLasName', password: 'abc123'},
+          {user_id: '123', dni: '123', name:'testName', last_name: 'testLasName', password: 'abc123'},
         ]);
       });
       const req = {
         body: {
           user_id: '123',
+          dni: '123',
           name: 'testName',
           last_name: 'testLasName',
           password: 'abc123'
@@ -127,7 +129,7 @@ describe('Testing user functions', () => {
       expect(response.length).toEqual(2);
     });
 
-    test('testGetUsersByID', async () => {
+    test('testGetUsersByUserID', async () => {
       const req = {
         query: {
           user_id: '1234'
@@ -140,7 +142,7 @@ describe('Testing user functions', () => {
         ]);
       });
 
-      const response = await getUserById(req, res)
+      const response = await getUserByUserId(req, res)
       expect(response.length).toEqual(1);
     });
 });
