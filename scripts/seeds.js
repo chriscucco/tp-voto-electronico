@@ -46,41 +46,6 @@ const {processPassword} = require('../controllers/users/commons');
         await database('votes').insert({user_id: 'test3', room_id: '4'})
         console.log('Finished votes seeds!')
 
-
-        //ROOMS SEEDS
-        console.log('Starting rooms seeds...')
-        await database('rooms').insert({room_id: '1', end_time: '2022/01/01 00:00:00'})
-        await database('rooms').insert({room_id: '2', end_time: '2023/01/01 00:00:00'})
-        await database('rooms').insert({room_id: '3', end_time: '2023/01/01 00:00:00'})
-        await database('rooms').insert({room_id: '4', end_time: '2023/01/01 00:00:00'})
-        await database('rooms').insert({room_id: '5', end_time: '2023/01/01 00:00:00'})
-        console.log('Finished rooms seeds!')
-
-
-        //ROOMLISTS SEEDS
-        console.log('Starting roomLists seeds...')
-        await database('roomLists').insert({room_id: '1', list_id: '1'})
-        await database('roomLists').insert({room_id: '1', list_id: '2'})
-        await database('roomLists').insert({room_id: '1', list_id: '3'})
-        await database('roomLists').insert({room_id: '1', list_id: '4'})
-
-        await database('roomLists').insert({room_id: '2', list_id: '1'})
-        await database('roomLists').insert({room_id: '2', list_id: '2'})
-        await database('roomLists').insert({room_id: '2', list_id: '3'})
-        await database('roomLists').insert({room_id: '2', list_id: '4'})
-
-        await database('roomLists').insert({room_id: '3', list_id: '1'})
-        await database('roomLists').insert({room_id: '3', list_id: '3'})
-
-        await database('roomLists').insert({room_id: '4', list_id: '2'})
-        await database('roomLists').insert({room_id: '4', list_id: '3'})
-        await database('roomLists').insert({room_id: '4', list_id: '4'})
-
-        await database('roomLists').insert({room_id: '5', list_id: '3'})
-        await database('roomLists').insert({room_id: '5', list_id: '4'})
-        console.log('Finished roomLists seeds!')
-
-
         //LISTS SEEDS
         console.log('Starting lists seeds...')
         await database('lists').insert({list_id: '1', name: 'Partido 1'})
