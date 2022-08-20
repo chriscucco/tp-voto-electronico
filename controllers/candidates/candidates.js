@@ -62,7 +62,7 @@ exports.createCandidate = async(req, res) => {
 const validateParams = (list_id, candidate_id, name, role) => {
     const validListID = list_id == "0" ? false : true
     const validCandidateID = candidate_id == "0" ? false : true
-    const validName = name == "0" ? false : true
-    const validRole = role == "0" ? false : true
+    const validName = name == "" ? false : true
+    const validRole = role == "" ? false : true
     return validListID && validCandidateID && validName && validRole
 }
