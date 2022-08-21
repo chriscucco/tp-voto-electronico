@@ -1,7 +1,7 @@
-import './Home.css';
+import './Admin.css';
 import {  useEffect } from 'react';
 
-function Home() {
+function Admin() {
   useEffect(() => {
     const init = async () => {
       const response = await fetch('/auth')
@@ -17,16 +17,12 @@ function Home() {
     init();
   }, []);
   return (
-    <div className="Home">
-      <header className="Home-header">
-        <p>
-          Seleccionar la forma de ingreso
-        </p>
-        <a href='/my_rooms' class='button'>Modo Usuario</a>
-        <a href='/admin' class='button'>Modo Administrador</a>
+    <div className="Admin">
+      <header className="Admin-header">
+        <a href='/add_admin' class='button'>Dar permisos de Administrador</a>
       </header>
     </div>
   );
 }
 
-export default Home;
+export default Admin;

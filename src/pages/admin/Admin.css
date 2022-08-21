@@ -1,0 +1,34 @@
+.Admin {
+    text-align: center;
+  }
+  
+  .Admin-logo {
+    height: 40vmin;
+    pointer-events: none;
+  }
+  
+  .Admin-header {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }
+  
+  .Admin-link {
+    color: #61dafb;
+  }
+  
+  .button {
+    background-color: #04AA6D;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 25%;
+    text-decoration:none;
+  }

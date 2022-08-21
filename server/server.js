@@ -47,6 +47,9 @@ const authRoute = require('../pages/auth')
 const listsRoute = require('../pages/lists')
 const votersRoute = require('../pages/voters')
 const candidatesRoute = require('../pages/candidates')
+const myRoomsRoute = require('../pages/my_rooms')
+const adminRoute = require('../pages/admin')
+const addAdminRoute = require('../pages/add_admin')
 
 router.use('/home', homeRoute)
 router.use('/login', loginRoute)
@@ -58,7 +61,9 @@ router.use('/auth', authRoute)
 router.use('/lists', listsRoute)
 router.use('/voters', votersRoute)
 router.use('/candidates', candidatesRoute)
-
+router.use('/my_rooms', myRoomsRoute)
+router.use('/admin', adminRoute)
+router.use('/add_admin', addAdminRoute)
 
 
 app.use(router);

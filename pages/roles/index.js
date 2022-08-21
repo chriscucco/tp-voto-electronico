@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const {createRole, getRoles, getRoleByID} = require('../../controllers/roles/roles');
+const {createRole, updateRole, getRoles, getRoleByID, updateRoleByUserOrDNI} = require('../../controllers/roles/roles');
 
 router.get("/all", async(req,res) => {
     const roles =  await getRoles(req, res)
@@ -18,6 +18,24 @@ router.get("/all", async(req,res) => {
       res.status(200).json(response.response)
     } else {
       res.status(response.status).json(response.message)
+    }
+  });
+
+  router.put("", async (req, res) => {
+    const response = await updateRole(req, res)
+    if (response.valid) {
+      res.status(200).json(response.response)
+    } else {
+      res.status(response.status).json(response.message)
+    }
+  });
+
+  router.post("/add", async (req, res) => {
+    const response = await updateRoleByUserOrDNI(req, res)
+    if (response.valid) {
+      res.redirect('/admin')
+    } else {
+      res.redirect('/add_admin?retry=true')
     }
   });
 

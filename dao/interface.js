@@ -40,6 +40,11 @@ exports.createRole = async(user_id, role) => {
     return result
 };
 
+exports.updateRole = async(user_id, role) => {
+    const result = await database('roles').update('role', role).where('user_id', user_id).returning('*')
+    return result
+};
+
 
 // Registered votes
 

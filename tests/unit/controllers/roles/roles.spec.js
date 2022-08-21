@@ -1,6 +1,6 @@
-const {getRoles, getRoleByID, createRole} = require('../../../../controllers/roles/roles')
+const {getRoles, getRoleByID, createRole, updateRole, updateRoleByUserOrDNI} = require('../../../../controllers/roles/roles')
 var mockDb = require('mock-knex');
-var db = require('../../../../dao/db')
+var db = require('../../../../dao/db');
 var tracker = require('mock-knex').getTracker();
 
 
@@ -76,7 +76,25 @@ describe('Testing roles functions', () => {
         expect(response.valid).toEqual(true);
     });
 
-    test('testCreateInvalidUserID', async () => {
+    test('testCreateFailsDuplicated', async () => {
+      tracker.on('query', function sendResult(query) {
+        query.response([
+          {user_id: '123', role: 'nominal'},
+        ]);
+      });
+      const req = {
+        body: {
+          user_id: '123',
+          role: 'nominal'
+        },
+      };
+      const res = {};
+
+      const response = await createRole(req, res);
+      expect(response.valid).toEqual(false);
+  });
+
+  test('testCreateInvalidUserID', async () => {
         tracker.on('query', function sendResult(query) {
           query.response([]);
         });
@@ -91,7 +109,7 @@ describe('Testing roles functions', () => {
         expect(response.valid).toEqual(false);
     });
 
-    test('testCreateInvalidRole', async () => {
+  test('testCreateInvalidRole', async () => {
         tracker.on('query', function sendResult(query) {
           query.response([]);
         });
@@ -105,4 +123,98 @@ describe('Testing roles functions', () => {
         const response = await createRole(req, res);
         expect(response.valid).toEqual(false);
     });
+
+  test('testUpdateRole', async () => {
+      tracker.on('query', function sendResult(query) {
+        query.response([
+          {user_id: '123', role: 'nominal'},
+        ]);
+      });
+      const req = {
+        body: {
+          user_id: '123'
+        },
+      };
+      const res = {};
+
+      const response = await updateRole(req, res);
+      expect(response.valid).toEqual(true);
+  });
+
+  test('testUpdateRoleFailsNoUserID', async () => {
+    tracker.on('query', function sendResult(query) {
+      query.response([
+        {user_id: '123', role: 'nominal'},
+      ]);
+    });
+    const req = {
+      body: {},
+    };
+    const res = {};
+
+    const response = await updateRole(req, res);
+    expect(response.valid).toEqual(false);
+});
+
+  test('testUpdateRoleFailsNotExists', async () => {
+    tracker.on('query', function sendResult(query) {
+      query.response([]);
+    });
+    const req = {
+      body: {
+        user_id: '123'
+      },
+    };
+    const res = {};
+
+    const response = await updateRole(req, res);
+    expect(response.valid).toEqual(false);
+  });
+
+  test('testUpdateRoleByUserOrDNI', async () => {
+    tracker.on('query', function sendResult(query) {
+      query.response([
+        {user_id: '123', role: 'nominal'},
+      ]);
+    });
+    const req = {
+      body: {
+        userInput: '123'
+      },
+    };
+    const res = {};
+
+    const response = await updateRoleByUserOrDNI(req, res);
+    expect(response.valid).toEqual(true);
+  });
+
+  test('testUpdateRoleByUserOrDNIFailsNotFound', async () => {
+    tracker.on('query', function sendResult(query) {
+      query.response([]);
+    });
+    const req = {
+      body: {
+        userInput: '123'
+      },
+    };
+    const res = {};
+
+    const response = await updateRoleByUserOrDNI(req, res);
+    expect(response.valid).toEqual(false);
+  });
+
+  test('testUpdateRoleByUserOrDNIFailsInvalidUserID', async () => {
+    tracker.on('query', function sendResult(query) {
+      query.response([
+        {user_id: '123', role: 'nominal'},
+      ]);
+    });
+    const req = {
+      body: {},
+    };
+    const res = {};
+
+    const response = await updateRoleByUserOrDNI(req, res);
+    expect(response.valid).toEqual(false);
+  });
 });

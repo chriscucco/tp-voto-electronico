@@ -1,4 +1,4 @@
-const { getRoles, getRoleByID, createRole } = require('../../dao/interface');
+const { getRoles, getRoleByID, createRole, updateRole, getUserById } = require('../../dao/interface');
 
 
 exports.getRoles = async(req, res) => {
@@ -21,9 +21,52 @@ exports.createRole = async(req, res) => {
         return {'valid': false, 'message': 'Error processing params', status: 400}
     }
 
+    const rolesFound = await getRoleByID(user_id)
+    if (rolesFound.length > 0) {
+        return {'valid': false, 'message': 'User already exists in database', status: 400}
+    }
+
     const response = await createRole(user_id, role)
     return {'response': response, 'valid': true}
 }
+
+exports.updateRole = async(req, res) => {
+    const user_id = req.body.user_id ? req.body.user_id : "0"
+    if (user_id == "0") {
+        return {'valid': false, 'message': 'Error processing params', status: 400}
+    }
+
+    const rolesFound = await getRoleByID(user_id)
+    if (rolesFound.length == 0) {
+        return {'valid': false, 'message': 'User does not exists in database', status: 400}
+    }
+
+    const response = await updateRole(user_id, 'admin')
+    return {'response': response, 'valid': true}
+}
+
+exports.updateRoleByUserOrDNI = async(req, res) => {
+    const user_id = req.body.userInput ? req.body.userInput : "0"
+    if (user_id == "0") {
+        return {'valid': false, 'message': 'Error processing params', status: 400}
+    }
+
+    let user;
+    const userFound = await getUserById(user_id)
+    if (userFound.length > 0) {
+        user = userFound[0].user_id;
+    } else {
+        const rolesFound = await getRoleByID(user_id)
+        if (rolesFound.length == 0) {
+            return {'valid': false, 'message': 'User does not exists in database', status: 400}
+        }
+        user = user_id;
+    }
+
+    const response = await updateRole(user, 'admin')
+    return {'response': response, 'valid': true}
+}
+
 
 const validateParams = (user_id, role) => {
     const validUser = user_id == "0" ? false : true
