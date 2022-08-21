@@ -8,6 +8,7 @@ import Home from './pages/home/Home';
 import MyRooms from './pages/my_rooms/MyRooms'
 import Admin from './pages/admin/Admin';
 import AddAdmin from './pages/add_admin/AddAdmin';
+import AddRoom from './pages/add_room/AddRoom';
 import reportWebVitals from './reportWebVitals';
 import 'react-app-polyfill/stable';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -24,6 +25,7 @@ root.render(
         <Route path='my_rooms' element={ <MyRooms /> } />
         <Route path='admin' element={ <Admin /> } />
         <Route path='add_admin' element={ <AddAdmin /> } />
+        <Route path='add_room' element={ <AddRoom /> } />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
