@@ -51,6 +51,7 @@ const myRoomsRoute = require('../pages/my_rooms')
 const adminRoute = require('../pages/admin')
 const addAdminRoute = require('../pages/add_admin')
 const addRoomRoute = require('../pages/add_room')
+const roomsRoute = require('../pages/rooms')
 
 
 router.use('/home', homeRoute)
@@ -67,6 +68,7 @@ router.use('/my_rooms', myRoomsRoute)
 router.use('/admin', adminRoute)
 router.use('/add_admin', addAdminRoute)
 router.use('/add_room', addRoomRoute)
+router.use('/rooms', roomsRoute)
 
 
 app.use(router);

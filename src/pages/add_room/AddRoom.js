@@ -29,7 +29,7 @@ function AddRoom() {
   return (
     <div className="AddRoom">
       <header className="AddRoom-header">
-      <form action="/rooms/add" method="post">
+      <form action="/rooms" method="post">
           <div className='AddRoom-header'>
             <p className='AddRoom'>{msg}</p>
             <p>Ingresar fecha de inicio y fin del acto electoral</p>
