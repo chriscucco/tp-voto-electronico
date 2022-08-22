@@ -34,9 +34,9 @@ function AddRoom() {
             <p className='AddRoom'>{msg}</p>
             <p>Ingresar fecha de inicio y fin del acto electoral</p>
             <label for="initDate"><b>Fecha y hora de inicio</b></label>
-            <input type="text" placeholder="Inicio" name="initDate" required/>
+            <input type="datetime-local" class="AddRoom-datepicker" placeholder="Inicio" name="initDate" required/>
             <label for="EndDate"><b>Fecha y hora de fin</b></label>
-            <input type="text" placeholder="Fin" name="EndDate" required/>
+            <input type="datetime-local" class="AddRoom-datepicker" placeholder="Fin" name="EndDate" required/>
             <button type="submit">Enviar</button>
             <a href='/admin' class='AddRoom-link'>Volver</a>
           </div>
