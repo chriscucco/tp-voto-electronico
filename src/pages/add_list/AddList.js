@@ -1,8 +1,8 @@
-import './AddRoom.css';
+import './AddList.css';
 import { Link, useSearchParams } from 'react-router-dom';
 import {  useEffect, useState } from 'react';
 
-function AddRoom() {
+function AddList() {
 
   let [searchParams, setSearchParams] = useSearchParams();
   const [msg, setMsg] = useState();
@@ -27,18 +27,18 @@ function AddRoom() {
     init();
   }, []);
   return (
-    <div className="AddRoom">
-      <header className="AddRoom-header">
-      <form action="/rooms" method="post">
-          <div className='AddRoom-header'>
-            <p className='AddRoom'>{msg}</p>
-            <p>Ingresar fecha de inicio y fin del acto electoral</p>
-            <label for="initDate"><b>Fecha y hora de inicio</b></label>
-            <input type="datetime-local" class="AddRoom-datepicker" placeholder="Inicio" name="initDate" required/>
-            <label for="EndDate"><b>Fecha y hora de fin</b></label>
-            <input type="datetime-local" class="AddRoom-datepicker" placeholder="Fin" name="EndDate" required/>
+    <div className="AddList">
+      <header className="AddList-header">
+      <form action="/lists" method="post">
+          <div className='AddList-header'>
+            <p className='AddListAlert'>{msg}</p>
+            <p>Ingresar los datos de la nueva lista</p>
+            <label for="list_id"><b>Numero de Lista</b></label>
+            <input type="text" placeholder="Numero de Lista" name="list_id" required/>
+            <label for="name"><b>Nombre de Lista</b></label>
+            <input type="text" placeholder="Nombre de Lista" name="name" required/>
             <button type="submit">Enviar</button>
-            <a href='/admin' class='AddRoom-link'>Volver</a>
+            <a href='/admin' class='AddAdmin-link'>Volver</a>
           </div>
         </form>      
       </header>
@@ -46,4 +46,4 @@ function AddRoom() {
   );
 }
 
-export default AddRoom;
+export default AddList;

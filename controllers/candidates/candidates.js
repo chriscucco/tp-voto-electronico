@@ -1,4 +1,4 @@
-const {createNewCandidate, getCandidatesFromList, getCandidatesFromListAndRole, getCandidatesByRoles, getCandidatesDataByName, getCandidatesDataByID, getAllCandidates} = require('../../dao/interface');
+const {createNewCandidate, getCandidatesFromList, getCandidatesFromListAndRole, getCandidatesByRoles, getCandidatesDataByName, getCandidatesDataByID, getAllCandidates, getListsData} = require('../../dao/interface');
 
 exports.getAllCandidates = async(req, res) => {
     const response = await getAllCandidates()
@@ -52,6 +52,11 @@ exports.createCandidate = async(req, res) => {
     const data = await getCandidatesDataByID(candidate_id)
     if (data.length > 0) {
         return {'valid': false, 'message': 'Candidate already exists in database', status: 400}
+    }
+
+    const listData = await getListsData(list_id)
+    if (listData.length == 0) {
+        return {'valid': false, 'message': 'List does not exists', status: 400}
     }
 
     const response = await createNewCandidate(list_id, candidate_id, name, role)

@@ -1,9 +1,9 @@
-.AddRoom {
+.AddCandidate {
     text-align: center;
 }
 
   
-.AddRoom-header {
+.AddCandidate-header {
     background-color: #282c34;
     min-height: 100vh;
     display: flex;
@@ -14,7 +14,7 @@
     color: white;
 }
   
-.AddRoom-link {
+.AddCandidate-link {
     color: #61dafb;
 }
   
@@ -29,18 +29,7 @@
     text-decoration:none;
 }
 
-.AddRoom-datepicker {
-    background-color: white;
-    color: black;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 35%;
-    text-decoration:none;
-}
-
-input[type=text], input[type=password]  {
+input[type=text], input[type=password] {
     width: 50%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -53,6 +42,6 @@ a {
     color: white;
 }
 
-.AddRoomAlert{
+.AddCandidateAlert{
     color: red;
 }

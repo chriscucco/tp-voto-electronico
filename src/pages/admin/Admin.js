@@ -21,6 +21,8 @@ function Admin() {
       <header className="Admin-header">
         <a href='/add_admin' class='button'>Dar permisos de Administrador</a>
         <a href='/add_room' class='button'>Crear nuevo acto electoral</a>
+        <a href='/add_list' class='button'>Crear nueva lista</a>
+        <a href='/add_candidate' class='button'>Crear nuevo candidato</a>
       </header>
     </div>
   );

@@ -115,7 +115,7 @@ describe('Testing candidates functions', () => {
         expect(response.length).toEqual(1);
     });
 
-    test('testCreateCandidate', async () => {
+    test('testCreateCandidateListNotExists', async () => {
         tracker.on('query', function sendResult(query) {
             query.response([]);
           });
@@ -130,7 +130,7 @@ describe('Testing candidates functions', () => {
           const res = {};
     
           const response = await createCandidate(req, res);
-          expect(response.valid).toEqual(true);
+          expect(response.valid).toEqual(false);
     });
 
     test('testCreateCandidateFailsNoCandidateID', async () => {

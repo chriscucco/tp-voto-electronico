@@ -9,6 +9,8 @@ import MyRooms from './pages/my_rooms/MyRooms'
 import Admin from './pages/admin/Admin';
 import AddAdmin from './pages/add_admin/AddAdmin';
 import AddRoom from './pages/add_room/AddRoom';
+import AddList from './pages/add_list/AddList';
+import AddCandidate from './pages/add_candidate/AddCandidate';
 import reportWebVitals from './reportWebVitals';
 import 'react-app-polyfill/stable';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -26,6 +28,8 @@ root.render(
         <Route path='admin' element={ <Admin /> } />
         <Route path='add_admin' element={ <AddAdmin /> } />
         <Route path='add_room' element={ <AddRoom /> } />
+        <Route path='add_list' element={ <AddList /> } />
+        <Route path='add_candidate' element={ <AddCandidate /> } />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
