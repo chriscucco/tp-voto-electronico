@@ -68,51 +68,6 @@ exports.registerUserAndRoom = async(user_id, room_id) => {
     return result
 };
 
-// Rooms
-
-exports.createNewRoom = async(room_id, end_time) => {
-    const result = await database('rooms').insert({room_id, end_time}).returning('*')
-    return result
-}
-
-exports.getRoomData = async(room_id) => {
-    const data = await database.select().from('rooms').where('room_id', room_id)
-    return data
-}
-
-exports.getAllRooms = async() => {
-    const rooms = await database.select().from('rooms')
-    return rooms
-}
-
-
-// RoomLists
-
-exports.createNewRoomList = async(room_id, list_id) => {
-    const result = await database('roomLists').insert({room_id, list_id}).returning('*')
-    return result
-}
-
-exports.getListsByRooms = async(room_id) => {
-    const data = await database.select().from('roomLists').where('room_id', room_id)
-    return data
-}
-
-exports.getRoomsByLists = async(list_id) => {
-    const data = await database.select().from('roomLists').where('list_id', list_id)
-    return data
-}
-
-exports.getDataByListAndRoom = async(room_id, list_id) => {
-    const data = await database.select().from('roomLists').where('list_id', list_id).andWhere('room_id', room_id)
-    return data
-}
-
-exports.getAllRoomLists = async() => {
-    const rooms = await database.select().from('roomLists')
-    return rooms
-}
-
 // Lists
 
 exports.createNewList = async(list_id, name) => {

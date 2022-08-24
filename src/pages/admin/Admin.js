@@ -23,6 +23,8 @@ function Admin() {
         <a href='/add_room' class='button'>Crear nuevo acto electoral</a>
         <a href='/add_list' class='button'>Crear nueva lista</a>
         <a href='/add_candidate' class='button'>Crear nuevo candidato</a>
+        <a href='/add_voters' class='button'>Agregar votantes a acto electoral</a>
+        <a href='/home' class='Admin-link'>Volver</a>
       </header>
     </div>
   );

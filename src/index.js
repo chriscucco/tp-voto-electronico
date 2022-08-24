@@ -11,6 +11,7 @@ import AddAdmin from './pages/add_admin/AddAdmin';
 import AddRoom from './pages/add_room/AddRoom';
 import AddList from './pages/add_list/AddList';
 import AddCandidate from './pages/add_candidate/AddCandidate';
+import AddVoters from './pages/add_voters/AddVoters';
 import reportWebVitals from './reportWebVitals';
 import 'react-app-polyfill/stable';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -30,6 +31,7 @@ root.render(
         <Route path='add_room' element={ <AddRoom /> } />
         <Route path='add_list' element={ <AddList /> } />
         <Route path='add_candidate' element={ <AddCandidate /> } />
+        <Route path='add_voters' element={ <AddVoters /> } />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

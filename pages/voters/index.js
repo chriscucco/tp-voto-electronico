@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const {getAllVotersAndRooms, getVotersByRoom, getRoomsByVoter, createNewVoter} = require('../../controllers/voters/voters');
+const {getAllVotersAndRooms, getVotersByRoom, getRoomsByVoter, createNewVoter, addNewVotersGroup} = require('../../controllers/voters/voters');
 
 
 router.get("/all", async(req,res) => {
@@ -26,6 +26,15 @@ router.post("", async (req, res) => {
     } else {
       res.status(response.status).json(response.message)
     }
+});
+
+router.post("/add", async (req, res) => {
+  const response = await addNewVotersGroup(req, res)
+  if (response.valid) {
+    res.redirect('/admin')
+  } else {
+    res.redirect('/add_voters?retry=true&msg=' + response.message)
+  }
 });
 
 module.exports = router;
