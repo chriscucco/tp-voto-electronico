@@ -7,17 +7,22 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      PORT: '8000'
+      EXPRESS_PORT: '8001'
       DATABASE_DRIVER: postgres
       DATABASE_URI: postgresql://root:toor@postgres/votoElectronico?sslmode=disable
     ports:
-      - '8000:8000'
+      - '8001:8001'
   db:
     container_name: voto-electronico-postgres
     image: 'postgres'
+    volumes:
+      - db_data:/var/lib/postgresql
     environment:
       POSTGRES_DB: votoElectronico
       POSTGRES_USER: root
       POSTGRES_PASSWORD: toor
     ports:
       - '5432:5432'
+
+volumes:
+  db_data:

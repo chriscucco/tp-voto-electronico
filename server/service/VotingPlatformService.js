@@ -13,7 +13,7 @@ class VotingPlatformService {
     }
 
     async _initContractInstance() {
-        console.log("Initializing contract instance")
+        console.log(`Initializing contract instance with account: ${this.account}`)
         this.contractInstance = await this.votingPlatformContract.deployed();
     }
 
@@ -27,25 +27,42 @@ class VotingPlatformService {
 
     async getProposal(proposalId) {
         const instance = await this._getContractInstance();
-        const getProposalReceipt = await instance.getProposal(proposalId, { from: this.account });
-        const proposal = getProposalReceipt.logs[0].args;
-        console.log("Proposal exists");
-        console.log(proposal.proposalId.toString());
-        console.log(proposal.title);
+        const receipt = await instance.getProposal(proposalId, { from: this.account });
+        console.log(receipt);
+        const proposal = receipt.logs[0].args;
+        return {
+            id: proposal.proposalId.toString(),
+            title: proposal.title
+        }
+    }
+
+    async getVoteById(proposalId, voteId) {
+        const instance = await this._getContractInstance();
+        const receipt = await instance.getVoteById(proposalId, voteId, { from: this.account });
+        const vote = receipt.logs[0].args;
+        return {
+            vote: vote.candidate
+        }
     }
 
     async createProposal(title, description, candidates) {
         const instance = await this._getContractInstance();
         const createProposalReceipt = await instance.createProposal(
-            "Third Proposal title",
-            "Third Proposal description" ,
-            ["Candidate A", "Candidate B"],
+            title,
+            description,
+            candidates,
             { from: this.account }
         );
+        console.log(createProposalReceipt);
         const newProposal = createProposalReceipt.logs[0].args;
         console.log("Proposal created");
         console.log(newProposal.proposalId.toString());
         console.log(newProposal.title);
+        return {
+            id: newProposal.proposalId.toString(),
+            title: newProposal.title,
+            description: newProposal.description
+        }
     }
 }
 

@@ -1,5 +1,6 @@
 import './Home.css';
 import {  useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 function Home() {
   useEffect(() => {
@@ -16,14 +17,15 @@ function Home() {
     }
     init();
   }, []);
+  
   return (
     <div className="Home">
       <header className="Home-header">
         <p>
           Seleccionar la forma de ingreso
         </p>
-        <a href='/my_rooms' class='button'>Modo Usuario</a>
-        <a href='/admin' class='button'>Modo Administrador</a>
+        <Link to='/my_rooms' class='button'>Modo Usuario</Link>
+        <Link to='/admin' class='button'>Modo Administrador</Link>
       </header>
     </div>
   );
