@@ -1,4 +1,4 @@
-const {getAllVotersAndRooms, getVotersByRoom,  getRoomsByVoter,  createNewVoter} = require('../../../../controllers/voters/voters')
+const {getAllVotersAndRooms, getVotersByRoom,  getRoomsByVoter,  createNewVoter, addNewVotersGroup} = require('../../../../controllers/voters/voters')
 var mockDb = require('mock-knex');
 
 var db = require('../../../../dao/db')
@@ -126,4 +126,53 @@ describe('Testing voters functions', () => {
           const response = await createNewVoter(req, res);
           expect(response.valid).toEqual(false);
     });
+
+    test('testaddNewVotersGroupUserNotFound', async () => {
+      tracker.on('query', function sendResult(query) {
+          query.response([]);
+        });
+        const req = {
+          body: {
+            voters: '123,456',
+            room_id: '1',
+          },
+        };
+        const res = {};
+  
+        const response = await addNewVotersGroup(req, res);
+        expect(response.valid).toEqual(false);
+  });
+
+  test('testaddNewVotersGroupUserDuplicated', async () => {
+    tracker.on('query', function sendResult(query) {
+        query.response([
+          {user_id: '1234', room_id:'1'}
+        ]);
+      });
+      const req = {
+        body: {
+          voters: '123,456',
+          room_id: '1',
+        },
+      };
+      const res = {};
+
+      const response = await addNewVotersGroup(req, res);
+      expect(response.valid).toEqual(false);
+  });
+
+  test('testaddNewVotersGroupInvalidParams', async () => {
+    tracker.on('query', function sendResult(query) {
+        query.response([]);
+      });
+      const req = {
+        body: {
+          room_id: '1',
+        },
+      };
+      const res = {};
+
+      const response = await addNewVotersGroup(req, res);
+      expect(response.valid).toEqual(false);
+  });
 });
