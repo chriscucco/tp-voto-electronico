@@ -33,10 +33,10 @@ function AddRoom() {
           <div className='AddRoom-header'>
             <p className='AddRoom'>{msg}</p>
             <p>Ingresar fecha de inicio y fin del acto electoral</p>
-            <label for="initDate"><b>Fecha y hora de inicio</b></label>
-            <input type="datetime-local" class="AddRoom-datepicker" placeholder="Inicio" name="initDate" required/>
-            <label for="EndDate"><b>Fecha y hora de fin</b></label>
-            <input type="datetime-local" class="AddRoom-datepicker" placeholder="Fin" name="EndDate" required/>
+            <label for="init_date"><b>Fecha y hora de inicio</b></label>
+            <input type="datetime-local" class="AddRoom-datepicker" placeholder="Inicio" name="init_date" required/>
+            <label for="end_date"><b>Fecha y hora de fin</b></label>
+            <input type="datetime-local" class="AddRoom-datepicker" placeholder="Fin" name="end_date" required/>
             <button type="submit">Enviar</button>
             <a href='/admin' class='AddRoom-link'>Volver</a>
           </div>

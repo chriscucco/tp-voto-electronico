@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var path = require("path");
 
-const {createRoom} = require('../../controllers/rooms/rooms');
+const {createRoom, getAllRooms, getRoomByID} = require('../../controllers/rooms/rooms');
 const votingPlatformService = require('../../server/service/VotingPlatformService')
 
 
@@ -18,6 +18,16 @@ router.post("", async (req, res) => {
 router.get("/:id", async (req, res) => {
   const response = await votingPlatformService.getProposal(req.params.id)
   res.send(response)
+});
+
+router.get("/:id/database", async (req, res) => {
+  const response = await getRoomByID(req, res)
+  res.json(response)
+});
+
+router.get("", async (req, res) => {
+  const response = await getAllRooms(req, res)
+  res.json(response)
 });
 
 module.exports = router;

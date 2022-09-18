@@ -1,4 +1,4 @@
-const { addVoterToRoom, getRoomsByUserId, getUsersParticipatingByRoom, getAllVotersAndRooms, getRoomAndUser, getUserById } = require('../../dao/interface');
+const { addVoterToRoom, getRoomsByUserId, getUsersParticipatingByRoom, getAllVotersAndRooms, getRoomAndUser, getUserById, getRoomById } = require('../../dao/interface');
 
 exports.getAllVotersAndRooms = async(req, res) => {
     const response = await getAllVotersAndRooms()
@@ -53,18 +53,24 @@ exports.addNewVotersGroup = async(req, res) => {
     
     var processedInput = voters.replace(/\s/g, "")
     var usersArray = processedInput.split(',')
+
+    const roomResponse = await getRoomById(room_id)
+    if (roomResponse.length == 0) {
+        let msg = 'La sala de votación ' + room_id + ' no está registrada en la base.'
+        return {'valid': false, 'message': msg, status: 400}
+    }
     
     for (const userId of usersArray) {
         const response = await getUserById(userId)
         if (response.length == 0) {
             let msg = 'El usuario ' + userId + ' no está registrado en la base.'
-            return {'valid': false, 'message': msg}
+            return {'valid': false, 'message': msg, status: 400}
         }
 
         const resp = await getRoomAndUser(room_id, response[0].user_id)
         if (resp.length > 0) {
             let msg = 'El usuario ' + userId + ' ya está registrado en el acto electoral ' + room_id +' .'
-            return {'valid': false, 'message': msg}
+            return {'valid': false, 'message': msg, status: 400}
         }
     }
 

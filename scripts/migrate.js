@@ -52,6 +52,19 @@ const db = require('../dao/db');
     })
     console.log('Created voters table!')
 
+    await db.schema.withSchema('public').createTable('rooms', (table) => {
+      table.string('room_id')
+      table.string('init_date')
+      table.string('end_date')
+    })
+    console.log('Created rooms table!')
+
+    await db.schema.withSchema('public').createTable('roomLists', (table) => {
+      table.string('room_id')
+      table.string('list_id')
+    })
+    console.log('Created roomLists table!')
+
 
     process.exit(0)
   } catch (err) {

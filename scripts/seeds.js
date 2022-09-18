@@ -111,6 +111,32 @@ const {processPassword} = require('../controllers/users/commons');
         console.log('Finished voters seeds!')
 
 
+        await database('rooms').insert({room_id: '1', init_date: '2022-09-17T19:18', end_date:'2022-12-17T19:18'})
+        await database('rooms').insert({room_id: '2', init_date: '2022-09-17T19:18', end_date:'2022-12-17T19:18'})
+        await database('rooms').insert({room_id: '3', init_date: '2022-09-17T19:18', end_date:'2022-12-17T19:18'})
+        await database('rooms').insert({room_id: '4', init_date: '2022-09-17T19:18', end_date:'2022-12-17T19:18'})
+        await database('rooms').insert({room_id: '5', init_date: '2022-09-17T19:18', end_date:'2022-12-17T19:18'})
+        console.log('Finished rooms seeds!')
+
+        await database('roomLists').insert({room_id: '1', list_id: '1'})
+        await database('roomLists').insert({room_id: '2', list_id: '1'})
+        await database('roomLists').insert({room_id: '3', list_id: '1'})
+        await database('roomLists').insert({room_id: '4', list_id: '1'})
+        await database('roomLists').insert({room_id: '5', list_id: '1'})
+        await database('roomLists').insert({room_id: '1', list_id: '2'})
+        await database('roomLists').insert({room_id: '2', list_id: '2'})
+        await database('roomLists').insert({room_id: '3', list_id: '2'})
+        await database('roomLists').insert({room_id: '4', list_id: '2'})
+        await database('roomLists').insert({room_id: '1', list_id: '3'})
+        await database('roomLists').insert({room_id: '2', list_id: '3'})
+        await database('roomLists').insert({room_id: '3', list_id: '3'})
+        await database('roomLists').insert({room_id: '4', list_id: '3'})
+        await database('roomLists').insert({room_id: '1', list_id: '4'})
+        await database('roomLists').insert({room_id: '2', list_id: '4'})
+        await database('roomLists').insert({room_id: '3', list_id: '4'})
+        await database('roomLists').insert({room_id: '4', list_id: '4'})
+        console.log('Finished roomLists seeds!')
+
         console.log('Finished running all seeds successfully!')
         process.exit(0)
     } catch (err) {
