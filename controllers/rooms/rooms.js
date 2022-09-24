@@ -22,7 +22,7 @@ exports.createRoom = async(req, res) => {
         return {'valid': false, 'message': 'Error processing params', status: 400}
     }
 
-    const resp = await votingService.createProposal('title', 'description', [])
+    const resp = await votingService.createRoom('title', 'description')
     const response = await createRoom(resp.id, init_date, end_date)
     return {'response': response, 'valid': true}
 }

@@ -16,7 +16,7 @@ router.post("", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-  const response = await votingPlatformService.getProposal(req.params.id)
+  const response = await votingPlatformService.getRoom(req.params.id)
   res.send(response)
 });
 

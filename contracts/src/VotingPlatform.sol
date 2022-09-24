@@ -3,24 +3,25 @@ pragma solidity >= 0.4.22 < 0.9.0;
 
 contract VotingPlatform {
 
-    struct Proposal {
+    struct Room {
         string title;
         string description;
         string[] participants;
-        string[] candidates;
-        string[] votes;
-        mapping (uint32 => string) votesById;
+        uint[] lists;
+        uint[] votes;
+        mapping (uint32 => uint) votesById;
         // TODO - Add date
     }
 
     address owner;
-    uint32 proposalIndex;
-    mapping (uint32 => Proposal) proposals;
+    uint32 roomIndex;
+    mapping (uint32 => Room) rooms;
 
     // Events
-    event RetrieveProposal(string title, string description, string[] candidates, uint32 proposalId);
-    event RetrieveVote(string candidate);
-    event RetrieveVotes(string[] votes);
+    event RetrieveRoom(string title, string description, uint32 proposalId);
+    event RoomLists(uint[] lists);
+    event RetrieveVote(uint vote);
+    event RetrieveVotes(uint[] votes);
 
     constructor() {
         // Set the owner of the contract to the address that deployed it
@@ -33,22 +34,22 @@ contract VotingPlatform {
         _;
     }
 
-    modifier onlyOnExsistantProposals(uint32 id) {
-        require(id < proposalIndex, "Requested proposal does not exist");
+    modifier onlyOnExsistantRooms(uint32 id) {
+        require(id < roomIndex, "Requested room does not exist");
         _;
     }
 
-    modifier voteIsValid(uint32 proposalId, string calldata userId, string calldata candidate) {
-        require(!didUserAlreadyVote(proposalId, userId), "User already voted");
-        require(candidateExistsInProposal(proposalId, candidate), "Candidate does not exist");
+    modifier voteIsValid(uint32 roomId, string calldata userId, uint list) {
+        require(!didUserAlreadyVote(roomId, userId), "User already voted");
+        require(listExistsInRoom(roomId, list), "List does not exist");
         _;
     }
 
-    function didUserAlreadyVote(uint32 proposalId, string calldata userId) private view returns(bool) {
+    function didUserAlreadyVote(uint32 roomId, string calldata userId) private view returns(bool) {
         bool voted = false;
-        Proposal storage proposal = proposals[proposalId];
-        for (uint32 i = 0; i < proposal.participants.length; i++) {
-            string memory currentParticipant = proposal.participants[i];
+        Room storage room = rooms[roomId];
+        for (uint32 i = 0; i < room.participants.length; i++) {
+            string memory currentParticipant = room.participants[i];
             if (keccak256(bytes(currentParticipant)) == keccak256(bytes(userId))) {
                 voted = true;
             }
@@ -57,12 +58,12 @@ contract VotingPlatform {
         return voted;
     }
 
-    function candidateExistsInProposal(uint32 proposalId, string calldata candidate) private view returns(bool) {
+    function listExistsInRoom(uint32 roomId, uint list) private view returns(bool) {
         bool exists = false;
-        Proposal storage proposal = proposals[proposalId];
-        for (uint32 i = 0; i < proposal.candidates.length; i++) {
-            string memory currentCandidate = proposal.candidates[i];
-            if (keccak256(bytes(currentCandidate)) == keccak256(bytes(candidate))) {
+        Room storage room = rooms[roomId];
+        for (uint32 i = 0; i < room.lists.length; i++) {
+            uint currentList = room.lists[i];
+            if (currentList == list) {
                 exists = true;
             }
         }
@@ -72,36 +73,47 @@ contract VotingPlatform {
     
 
     // All functions are only callable by the owner of the contract to prevent outside users interaction
-    function createProposal(string calldata title, string calldata description, string[] memory candidates) public onlyOwner {
-        Proposal storage newProposal = proposals[proposalIndex++];
-        newProposal.title = title;
-        newProposal.description = description;
-        newProposal.candidates = candidates;
-        emit RetrieveProposal(title, description, candidates, proposalIndex - 1);
+    function createRoom(string calldata title, string calldata description) public onlyOwner {
+        Room storage newRoom = rooms[roomIndex++];
+        newRoom.title = title;
+        newRoom.description = description;
+        emit RetrieveRoom(title, description, roomIndex - 1);
+    }
+
+    function setRoomLists(uint32 roomId, uint[] calldata lists) public onlyOnExsistantRooms(roomId) onlyOwner {
+        Room storage room = rooms[roomId];
+        room.lists = lists;
+        emit RoomLists(room.lists);
+    }
+
+    function addListToRoom(uint32 roomId, uint list) public onlyOnExsistantRooms(roomId) onlyOwner {
+        Room storage room = rooms[roomId];
+        room.lists.push(list);
+        emit RoomLists(room.lists);
     }
 
     // Retrieve proposal by id
-    function getProposal(uint32 id) public onlyOnExsistantProposals(id) onlyOwner {
-        emit RetrieveProposal(proposals[id].title, proposals[id].description, proposals[id].candidates, id);
+    function getRoom(uint32 id) public onlyOnExsistantRooms(id) onlyOwner {
+        emit RetrieveRoom(rooms[id].title, rooms[id].description, id);
     }
 
     // Voting function. TODO - Check for duplicate votes UID? Refactor vote to (Candidate, UID) to avoid mapping?
-    function vote(uint32 proposalId, uint32 voteUid, string calldata candidate, string calldata userId) public 
-        onlyOwner onlyOnExsistantProposals(proposalId) voteIsValid(proposalId, userId, candidate)
+    function vote(uint32 roomId, uint32 voteUid, uint list, string calldata userId) public 
+        onlyOwner onlyOnExsistantRooms(roomId) voteIsValid(roomId, userId, list)
     {
-        Proposal storage proposal = proposals[proposalId];
-        proposal.participants.push(userId);
-        proposal.votes.push(candidate);
-        proposal.votesById[voteUid] = candidate;
+        Room storage room = rooms[roomId];
+        room.participants.push(userId);
+        room.votes.push(list);
+        room.votesById[voteUid] = list;
     }
 
     // Retrieve vote by uid
-    function getVoteById(uint32 proposalId, uint32 voteId) public onlyOwner onlyOnExsistantProposals(proposalId) {
-        emit RetrieveVote(proposals[proposalId].votesById[voteId]);
+    function getVoteById(uint32 roomId, uint32 voteId) public onlyOwner onlyOnExsistantRooms(roomId) {
+        emit RetrieveVote(rooms[roomId].votesById[voteId]);
     }
 
     // Retrieve proposal votes
-    function getProposalVotes(uint32 proposalId) public onlyOwner onlyOnExsistantProposals(proposalId) {
-        emit RetrieveVotes(proposals[proposalId].votes);
+    function getProposalVotes(uint32 roomId) public onlyOwner onlyOnExsistantRooms(roomId) {
+        emit RetrieveVotes(rooms[roomId].votes);
     }
 }

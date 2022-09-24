@@ -25,43 +25,43 @@ class VotingPlatformService {
         return this.contractInstance;
     }
 
-    async getProposal(proposalId) {
+    async getRoom(roomId) {
         const instance = await this._getContractInstance();
-        const receipt = await instance.getProposal(proposalId, { from: this.account });
+        const receipt = await instance.getRoom(roomId, { from: this.account });
         console.log(receipt);
-        const proposal = receipt.logs[0].args;
+        const room = receipt.logs[0].args;
         return {
-            id: proposal.proposalId.toString(),
-            title: proposal.title
+            id: room.roomId.toString(),
+            title: roomId.title,
+            description: roomId.description
         }
     }
 
-    async getVoteById(proposalId, voteId) {
+    async getVoteById(roomId, voteId) {
         const instance = await this._getContractInstance();
-        const receipt = await instance.getVoteById(proposalId, voteId, { from: this.account });
+        const receipt = await instance.getVoteById(roomId, voteId, { from: this.account });
         const vote = receipt.logs[0].args;
         return {
             vote: vote.candidate
         }
     }
 
-    async createProposal(title, description, candidates) {
+    async createRoom(title, description) {
         const instance = await this._getContractInstance();
-        const createProposalReceipt = await instance.createProposal(
+        const createRoomReceipt = await instance.createRoom(
             title,
             description,
-            candidates,
             { from: this.account }
         );
-        console.log(createProposalReceipt);
-        const newProposal = createProposalReceipt.logs[0].args;
-        console.log("Proposal created");
-        console.log(newProposal.proposalId.toString());
-        console.log(newProposal.title);
+        console.log(createRoomReceipt);
+        const newRoom = createRoomReceipt.logs[0].args;
+        console.log("Room created");
+        console.log(newRoom.roomId.toString());
+        console.log(newRoom.title);
         return {
-            id: newProposal.proposalId.toString(),
-            title: newProposal.title,
-            description: newProposal.description
+            id: newRoom.roomId.toString(),
+            title: newRoom.title,
+            description: newRoom.description
         }
     }
 }
