@@ -1,5 +1,5 @@
 import './AddAdmin.css';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import {  useEffect, useState } from 'react';
 
 function AddAdmin() {
@@ -10,22 +10,23 @@ function AddAdmin() {
   useEffect(() => {
     const init = async () => {
       const response = await fetch('/auth')
-      if (response.status != 200) {
+      if (response.status !== 200) {
        window.location.href = '/login'
       }
 
       const data = await response.json()
-      if (data.role != 'admin') {
+      if (data.role !== 'admin') {
         window.location.href = '/my_rooms'
       }
 
       let value = searchParams.get('retry')
-      if (value != null && value == "true") {
+      if (value != null && value === "true") {
         setMsg('Usuario invalido')
       }
     }
     init();
-  }, []);
+  }, [searchParams]);
+  
   return (
     <div className="AddAdmin">
       <header className="AddAdmin-header">

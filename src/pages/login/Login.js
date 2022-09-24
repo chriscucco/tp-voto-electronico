@@ -1,5 +1,5 @@
-import { Link, useSearchParams } from 'react-router-dom';
-import {  useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import './Login.css'
 
 function Login() {
@@ -10,16 +10,16 @@ function Login() {
   useEffect(() => {
     const init = async () => {
       const response = await fetch('/auth')
-      if (response.status == 200) {
+      if (response.status === 200) {
        window.location.href = '/home'
       }
       let value = searchParams.get('retry')
-      if (value != null && value == "true") {
+      if (value != null && value === "true") {
         setMsg('Usuario o contraseña invalido')
       }
     }
     init();
-  }, []);
+  }, [searchParams]);
 
   return (
     <div className='Login'>

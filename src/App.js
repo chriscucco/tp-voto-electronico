@@ -1,46 +1,14 @@
-import logo from './logo.svg';
-import './App.css';
-import Web3 from 'web3';
-import contract from '@truffle/contract';
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { Button } from 'antd';
 
 function App() {
 
-  const [contractInstance, setContractInstance] = useState();
-  const [msg, setMsg] = useState();
-
-  useEffect(() => {
-
-    const init = async () => {
-      const response = await fetch('/auth')
-      if (response.status == 200) {
-       window.location.href = '/home'
-      }
-      const TestContractArtifact = require('./contracts/TestContract.json');
-      const provider = new Web3.providers.HttpProvider('https://rpc-mumbai.maticvigil.com');
-      const TestContract = contract(TestContractArtifact);
-      TestContract.setProvider(provider);      
-      const instance = await TestContract.deployed();
-      const result = await instance.message();
-      setContractInstance(instance);
-      setMsg(result);
-    }
-    init();
-  }, []);
-
-
+  const navigate = useNavigate();
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          {msg}
-        </p>
-        <a href='/login' class='button'>Ingresar</a>
-        <a href='/users' class='button'>Crear cuenta</a>
-      </header>
+    <div>
+        <Button className='primary' onClick={() => navigate('/login')}>Ingresar</Button>
+        <Button className='primary' onClick={() => navigate('/users')}>Crear cuenta</Button>
     </div>
   );
 }

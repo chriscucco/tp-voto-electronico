@@ -1,5 +1,5 @@
 import './AddVoters.css';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import {  useEffect, useState } from 'react';
 
 function AddVoters() {
@@ -10,23 +10,23 @@ function AddVoters() {
   useEffect(() => {
     const init = async () => {
       const response = await fetch('/auth')
-      if (response.status != 200) {
+      if (response.status !== 200) {
        window.location.href = '/login'
       }
 
       const data = await response.json()
-      if (data.role != 'admin') {
+      if (data.role !== 'admin') {
         window.location.href = '/my_rooms'
       }
 
       let value = searchParams.get('retry')
-      if (value != null && value == "true") {
+      if (value != null && value === "true") {
         let retryMessage = searchParams.get('msg')
         setMsg('Error: ' + retryMessage)
       }
     }
     init();
-  }, []);
+  }, [searchParams]);
   return (
     <div className="AddVoters">
       <header className="AddVoters-header">

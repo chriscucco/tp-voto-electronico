@@ -14308,15 +14308,80 @@
           ],
           "name": "DummyEvent",
           "type": "event"
+        },
+        "0x6576392490a410ed91f903f251f31ca0601e583c35dcdc3daedb1b06a23c4b3b": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "string",
+              "name": "title",
+              "type": "string"
+            },
+            {
+              "indexed": false,
+              "internalType": "string",
+              "name": "description",
+              "type": "string"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint32",
+              "name": "proposalId",
+              "type": "uint32"
+            }
+          ],
+          "name": "RetrieveRoom",
+          "type": "event"
+        },
+        "0x549227a0eea8373555aa0c4f0a99a6b31547e17820e317750096d632d3b5d598": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "vote",
+              "type": "uint256"
+            }
+          ],
+          "name": "RetrieveVote",
+          "type": "event"
+        },
+        "0x5f8d04f0ab384c203afc98fbb64fecd270f4886dc7458d3301cd13e819c4cc65": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint256[]",
+              "name": "votes",
+              "type": "uint256[]"
+            }
+          ],
+          "name": "RetrieveVotes",
+          "type": "event"
+        },
+        "0x1a04cb98791a9bdf35eaae72e1b64f08d07d92ba380f5035fcba9bea5ee38152": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint256[]",
+              "name": "lists",
+              "type": "uint256[]"
+            }
+          ],
+          "name": "RoomLists",
+          "type": "event"
         }
       },
       "links": {},
-      "address": "0x8D73838Ba925aADF619712d4C1da7AfeAB456AF9",
-      "transactionHash": "0x7657f21bc2d8e2c6ba047bc01c838c2529b05b0a64c941be74ffbd1f5cf79827"
+      "address": "0xB451746D2EFe16499bF332F6890f3BeeF562c0E5",
+      "transactionHash": "0xc249156de2831a9904ce24f015f121b553a31be4df94d6fc93803870b9ebaae3"
     }
   },
   "schemaVersion": "3.4.7",
-  "updatedAt": "2022-09-24T22:53:35.470Z",
+  "updatedAt": "2022-09-24T22:56:11.504Z",
+  "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
     "methods": {},
