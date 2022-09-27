@@ -1,6 +1,6 @@
 import { useSearchParams } from 'react-router-dom';
 import {  useEffect, useState } from 'react';
-import './Users.css'
+import { Form, Input, Button } from 'antd';
 
 function Users() {
     let [searchParams, setSearchParams] = useSearchParams();
@@ -22,27 +22,54 @@ function Users() {
   }, [searchParams]);
 
   return (
-    <div className='Users'>
-      <header className='Users-header'>
-        <form action="/users" method="post">
-          <div className='Users-header'>
-            <p className='UsersAlert'>{msg}</p>
-            <p>Ingresa tus datos para registrarte</p>
-            <label for="user_id"><b>Usuario</b></label>
-            <input type="text" placeholder="Usuario" name="user_id" required/>
-            <label for="dni"><b>Numero de DNI</b></label>
-            <input type="text" placeholder="DNI" name="dni" required/>
-            <label for="name"><b>Nombre</b></label>
-            <input type="text" placeholder="Nombre" name="name" required/>
-            <label for="last_name"><b>Apellido</b></label>
-            <input type="text" placeholder="Apellido" name="last_name" required/>
-            <label for="password"><b>Contraseña</b></label>
-            <input type="password" placeholder="Contraseña" name="password" required/>
-            <button type="submit">Crear Cuenta</button>
-            <a href='/login' class='Users-link'>Ingresar</a>
-          </div>
-        </form>
-      </header>
+    <div>
+      <Form>
+        <Form.Item
+          label="Usuario"
+          name="username"
+          rules={[{ required: true, message: "Ingresar el nombre de usuario" }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="DNI"
+          name="userId"
+          rules={[{ required: true, message: "Ingresar DNI del usuario" }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Nombre"
+          name="userFirstName"
+          rules={[{ required: true, message: "Ingresar el primer nombre del usuario" }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Apellido"
+          name="userLastName"
+          rules={[{ required: true, message: "Ingresar el apellido del usuario" }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Contraseña"
+          name="password"
+          rules={[{ required: true, message: "Ingresar una contraseña" }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+          <Button type="primary" htmlType="submit">
+            Enviar
+          </Button>
+        </Form.Item>
+      </Form>
     </div>
   );
 }

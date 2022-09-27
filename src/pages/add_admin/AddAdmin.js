@@ -1,6 +1,6 @@
-import './AddAdmin.css';
 import { useSearchParams } from 'react-router-dom';
-import {  useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Form, Input, Button } from 'antd';
 
 function AddAdmin() {
 
@@ -28,19 +28,21 @@ function AddAdmin() {
   }, [searchParams]);
   
   return (
-    <div className="AddAdmin">
-      <header className="AddAdmin-header">
-      <form action="/roles/add" method="post">
-          <div className='AddAdmin-header'>
-            <p className='AddAdminAlert'>{msg}</p>
-            <p>Ingresar nombre de usuario o DNI del usuario a agregar como administrador</p>
-            <label for="userInput"><b>Usuario o DNI</b></label>
-            <input type="text" placeholder="Usuario o DNI" name="userInput" required/>
-            <button type="submit">Enviar</button>
-            <a href='/admin' class='AddAdmin-link'>Volver</a>
-          </div>
-        </form>      
-      </header>
+    <div>
+      <Form>
+        <Form.Item
+          label="Usuario o DNI"
+          name="newAdmin"
+          rules={[{ required: true, message: 'Agregar el usuario o DNI del nuevo administrador' }]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+          <Button type="primary" htmlType="submit">
+            Enviar
+          </Button>
+      </Form.Item>
+      </Form>   
     </div>
   );
 }

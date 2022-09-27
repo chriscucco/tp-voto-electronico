@@ -1,6 +1,6 @@
-import './AddCandidate.css';
 import { useSearchParams } from 'react-router-dom';
-import {  useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Form, Input, Button } from 'antd';
 
 function AddCandidate() {
 
@@ -27,25 +27,47 @@ function AddCandidate() {
     init();
   }, [searchParams]);
   return (
-    <div className="AddCandidate">
-      <header className="AddCandidate-header">
-      <form action="/candidates" method="post">
-          <div className='AddCandidate-header'>
-            <p className='AddCandidateAlert'>{msg}</p>
-            <p>Ingresar los datos del nuevo candidato</p>
-            <label for="candidate_id"><b>Identificador del candidato</b></label>
-            <input type="text" placeholder="Numero de candidato" name="candidate_id" required/>
-            <label for="list_id"><b>Lista a la que pertenece</b></label>
-            <input type="text" placeholder="Numero de lista" name="list_id" required/>
-            <label for="name"><b>Nombre del candidato</b></label>
-            <input type="text" placeholder="Nombre" name="name" required/>
-            <label for="role"><b>Rol del candidato</b></label>
-            <input type="text" placeholder="Rol" name="role" required/>
-            <button type="submit">Enviar</button>
-            <a href='/admin' class='AddAdmin-link'>Volver</a>
-          </div>
-        </form>      
-      </header>
+    <div>
+      <p>Ingresar los datos del nuevo candidato</p>
+      <Form>
+        <Form.Item
+          label="Identificador del candidato"
+          name="candidateId"
+          rules={[{ required: true, message: 'Agregar el identificador del candidato' }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Lista del candidato"
+          name="listId"
+          rules={[{ required: true, message: 'Agregar la lista a la que pertenece el candidato' }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Nombre del candidato"
+          name="candidateName"
+          rules={[{ required: true, message: 'Agregar el nombre del candidato' }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Rol del candidato"
+          name="candidateRole"
+          rules={[{ required: true, message: 'Agregar el rol del candidato' }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+          <Button type="primary" htmlType="submit">
+            Enviar
+          </Button>
+        </Form.Item>
+      </Form> 
     </div>
   );
 }

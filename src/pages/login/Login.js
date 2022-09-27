@@ -1,6 +1,6 @@
 import { useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import './Login.css'
+import { Form, Input, Button } from 'antd';
 
 function Login() {
   let [searchParams, setSearchParams] = useSearchParams();
@@ -23,20 +23,30 @@ function Login() {
 
   return (
     <div className='Login'>
-      <header className='Login-header'>
-        <form action="/login" method="post">
-          <div className='Login-header'>
-            <p className='LoginAlert'>{msg}</p>
-            <p>Ingresa usuario y contraseña para empezar</p>
-            <label for="user_id"><b>Usuario</b></label>
-            <input type="text" placeholder="Usuario" name="user_id" required/>
-            <label for="password"><b>Contraseña</b></label>
-            <input type="password" placeholder="Contraseña" name="password" required/>
-            <button type="submit">Ingresar</button>
-            <a href='/users' class='Login-link'>Crear cuenta</a>
-          </div>
-        </form>
-      </header>
+      <p>Ingresa usuario y contraseña para empezar</p>
+      <Form>
+        <Form.Item
+          label="Usuario"
+          name="username"
+          rules={[{ required: true, message: "Ingresar el nombre de usuario" }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Contraseña"
+          name="password"
+          rules={[{ required: true, message: "Ingresar una contraseña" }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+          <Button type="primary" htmlType="submit">
+            Enviar
+          </Button>
+        </Form.Item>
+      </Form>
     </div>
   );
 }

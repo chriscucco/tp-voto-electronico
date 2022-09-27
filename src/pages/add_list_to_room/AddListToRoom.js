@@ -1,6 +1,6 @@
-import './AddListToRoom.css';
 import { useSearchParams } from 'react-router-dom';
 import {  useEffect, useState } from 'react';
+import { Form, Input, Button } from 'antd';
 
 function AddListToRoom() {
 
@@ -28,21 +28,31 @@ function AddListToRoom() {
     init();
   }, [searchParams]);
   return (
-    <div className="AddListToRoom">
-      <header className="AddListToRoom-header">
-      <form action="/roomLists/add" method="post">
-          <div className='AddListToRoom-header'>
-            <p className='AddListToRoomAlert'>{msg}</p>
-            <p>Ingresar los numeros de lista separados por coma</p>
-            <label for="list_id"><b>Votantes</b></label>
-            <input type="text" placeholder="Ej: 2,3,4..." name="list_id" required/>
-            <label for="room_id"><b>Numero de acto electoral</b></label>
-            <input type="text" placeholder="Acto electoral" name="room_id" required/>
-            <button type="submit">Enviar</button>
-            <a href='/admin' class='AddListToRoom-link'>Volver</a>
-          </div>
-        </form>      
-      </header>
+    <div>
+      <p>Ingresar los numeros de lista separados por coma</p>
+      <Form>
+        <Form.Item
+          label="Números de lista"
+          name="listsId"
+          rules={[{ required: true, message: 'Al menos un número de lista es requerido' }]}
+        >
+          <Input placeholder="Ej: 1, 2, 3, 4..."/>
+        </Form.Item>
+
+        <Form.Item
+          label="Número de acto electoral"
+          name="roomId"
+          rules={[{ required: true, message: 'Ingresar el número de acto electoral' }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+          <Button type="primary" htmlType="submit">
+            Enviar
+          </Button>
+        </Form.Item>
+      </Form>
     </div>
   );
 }

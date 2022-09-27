@@ -1,6 +1,6 @@
-import './AddVoters.css';
 import { useSearchParams } from 'react-router-dom';
 import {  useEffect, useState } from 'react';
+import { Form, Input, Button } from 'antd';
 
 function AddVoters() {
 
@@ -28,21 +28,31 @@ function AddVoters() {
     init();
   }, [searchParams]);
   return (
-    <div className="AddVoters">
-      <header className="AddVoters-header">
-      <form action="/voters/add" method="post">
-          <div className='AddVoters-header'>
-            <p className='AddVotersAlert'>{msg}</p>
-            <p>Ingresar DNI de los votantes a agregar separados por coma</p>
-            <label for="voters"><b>Votantes</b></label>
-            <input type="text" placeholder="Ej: 40128001,18995293..." name="voters" required/>
-            <label for="room_id"><b>Numero de acto electoral</b></label>
-            <input type="text" placeholder="Acto electoral" name="room_id" required/>
-            <button type="submit">Enviar</button>
-            <a href='/admin' class='AddVoters-link'>Volver</a>
-          </div>
-        </form>      
-      </header>
+    <div>
+      <p>Ingresar DNI de los votantes a agregar separados por coma</p>
+      <Form>
+        <Form.Item
+          label="DNI de votantes"
+          name="voterIds"
+          rules={[{ required: true, message: "Ingresar los DNI's de los votantes" }]}
+        >
+          <Input placeholder="Ej: 40128001,18995293..." />
+        </Form.Item>
+
+        <Form.Item
+          label="Acto electoral"
+          name="roomId"
+          rules={[{ required: true, message: "Ingresar ID del acto electoral" }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+          <Button type="primary" htmlType="submit">
+            Enviar
+          </Button>
+        </Form.Item>
+      </Form>    
     </div>
   );
 }

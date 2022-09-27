@@ -1,6 +1,6 @@
-import './AddRoom.css';
 import { useSearchParams } from 'react-router-dom';
 import {  useEffect, useState } from 'react';
+import { Form, DatePicker, Button } from 'antd';
 
 function AddRoom() {
 
@@ -26,22 +26,23 @@ function AddRoom() {
     }
     init();
   }, [searchParams]);
+
+  const { RangePicker } = DatePicker;
+
   return (
-    <div className="AddRoom">
-      <header className="AddRoom-header">
-      <form action="/rooms" method="post">
-          <div className='AddRoom-header'>
-            <p className='AddRoom'>{msg}</p>
-            <p>Ingresar fecha de inicio y fin del acto electoral</p>
-            <label for="init_date"><b>Fecha y hora de inicio</b></label>
-            <input type="datetime-local" class="AddRoom-datepicker" placeholder="Inicio" name="init_date" required/>
-            <label for="end_date"><b>Fecha y hora de fin</b></label>
-            <input type="datetime-local" class="AddRoom-datepicker" placeholder="Fin" name="end_date" required/>
-            <button type="submit">Enviar</button>
-            <a href='/admin' class='AddRoom-link'>Volver</a>
-          </div>
-        </form>      
-      </header>
+    <div>
+      <p>Ingresar fecha de inicio y fin del acto electoral</p>
+      <Form>
+        <Form.Item label="Fecha y hora de inicio">
+          <RangePicker />
+        </Form.Item>
+
+        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+          <Button type="primary" htmlType="submit">
+            Enviar
+          </Button>
+        </Form.Item>
+      </Form> 
     </div>
   );
 }

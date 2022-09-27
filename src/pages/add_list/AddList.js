@@ -1,6 +1,6 @@
-import './AddList.css';
 import { useSearchParams } from 'react-router-dom';
 import {  useEffect, useState } from 'react';
+import { Form, Input, Button } from 'antd';
 
 function AddList() {
 
@@ -27,21 +27,31 @@ function AddList() {
     init();
   }, [searchParams]);
   return (
-    <div className="AddList">
-      <header className="AddList-header">
-      <form action="/lists" method="post">
-          <div className='AddList-header'>
-            <p className='AddListAlert'>{msg}</p>
-            <p>Ingresar los datos de la nueva lista</p>
-            <label for="list_id"><b>Numero de Lista</b></label>
-            <input type="text" placeholder="Numero de Lista" name="list_id" required/>
-            <label for="name"><b>Nombre de Lista</b></label>
-            <input type="text" placeholder="Nombre de Lista" name="name" required/>
-            <button type="submit">Enviar</button>
-            <a href='/admin' class='AddAdmin-link'>Volver</a>
-          </div>
-        </form>      
-      </header>
+    <div>
+      <p>Ingresar los datos de la nueva lista</p>
+      <Form>
+        <Form.Item
+          label="Número de lista"
+          name="listId"
+          rules={[{ required: true, message: 'Agregar el número de lista' }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Nombre de la lista"
+          name="listName"
+          rules={[{ required: true, message: 'Agregar el nombre de la lista' }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+          <Button type="primary" htmlType="submit">
+            Enviar
+          </Button>
+        </Form.Item>
+      </Form>   
     </div>
   );
 }
