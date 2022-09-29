@@ -21,12 +21,29 @@ function Users() {
     init();
   }, [searchParams]);
 
+  const onFinish = (values) => {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(values)
+    };
+    fetch('/users', requestOptions).then( function(response) {
+      if (response.ok){
+        window.location.href = "/"
+      } else {
+        window.location.href = "/users?retry=true"
+      }
+    }).catch((err) => {  window.location.href = "/users?retry=true" })
+  };
+
   return (
     <div>
-      <Form>
+      <p>{msg}</p>
+      <p>Ingresa tus datos para registrarte</p>
+      <Form onFinish={onFinish}>
         <Form.Item
           label="Usuario"
-          name="username"
+          name="userId"
           rules={[{ required: true, message: "Ingresar el nombre de usuario" }]}
         >
           <Input />
@@ -34,7 +51,7 @@ function Users() {
 
         <Form.Item
           label="DNI"
-          name="userId"
+          name="dni"
           rules={[{ required: true, message: "Ingresar DNI del usuario" }]}
         >
           <Input />
@@ -61,7 +78,7 @@ function Users() {
           name="password"
           rules={[{ required: true, message: "Ingresar una contraseña" }]}
         >
-          <Input />
+          <Input.Password />
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>

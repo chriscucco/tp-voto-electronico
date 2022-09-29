@@ -8,11 +8,7 @@ router.get("", express.static(path.join(__dirname, "..", "..", "build")));
 
 router.post("", async (req, res) => {
     const response = await logInUser(req, res)
-    if (response.valid) {
-      res.redirect('/')
-    } else {
-      res.redirect('/login?retry=true')
-    }
+    res.status(response.status).json(response.message)
   });
 
 module.exports = router;

@@ -2,7 +2,7 @@ const {getUserByUserId, getRoleByID} = require('../../dao/interface');
 const {processPassword} = require('./commons')
 
 exports.logInUser = async(req, res) => {
-    const user_id = req.body.user_id ? req.body.user_id : "0"
+    const user_id = req.body.username ? req.body.username : "0"
     const password = req.body.password ? req.body.password : ""
 
     const usersWithThisId = await getUserByUserId(user_id)
@@ -22,7 +22,7 @@ exports.logInUser = async(req, res) => {
             req.session.role = 'normal'
         }
 
-        return {'valid': true, 'response': 'Log in successful', status: 200}
+        return {'valid': true, 'message': 'Log in successful', status: 200}
     }
 
     return {'valid': false, 'message': 'Invalid user or password', status: 400}

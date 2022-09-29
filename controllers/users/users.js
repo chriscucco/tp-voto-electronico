@@ -4,9 +4,9 @@ const {processPassword} = require('./commons')
 
 
 exports.createUser = async(req, res) => {
-    const user_id = req.body.user_id ? req.body.user_id : "0"
-    const name = req.body.name ? req.body.name : ""
-    const last_name = req.body.last_name ? req.body.last_name : ""
+    const user_id = req.body.userId ? req.body.userId : ""
+    const name = req.body.userFirstName ? req.body.userFirstName : ""
+    const last_name = req.body.userLastName ? req.body.userLastName : ""
     const dni = req.body.dni ? req.body.dni : ""
     const password = req.body.password ? req.body.password : ""
 
@@ -33,7 +33,7 @@ exports.createUser = async(req, res) => {
 
     const response = await createUser(user_id, dni, name, last_name, processPassword(password))
     await createRole(user_id, 'nominal')
-    return {'response': response, 'valid': true}
+    return {'message': response, 'valid': true, status: 200}
 };
 
 exports.getUsers = async(req, res) => {
@@ -48,7 +48,7 @@ exports.getUserByUserId = async(req, res) => {
 };
 
 const validateParams = (user_id, dni, name, last_name, password) => {
-    const validUser = user_id == "0" ? false : true
+    const validUser = user_id == "" ? false : true
     const validName = name == "" ? false : true
     const validLastName = last_name == "" ? false : true
     const validPassword = password == "" ? false : true

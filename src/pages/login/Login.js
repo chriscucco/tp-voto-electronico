@@ -20,11 +20,27 @@ function Login() {
     }
     init();
   }, [searchParams]);
+  
+  const onFinish = (values) => {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(values)
+    };
+    fetch('/login', requestOptions).then( function(response) {
+      if (response.ok){
+        window.location.href = "/home"
+      } else {
+        window.location.href = "/login?retry=true"
+      }
+    }).catch((err) => {  window.location.href = "/login?retry=true" })
+  };
 
   return (
     <div className='Login'>
+      <p>{msg}</p>
       <p>Ingresa usuario y contraseña para empezar</p>
-      <Form>
+      <Form onFinish={onFinish}>
         <Form.Item
           label="Usuario"
           name="username"
@@ -38,7 +54,7 @@ function Login() {
           name="password"
           rules={[{ required: true, message: "Ingresar una contraseña" }]}
         >
-          <Input />
+          <Input.Password />
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>

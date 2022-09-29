@@ -17,11 +17,7 @@ router.get("/all", async(req,res) => {
   
   router.post("", async (req, res) => {
     const response = await createUser(req, res)
-    if (response.valid) {
-      res.redirect('/')      
-    } else {
-      res.redirect('/users?retry=true')
-    }
+    res.status(response.status).json(response.message)
   });
 
 module.exports = router;
