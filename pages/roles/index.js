@@ -32,11 +32,7 @@ router.get("/all", async(req,res) => {
 
   router.post("/add", async (req, res) => {
     const response = await updateRoleByUserOrDNI(req, res)
-    if (response.valid) {
-      res.redirect('/admin')
-    } else {
-      res.redirect('/add_admin?retry=true')
-    }
+    res.status(response.status).json(response.message)
   });
 
 

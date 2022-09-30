@@ -26,10 +26,27 @@ function AddAdmin() {
     }
     init();
   }, [searchParams]);
+
+  const onFinish = (values) => {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(values)
+    };
+    fetch('/roles/add', requestOptions).then( function(response) {
+      if (response.ok){
+        window.location.href = "/admin"
+      } else {
+        window.location.href = "/add_admin?retry=true"
+      }
+    }).catch((err) => {  window.location.href = "/add_admin?retry=true" })
+  };
   
   return (
     <div>
-      <Form>
+      <p>{msg}</p>
+      <p>Ingresar nombre de usuario o DNI del usuario a agregar como administrador</p>
+      <Form onFinish={onFinish}>
         <Form.Item
           label="Usuario o DNI"
           name="newAdmin"

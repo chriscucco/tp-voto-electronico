@@ -46,7 +46,7 @@ exports.updateRole = async(req, res) => {
 }
 
 exports.updateRoleByUserOrDNI = async(req, res) => {
-    const user_id = req.body.userInput ? req.body.userInput : "0"
+    const user_id = req.body.newAdmin ? req.body.newAdmin : "0"
     if (user_id == "0") {
         return {'valid': false, 'message': 'Error processing params', status: 400}
     }
@@ -64,7 +64,7 @@ exports.updateRoleByUserOrDNI = async(req, res) => {
     }
 
     const response = await updateRole(user, 'admin')
-    return {'response': response, 'valid': true}
+    return {'message': response, 'valid': true, status: 200}
 }
 
 
