@@ -26,10 +26,27 @@ function AddCandidate() {
     }
     init();
   }, [searchParams]);
+
+  const onFinish = (values) => {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(values)
+    };
+    fetch('/candidates', requestOptions).then( function(response) {
+      if (response.ok){
+        window.location.href = "/admin"
+      } else {
+        window.location.href = "/add_candidate?retry=true"
+      }
+    }).catch((err) => {  window.location.href = "/add_candidate?retry=true" })
+  };
+
   return (
     <div>
+      <p>{msg}</p>
       <p>Ingresar los datos del nuevo candidato</p>
-      <Form>
+      <Form onFinish={onFinish}>
         <Form.Item
           label="Identificador del candidato"
           name="candidateId"

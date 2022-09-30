@@ -53,8 +53,8 @@ exports.createNewRoomList = async(req, res) => {
 };
 
 exports.addListsToRoom = async(req, res) => {
-    const room_id = req.body.room_id ? req.body.room_id : "0"
-    const list_id = req.body.list_id ? req.body.list_id : "0"
+    const room_id = req.body.roomId ? req.body.roomId : "0"
+    const list_id = req.body.listsId ? req.body.listsId : "0"
 
     const validParams = validateParams(room_id, list_id)
     if (validParams == false) {
@@ -88,7 +88,7 @@ exports.addListsToRoom = async(req, res) => {
         await createRoomList(room_id, listId)
     }
 
-    return {'valid': true}
+    return {'valid': true, 'message': 'success', status: 200}
 }
 
 const validateParams = (room_id, list_id) => {

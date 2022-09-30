@@ -26,10 +26,29 @@ function AddList() {
     }
     init();
   }, [searchParams]);
+
+
+  const onFinish = (values) => {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(values)
+    };
+    fetch('/lists', requestOptions).then( function(response) {
+      if (response.ok){
+        window.location.href = "/admin"
+      } else {
+        window.location.href = "/add_list?retry=true"
+      }
+    }).catch((err) => {  window.location.href = "/add_list?retry=true" })
+  };
+
+
   return (
     <div>
+      <p>{msg}</p>
       <p>Ingresar los datos de la nueva lista</p>
-      <Form>
+      <Form onFinish={onFinish}>
         <Form.Item
           label="Número de lista"
           name="listId"

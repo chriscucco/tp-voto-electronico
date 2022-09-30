@@ -22,15 +22,43 @@ function AddListToRoom() {
       let value = searchParams.get('retry')
       if (value != null && value === "true") {
         let retryMessage = searchParams.get('msg')
-        setMsg('Error: ' + retryMessage)
+        if (retryMessage) {
+          setMsg('Error: ' + retryMessage)
+        } else {
+          setMsg('Error en los datos ingresados')
+        }
       }
     }
     init();
   }, [searchParams]);
+
+  const onFinish = (values) => {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(values)
+    };
+    fetch('/roomLists/add', requestOptions).then( function(response) {
+      if (response.ok) {
+        window.location.href = "/admin"
+        return undefined
+      } else {
+        return response.json()
+      }
+    }).then( function(data) {
+      if (data != undefined) {
+        window.location.href = "/add_list_to_room?retry=true&msg=" + data
+      } else {
+        window.location.href = "/admin"
+      }
+    }).catch((err) => {  window.location.href = "/add_list_to_room?retry=true"})
+  };
+
   return (
     <div>
+      <p>{msg}</p>
       <p>Ingresar los numeros de lista separados por coma</p>
-      <Form>
+      <Form onFinish={onFinish}>
         <Form.Item
           label="Números de lista"
           name="listsId"

@@ -39,10 +39,10 @@ exports.getCandidatesFromListIDAndRole = async(req, res) => {
 
 
 exports.createCandidate = async(req, res) => {
-    const list_id = req.body.list_id ? req.body.list_id : "0"
-    const candidate_id = req.body.candidate_id ? req.body.candidate_id : "0"
-    const name = req.body.name ? req.body.name : ""
-    const role = req.body.role ? req.body.role : ""
+    const list_id = req.body.listId ? req.body.listId : "0"
+    const candidate_id = req.body.candidateId ? req.body.candidateId : "0"
+    const name = req.body.candidateName ? req.body.candidateName : ""
+    const role = req.body.candidateRole ? req.body.candidateRole : ""
 
     const validParams = validateParams(list_id, candidate_id, name, role)
     if (validParams == false) {
@@ -60,7 +60,7 @@ exports.createCandidate = async(req, res) => {
     }
 
     const response = await createNewCandidate(list_id, candidate_id, name, role)
-    return {'response': response, 'valid': true}
+    return {'message': response, 'valid': true, status: 200}
 
 };
 

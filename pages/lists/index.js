@@ -19,11 +19,7 @@ router.get("/name", async(req,res) => {
 
 router.post("", async (req, res) => {
     const response = await createList(req, res)
-    if (response.valid) {
-      res.redirect('/admin')
-    } else {
-      res.redirect('/add_list?retry=true')
-    }
+    res.status(response.status).json(response.message)
 });
 
 module.exports = router;

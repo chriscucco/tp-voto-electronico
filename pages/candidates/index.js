@@ -35,11 +35,7 @@ router.get("/list/role", async(req,res) => {
 
 router.post("", async (req, res) => {
     const response = await createCandidate(req, res)
-    if (response.valid) {
-        res.redirect('/admin')
-      } else {
-        res.redirect('/add_candidate?retry=true')
-      }
+    res.status(response.status).json(response.message)
 });
 
 module.exports = router;

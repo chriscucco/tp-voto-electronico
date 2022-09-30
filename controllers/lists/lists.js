@@ -18,8 +18,8 @@ exports.getListByName = async(req, res) => {
 };
 
 exports.createList = async(req, res) => {
-    const list_id = req.body.list_id ? req.body.list_id : "0"
-    const name = req.body.name ? req.body.name : ""
+    const list_id = req.body.listId ? req.body.listId : "0"
+    const name = req.body.listName ? req.body.listName : ""
 
     const validParams = validateParams(list_id, name)
     if (validParams == false) {
@@ -37,7 +37,7 @@ exports.createList = async(req, res) => {
     }
 
     const response = await createNewList(list_id, name)
-    return {'response': response, 'valid': true}
+    return {'message': response, 'valid': true, status: 200}
 };
 
 const validateParams = (list_id, name) => {
