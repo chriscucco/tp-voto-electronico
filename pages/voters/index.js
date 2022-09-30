@@ -30,11 +30,7 @@ router.post("", async (req, res) => {
 
 router.post("/add", async (req, res) => {
   const response = await addNewVotersGroup(req, res)
-  if (response.valid) {
-    res.redirect('/admin')
-  } else {
-    res.redirect('/add_voters?retry=true&msg=' + response.message)
-  }
+  res.status(response.status).json(response.message)
 });
 
 module.exports = router;

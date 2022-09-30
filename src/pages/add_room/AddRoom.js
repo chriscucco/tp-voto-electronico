@@ -27,13 +27,33 @@ function AddRoom() {
     init();
   }, [searchParams]);
 
+  const onFinish = (values) => {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(values)
+    };
+    fetch('/rooms', requestOptions).then( function(response) {
+      if (response.ok){
+        window.location.href = "/admin"
+      } else {
+        window.location.href = "/add_room?retry=true"
+      }
+    }).catch((err) => {  window.location.href = "/add_room?retry=true" })
+  };
+
+
   const { RangePicker } = DatePicker;
 
   return (
     <div>
+      <p>{msg}</p>
       <p>Ingresar fecha de inicio y fin del acto electoral</p>
-      <Form>
-        <Form.Item label="Fecha y hora de inicio">
+      <Form onFinish={onFinish}>
+        <Form.Item 
+          label="Fecha y hora de inicio" 
+          name="dates"
+        >
           <RangePicker />
         </Form.Item>
 

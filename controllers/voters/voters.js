@@ -43,8 +43,8 @@ const validateParams = (room_id, user_id) => {
 }
 
 exports.addNewVotersGroup = async(req, res) => {
-    const room_id = req.body.room_id ? req.body.room_id : "0"
-    const voters = req.body.voters ? req.body.voters : "0"
+    const room_id = req.body.roomId ? req.body.roomId : "0"
+    const voters = req.body.voterIds ? req.body.voterIds : "0"
 
     const validParams = validateParams(room_id, voters)
     if (validParams == false) {
@@ -79,5 +79,5 @@ exports.addNewVotersGroup = async(req, res) => {
         await addVoterToRoom(room_id, userData[0].user_id)
     }
 
-    return {'valid': true}
+    return {'valid': true, 'message': 'success', status: 200}
 };

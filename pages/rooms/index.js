@@ -8,11 +8,7 @@ const votingPlatformService = require('../../server/service/VotingPlatformServic
 
 router.post("", async (req, res) => {
     const response = await createRoom(req, res)
-    if (response.valid) {
-      res.redirect('/admin')
-    } else {
-      res.redirect('/add_room?retry=true')
-    }
+    res.status(response.status).json(response.message)
 });
 
 router.get("/:id", async (req, res) => {

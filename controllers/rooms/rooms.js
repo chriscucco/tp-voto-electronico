@@ -14,21 +14,22 @@ exports.getRoomByID = async(req, res) => {
 
 
 exports.createRoom = async(req, res) => {
-    const init_date = req.body.init_date ? req.body.init_date : ""
-    const end_date = req.body.end_date ? req.body.end_date : ""
-
-    const validParams = validateParams(init_date, end_date)
+    const dates = req.body.dates ? req.body.dates : []
+    const validParams = validateParams(dates)
     if (validParams == false) {
         return {'valid': false, 'message': 'Error processing params', status: 400}
     }
 
+    const init_date = dates[0]
+    const end_date = dates[1]
     const resp = await votingService.createRoom('title', 'description')
     const response = await createRoom(resp.id, init_date, end_date)
-    return {'response': response, 'valid': true}
+    return {'response': response, 'valid': true, status: 200}
 }
 
-const validateParams = (init_date, end_date) => {
-    const validInitDate = init_date == "" ? false : true
-    const validEndDate = end_date == "" ? false : true
-    return validInitDate && validEndDate
+const validateParams = (dates) => {
+    if (dates.length != 2) {
+        return false
+    }
+    return true
 }
