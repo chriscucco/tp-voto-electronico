@@ -8,7 +8,11 @@ function MyRooms() {
        window.location.href = '/login'
       }
 
-      await fetchRoom(1)
+      const rooms = await fetch('')
+
+      // await fetchRoom(1)
+
+
     }
     init();
   }, []);
