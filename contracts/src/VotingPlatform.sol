@@ -18,7 +18,7 @@ contract VotingPlatform {
     mapping (uint32 => Room) rooms;
 
     // Events
-    event RetrieveRoom(string title, string description, uint32 proposalId);
+    event RetrieveRoom(string title, string description, uint32 roomId);
     event RoomLists(uint[] lists);
     event RetrieveVote(uint vote);
     event RetrieveVotes(uint[] votes);
