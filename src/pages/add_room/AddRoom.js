@@ -1,6 +1,6 @@
 import { useSearchParams } from 'react-router-dom';
 import {  useEffect, useState } from 'react';
-import { Form, DatePicker, Button } from 'antd';
+import { Form, DatePicker, Button, Input } from 'antd';
 
 function AddRoom() {
 
@@ -50,6 +50,13 @@ function AddRoom() {
       <p>{msg}</p>
       <p>Ingresar fecha de inicio y fin del acto electoral</p>
       <Form onFinish={onFinish}>
+        <Form.Item
+          label="Descripción del acto"
+          name="description"
+          rules={[{ required: true, message: 'Agregar descripción del acto electoral' }]}
+        >
+          <Input />
+        </Form.Item>
         <Form.Item 
           label="Fecha y hora de inicio" 
           name="dates"

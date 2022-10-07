@@ -19,7 +19,7 @@ exports.getRoomsInfoByVoter = async(req, res) => {
             let started = validateIfDatePassed(currentRoom[0].init_date, timeNow.toISOString())
             let expired =  validateIfDatePassed(currentRoom[0].end_date, timeNow.toISOString())
 
-            processedRoomInfo = {room_id: room.room_id, init_date: currentRoom[0].init_date, end_date: currentRoom[0].end_date, userVoted, started, expired}
+            processedRoomInfo = {room_id: room.room_id, description: currentRoom[0].description, init_date: currentRoom[0].init_date, end_date: currentRoom[0].end_date, userVoted, started, expired}
             roomsInfo.push(processedRoomInfo)
         } catch(Exception) {}   
     }

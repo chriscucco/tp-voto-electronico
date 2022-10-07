@@ -8,7 +8,14 @@ function MyRooms() {
        window.location.href = '/login'
       }
 
-      const rooms = await fetch('')
+      const rooms = await fetch('/my_rooms/rooms')
+      if (rooms.status !== 200) {
+        window.location.href = '/home'
+      }
+      
+      const processedRoom = await rooms.json()
+      console.log(rooms)
+      console.log(processedRoom)
 
       // await fetchRoom(1)
 

@@ -156,8 +156,8 @@ exports.getAllVotersAndRooms = async() => {
 
 // Rooms
 
-exports.createRoom = async(room_id, init_date, end_date) => {
-    const result = await database('rooms').insert({room_id, init_date, end_date}).returning('*')
+exports.createRoom = async(room_id, init_date, end_date, description) => {
+    const result = await database('rooms').insert({room_id, init_date, end_date, description}).returning('*')
     return result
 }
 
