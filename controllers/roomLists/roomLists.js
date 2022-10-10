@@ -13,8 +13,8 @@ exports.getRoomByListId = async(req, res) => {
 }
 
 exports.getListByRoomId = async(req, res) => {
-    const list_id = req.params.id ? req.params.id : ""
-    const response = await getListsByRoomId(list_id)
+    const room_id = req.params.id ? req.params.id : ""
+    const response = await getListsByRoomId(room_id)
     return response
 }
 
