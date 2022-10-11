@@ -63,6 +63,11 @@ exports.getUserIDByVotingRooms = async(room_id) => {
     return roles
 }
 
+exports.getUserIDAndRoomFromRegisteredVotes = async(room_id, user_id) => {
+    const roles = await database.select().from('votes').where('room_id', room_id).andWhere('user_id', user_id)
+    return roles
+}
+
 exports.registerUserAndRoom = async(user_id, room_id) => {
     const result = await database('votes').insert({user_id, room_id}).returning('*')
     return result
@@ -99,6 +104,11 @@ exports.createNewCandidate = async(list_id, candidate_id, name, role) => {
 
 exports.getCandidatesFromList = async(list_id) => {
     const data = await database.select().from('candidates').where('list_id', list_id)
+    return data
+}
+
+exports.getCandidatesDataFromList = async(list_id) => {
+    const data = await database.select('candidate_id', 'name', 'role').from('candidates').where('list_id', list_id)
     return data
 }
 

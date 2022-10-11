@@ -1,4 +1,4 @@
-const {getRoomsByUserId, getRoomById, registerUserAndRoom} = require('../../dao/interface');
+const {getRoomsByUserId, getRoomById, getUserIDAndRoomFromRegisteredVotes, getRoomAndUser, getListsByRoomId, getListsData, getCandidatesDataFromList} = require('../../dao/interface');
 
 exports.getRoomsInfoByVoter = async(req, res) => {
     const userId = req.session.user_id
@@ -12,7 +12,7 @@ exports.getRoomsInfoByVoter = async(req, res) => {
     for (const room of rooms) {
         try {
             const currentRoom = await getRoomById(room.room_id)
-            const votesByUser = await registerUserAndRoom(userId, room.room_id)
+            const votesByUser = await getUserIDAndRoomFromRegisteredVotes(userId, room.room_id)
 
             let userVoted = (votesByUser.length > 0)
             let timeNow = new Date
@@ -66,4 +66,64 @@ const validateIfDatePassed = (date, timeNow) => {
     }
 
     return false
+}
+
+
+exports.getRoomsDetails = async(req, res) => {
+    const room_id = req.params.id ? req.params.id : ""
+    const userId = req.session.user_id
+    
+    const validRoomData = await validateVotingData(room_id, userId)
+    if (!validRoomData.valid) {
+        return {'data': validRoomData.msg, status: 400}
+    }
+
+    const roomLists = await getListsByRoomId(room_id)
+    if (roomLists.length == 0) {
+        return {'data': [], status: 200}
+    }
+
+    let listData = []
+    for (const roomList of roomLists) {
+        try {
+            const listId = roomList.list_id
+            const list = await getListsData(listId)
+            const candidates = await getCandidatesDataFromList(listId)
+            let processedListInfo = {'name': list[0].name, 'list_id': list[0].list_id, 'candidates': candidates}
+            listData.push(processedListInfo)
+        } catch(Exception) {}
+    }
+
+    return {'data': listData, status: 200}
+
+}
+
+const validateVotingData = async (room_id, userId) => {
+    const roomVoter = await getRoomAndUser(room_id, userId)
+    if (roomVoter.length == 0) {
+        return {'msg': 'User cant access information from this room', valid: false}
+    }
+
+    const currentRoom = await getRoomById(room_id)
+    const votesByUser = await getUserIDAndRoomFromRegisteredVotes(room_id, userId)
+
+    let timeNow = new Date
+    let userVoted = (votesByUser.length > 0)
+    let started = validateIfDatePassed(currentRoom[0].init_date, timeNow.toISOString())
+    let expired =  validateIfDatePassed(currentRoom[0].end_date, timeNow.toISOString())
+
+    if (userVoted) {
+        return {'msg': 'User already voted for the current room', valid: false}
+    }
+
+    if (!started) {
+        return {'msg': 'Room is not avaliable for voting yet', valid: false}
+    }
+
+    if (expired) {
+        return {'msg': 'Room finished, user cant vote', valid: false}
+    }
+
+    return {valid: true}
+
 }

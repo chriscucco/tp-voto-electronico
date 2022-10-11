@@ -30,7 +30,6 @@ const {processPassword} = require('../controllers/users/commons');
         console.log('Starting votes seeds...')
         await database('votes').insert({user_id: 'ccucco', room_id: '1'})
         await database('votes').insert({user_id: 'ccucco', room_id: '2'})
-        await database('votes').insert({user_id: 'ccucco', room_id: '5'})
 
         await database('votes').insert({user_id: 'fcerquetti', room_id: '1'})
         await database('votes').insert({user_id: 'fcerquetti', room_id: '3'})
@@ -110,7 +109,7 @@ const {processPassword} = require('../controllers/users/commons');
         await database('voters').insert({room_id: '5', user_id: 'test2'})
         console.log('Finished voters seeds!')
 
-
+        //ROOMS SEEDS
         await database('rooms').insert({room_id: '1', init_date: '2022-09-17T19:18', end_date:'2022-12-17T19:18', description: 'Elección 1'})
         await database('rooms').insert({room_id: '2', init_date: '2022-09-17T19:18', end_date:'2022-12-17T19:18', description: 'Elección 2'})
         await database('rooms').insert({room_id: '3', init_date: '2022-09-17T19:18', end_date:'2022-12-17T19:18', description: 'Elección 3'})
@@ -118,6 +117,7 @@ const {processPassword} = require('../controllers/users/commons');
         await database('rooms').insert({room_id: '5', init_date: '2022-09-17T19:18', end_date:'2022-12-17T19:18', description: 'Elección 5'})
         console.log('Finished rooms seeds!')
 
+        //ROOMLISTS SEEDS
         await database('roomLists').insert({room_id: '1', list_id: '1'})
         await database('roomLists').insert({room_id: '2', list_id: '1'})
         await database('roomLists').insert({room_id: '3', list_id: '1'})
