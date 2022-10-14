@@ -1,17 +1,18 @@
-import { useSearchParams } from 'react-router-dom';
-import {  useEffect, useState } from 'react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { Form, Input, Button } from 'antd';
 
 function Users() {
     let [searchParams, setSearchParams] = useSearchParams();
 
   const [msg, setMsg] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const init = async () => {
       const response = await fetch('/auth')
       if (response.status === 200) {
-       window.location.href = '/home'
+        navigate('/home')
       }
       let value = searchParams.get('retry')
       if (value != null && value === "true") {
@@ -19,7 +20,7 @@ function Users() {
       }
     }
     init();
-  }, [searchParams]);
+  }, [searchParams, navigate]);
 
   const onFinish = (values) => {
     const requestOptions = {

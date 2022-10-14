@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Form, Input, Button } from 'antd';
 
@@ -6,17 +6,18 @@ function AddCandidate() {
 
   let [searchParams, setSearchParams] = useSearchParams();
   const [msg, setMsg] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const init = async () => {
       const response = await fetch('/auth')
       if (response.status !== 200) {
-       window.location.href = '/login'
+        navigate('/login');
       }
 
       const data = await response.json()
       if (data.role !== 'admin') {
-        window.location.href = '/my_rooms'
+        navigate('/my_rooms');
       }
 
       let value = searchParams.get('retry')
@@ -25,7 +26,7 @@ function AddCandidate() {
       }
     }
     init();
-  }, [searchParams]);
+  }, [searchParams, navigate]);
 
   const onFinish = (values) => {
     const requestOptions = {

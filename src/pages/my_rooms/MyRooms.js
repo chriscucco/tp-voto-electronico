@@ -1,31 +1,31 @@
-import {  useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Card, Col, Row, Button } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 function MyRooms() {
 
   const [rooms, setRooms] = useState([]);
-
-  let data
+  const navigate = useNavigate();
+  const goToRoomDetail = (roomId) => navigate(`/room_detail/${roomId}`);
 
   useEffect(() => {
     const init = async () => {
       const response = await fetch('/auth')
       if (response.status !== 200) {
-       window.location.href = '/login'
+        navigate('/login');
       }
 
-      const roomsRequest = await fetch('/my_rooms/rooms')
-      if (roomsRequest.status !== 200) {
-        window.location.href = '/home'
-      }
+      // const data = await roomsRequest.json()
+      // console.log(data)
+      // setRooms(data)
 
-      data = await roomsRequest.json()
-      setRooms(data)
+      const data = testingData();
+      setRooms(data);
 
       // await fetchRoom(1)
     }
     init();
-  }, []);
+  }, [navigate]);
   
   const fetchRoom = async (roomId) => {
     //console.log("Fetching room")
@@ -34,31 +34,55 @@ function MyRooms() {
     //console.log(room);
   }
 
-  const redirectToDetail = (roomId) => {
-    console.log("/////////////////////////")
-    console.log("REDIRECT")
-    console.log(roomId)
-  }
-
   const testingData = () => {
-    return (<Col span={8}>
-      <Card title="Card title 2" bordered={true}actions={[<Button onClick={() => redirectToDetail('2')}> Vote!</Button>]}>
-        Card content
-      </Card>
-    </Col>
-    )
+    return [
+      {
+        id: 1,
+        title: 'Room 1',
+        description: 'Room 1 description'
+      },
+      {
+        id: 2,
+        title: 'Room 2',
+        description: 'Room 2 description'
+      },
+      {
+        id: 3,
+        title: 'Room 3',
+        description: 'Room 3 description'
+      },
+      {
+        id: 4,
+        title: 'Room 4',
+        description: 'Room 4 description'
+      }
+    ]
   }
   
+  const createCard = (room) =>
+    <Card 
+        key={room.id}
+        title={room.title} 
+        bordered={true} 
+        actions={[<Button onClick={() => goToRoomDetail(room.id)}> Vote!</Button>]}
+      >
+        {room.description}
+      </Card>
+
   return (
     <div>
-    <Row gutter={16}>
-      <Col span={8}>
-        <Card title="Card title" bordered={true}actions={[<Button onClick={() => redirectToDetail('1')}> Vote!</Button>]}>
-          Card content
-        </Card>
-      </Col>
-      {console.log(rooms)}
-    </Row>
+      <Row gutter={[24, 24]}>
+        {
+          rooms.map(room =>
+            <Col key={room.id} span={8}>
+              {createCard(room)}
+            </Col> 
+          )
+        }
+        <Col span={24} align='middle'>
+          <Button style={{ width: '30vw' }} onClick={() => navigate('/home')}>Volver</Button>
+        </Col>
+      </Row>    
   </div>
   );
 }
