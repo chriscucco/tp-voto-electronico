@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import { Button } from 'antd';
+import { Button, Row, Col } from 'antd';
+import { buttonWidth, topMargin } from './CommonStyles'
 
 function App() {
 
@@ -7,8 +8,14 @@ function App() {
 
   return (
     <div>
-        <Button className='primary' onClick={() => navigate('/login')}>Ingresar</Button>
-        <Button className='primary' onClick={() => navigate('/users')}>Crear cuenta</Button>
+      <Row gutter={[24, 24]} align='middle' style={{ marginTop: topMargin }}>
+        <Col span={24} align='middle'>
+          <Button style={{ width: buttonWidth }} onClick={() => navigate('/login')}>Ingresar</Button>
+        </Col>
+        <Col span={24} align='middle'>
+          <Button style={{ width: buttonWidth }} onClick={() => navigate('/users')}>Crear cuenta</Button>
+        </Col>
+      </Row>
     </div>
   );
 }

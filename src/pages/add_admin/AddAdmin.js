@@ -1,12 +1,15 @@
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, Row, Col, Typography } from 'antd';
+import { buttonWidth, topMargin } from '../../CommonStyles';
 
 function AddAdmin() {
 
   let [searchParams, setSearchParams] = useSearchParams();
   const [msg, setMsg] = useState();
   const navigate = useNavigate();
+
+  const { Title } = Typography;
 
   useEffect(() => {
     const init = async () => {
@@ -45,22 +48,31 @@ function AddAdmin() {
   
   return (
     <div>
-      <p>{msg}</p>
-      <p>Ingresar nombre de usuario o DNI del usuario a agregar como administrador</p>
-      <Form onFinish={onFinish}>
-        <Form.Item
-          label="Usuario o DNI"
-          name="newAdmin"
-          rules={[{ required: true, message: 'Agregar el usuario o DNI del nuevo administrador' }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit">
-            Enviar
-          </Button>
-      </Form.Item>
-      </Form>   
+      <Row gutter={[24, 24]} style={{ marginTop: topMargin }}>
+        <Col span={24} align='middle'>
+          <Title level={4}>Ingresar nombre de usuario o DNI del usuario a agregar como administrador</Title>
+        </Col>
+        <Col span={24} align='middle'>
+          <Form onFinish={onFinish}>
+            <Form.Item
+              label="Usuario o DNI"
+              name="newAdmin"
+              rules={[{ required: true, message: 'Agregar el usuario o DNI del nuevo administrador' }]}
+              style={{ width: buttonWidth }}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item>
+              <Button style={{ width: buttonWidth }} htmlType="submit">
+                Enviar
+              </Button>
+            </Form.Item>
+          </Form>  
+        </Col>
+        <Col span={24} align='middle'>
+          <Button style={{ width: buttonWidth }} onClick={() => navigate('/admin')}>Volver</Button>
+        </Col>
+      </Row>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Col, Row, Button, Typography, Radio } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
+import { topMargin, buttonWidth } from '../../CommonStyles';
 
 function MyRooms() {
     
@@ -38,7 +39,7 @@ function MyRooms() {
   
   return (
         <div>
-            <Row gutter={[24, 24]}>
+            <Row gutter={[24, 24]} style={{ marginTop: topMargin }}>
                 <Col span={24} align='middle'>
                     <Title>{roomData.title}</Title>
                 </Col>
@@ -54,10 +55,10 @@ function MyRooms() {
                     </Radio.Group>
                 </Col>
                 <Col span={24} align='middle'>
-                    <Button disabled={!hasSelectedVote()} style={{ width: '30vw' }} onClick={() => console.log(vote)}>Votar</Button>
+                    <Button disabled={!hasSelectedVote()} style={{ width: buttonWidth }} onClick={() => console.log(vote)}>Votar</Button>
                 </Col>
                 <Col span={24} align='middle'>
-                    <Button style={{ width: '30vw' }} onClick={() => navigate('/my_rooms')}>Volver</Button>
+                    <Button style={{ width: buttonWidth }} onClick={() => navigate('/my_rooms')}>Volver</Button>
                 </Col>
             </Row>
          </div>

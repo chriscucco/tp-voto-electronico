@@ -1,10 +1,13 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button } from 'antd';
+import { Button, Row, Col, Typography } from 'antd';
+import { buttonWidth, topMargin } from '../../CommonStyles';
 
 function Home() {
 
   const navigate = useNavigate();
+
+  const { Title } = Typography;
 
   useEffect(() => {
     const init = async () => {
@@ -23,13 +26,17 @@ function Home() {
   
   return (
     <div>
-      <header>
-        <p>
-          Seleccionar la forma de ingreso
-        </p>
-        <Button onClick={() => navigate('/my_rooms')}>Modo Usuario</Button>
-        <Button className='primary' onClick={() => navigate('/admin')}>Modo Administrador</Button>
-      </header>
+      <Row gutter={[24, 24]} style={{ marginTop: topMargin }}>
+        <Col span={24} align='middle'>
+          <Title level={3}>Seleccionar la forma de ingreso</Title>
+        </Col>
+        <Col span={24} align='middle'>
+          <Button style={{ width: buttonWidth }} onClick={() => navigate('/my_rooms')}>Modo Usuario</Button>
+        </Col>
+        <Col span={24} align='middle'>
+          <Button style={{ width: buttonWidth }} onClick={() => navigate('/admin')}>Modo Administrador</Button>
+        </Col>
+      </Row>
     </div>
   );
 }

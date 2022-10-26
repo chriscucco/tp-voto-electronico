@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Row, Col } from 'antd';
+import { buttonWidth, topMargin } from '../../CommonStyles';
 
 function Admin() {
 
@@ -22,33 +23,33 @@ function Admin() {
   }, [navigate]);
   return (
     <>
-      <Row gutter={[24, 24]} style={{ marginTop: '10vh'}}>
+      <Row gutter={[24, 24]} style={{ marginTop: topMargin }}>
         <Col span={24} align='middle'>
-          <Button style={{ width: '30vw' }} onClick={() => navigate('/add_admin')}>Dar permisos de Administrador</Button>
+          <Button type='primary' style={{ width: buttonWidth }} onClick={() => navigate('/add_admin')}>Dar permisos de Administrador</Button>
         </Col>
 
         <Col span={24} align='middle'>
-          <Button style={{ width: '30vw' }} onClick={() => navigate('/add_room')}>Crear nuevo acto electoral</Button>
+          <Button type='primary' style={{ width: buttonWidth }} onClick={() => navigate('/add_room')}>Crear nuevo acto electoral</Button>
         </Col>
 
         <Col span={24} align='middle'>
-          <Button style={{ width: '30vw' }} onClick={() => navigate('/add_list')}>Crear nueva lista</Button>
+          <Button type='primary' style={{ width: buttonWidth }} onClick={() => navigate('/add_list')}>Crear nueva lista</Button>
         </Col>
 
         <Col span={24} align='middle'>
-          <Button style={{ width: '30vw' }} onClick={() => navigate('/add_candidate')}>Crear nuevo candidato</Button>
+          <Button style={{ width: buttonWidth }} onClick={() => navigate('/add_candidate')}>Crear nuevo candidato</Button>
         </Col>
 
         <Col span={24} align='middle'>
-          <Button style={{ width: '30vw' }} onClick={() => navigate('/add_voters')}>Agregar votantes a acto electoral</Button>
+          <Button style={{ width: buttonWidth }} onClick={() => navigate('/add_voters')}>Agregar votantes a acto electoral</Button>
         </Col>
 
         <Col span={24} align='middle'>
-          <Button style={{ width: '30vw' }} onClick={() => navigate('/add_list_to_room')}>Agregar listas a acto electoral</Button>
+          <Button style={{ width: buttonWidth }} onClick={() => navigate('/add_list_to_room')}>Agregar listas a acto electoral</Button>
         </Col>
 
         <Col span={24} align='middle'>
-          <Button style={{ width: '30vw' }} onClick={() => navigate('/home')}>Volver</Button>
+          <Button style={{ width: buttonWidth }} onClick={() => navigate('/home')}>Volver</Button>
         </Col>
       </Row>
     </>

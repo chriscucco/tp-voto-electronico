@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Card, Col, Row, Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { topMargin } from '../../CommonStyles';
 
 function MyRooms() {
 
@@ -71,7 +72,7 @@ function MyRooms() {
 
   return (
     <div>
-      <Row gutter={[24, 24]}>
+      <Row gutter={[24, 24]} style={{ marginTop: topMargin }}>
         {
           rooms.map(room =>
             <Col key={room.id} span={8}>

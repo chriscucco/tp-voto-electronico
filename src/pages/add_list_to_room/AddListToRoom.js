@@ -1,12 +1,15 @@
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, Row, Col, Typography } from 'antd';
+import { buttonWidth, topMargin } from '../../CommonStyles';
 
 function AddListToRoom() {
 
   let [searchParams, setSearchParams] = useSearchParams();
   const [msg, setMsg] = useState();
   const navigate = useNavigate();
+
+  const { Title } = Typography;
 
   useEffect(() => {
     const init = async () => {
@@ -57,31 +60,41 @@ function AddListToRoom() {
 
   return (
     <div>
-      <p>{msg}</p>
-      <p>Ingresar los numeros de lista separados por coma</p>
-      <Form onFinish={onFinish}>
-        <Form.Item
-          label="Números de lista"
-          name="listsId"
-          rules={[{ required: true, message: 'Al menos un número de lista es requerido' }]}
-        >
-          <Input placeholder="Ej: 1, 2, 3, 4..."/>
-        </Form.Item>
+      <Row gutter={[24, 24]} style={{ marginTop: topMargin }}>
+        <Col span={24} align='middle'>
+          <Title level={3}>Ingresar los numeros de lista separados por coma</Title>
+        </Col>
+        <Col span={24} align='middle'>
+          <Form onFinish={onFinish}>
+            <Form.Item
+              label="Números de lista"
+              name="listsId"
+              rules={[{ required: true, message: 'Al menos un número de lista es requerido' }]}
+              style={{ width: buttonWidth }}
+            >
+              <Input placeholder="Ej: 1, 2, 3, 4..."/>
+            </Form.Item>
 
-        <Form.Item
-          label="Número de acto electoral"
-          name="roomId"
-          rules={[{ required: true, message: 'Ingresar el número de acto electoral' }]}
-        >
-          <Input />
-        </Form.Item>
+            <Form.Item
+              label="Número de acto electoral"
+              name="roomId"
+              rules={[{ required: true, message: 'Ingresar el número de acto electoral' }]}
+              style={{ width: buttonWidth }}
+            >
+              <Input />
+            </Form.Item>
 
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit">
-            Enviar
-          </Button>
-        </Form.Item>
-      </Form>
+            <Form.Item>
+              <Button type="primary" htmlType="submit" style={{ width: buttonWidth }}>
+                Enviar
+              </Button>
+            </Form.Item>
+          </Form>
+        </Col>
+        <Col span={24} align='middle'>
+          <Button style={{ width: buttonWidth }} onClick={() => navigate('/admin')}>Volver</Button>
+        </Col>
+      </Row>
     </div>
   );
 }

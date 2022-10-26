@@ -1,12 +1,15 @@
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, Row, Col, Typography } from 'antd';
+import { buttonWidth, topMargin } from '../../CommonStyles';
 
 function AddCandidate() {
 
   let [searchParams, setSearchParams] = useSearchParams();
   const [msg, setMsg] = useState();
   const navigate = useNavigate();
+
+  const { Title } = Typography;
 
   useEffect(() => {
     const init = async () => {
@@ -45,47 +48,59 @@ function AddCandidate() {
 
   return (
     <div>
-      <p>{msg}</p>
-      <p>Ingresar los datos del nuevo candidato</p>
-      <Form onFinish={onFinish}>
-        <Form.Item
-          label="Identificador del candidato"
-          name="candidateId"
-          rules={[{ required: true, message: 'Agregar el identificador del candidato' }]}
-        >
-          <Input />
-        </Form.Item>
+      <Row gutter={[24, 24]} style={{ marginTop: topMargin }}>
+        <Col span={24} align='middle'>
+          <Title level={3}>Ingresar los datos del nuevo candidato</Title>
+        </Col>
+        <Col span={24} align='middle'>
+          <Form onFinish={onFinish}>
+            <Form.Item
+              label="Identificador del candidato"
+              name="candidateId"
+              rules={[{ required: true, message: 'Agregar el identificador del candidato' }]}
+              style={{ width: buttonWidth }}
+            >
+              <Input />
+            </Form.Item>
 
-        <Form.Item
-          label="Lista del candidato"
-          name="listId"
-          rules={[{ required: true, message: 'Agregar la lista a la que pertenece el candidato' }]}
-        >
-          <Input />
-        </Form.Item>
+            <Form.Item
+              label="Lista del candidato"
+              name="listId"
+              rules={[{ required: true, message: 'Agregar la lista a la que pertenece el candidato' }]}
+              style={{ width: buttonWidth }}
+            >
+              <Input />
+            </Form.Item>
 
-        <Form.Item
-          label="Nombre del candidato"
-          name="candidateName"
-          rules={[{ required: true, message: 'Agregar el nombre del candidato' }]}
-        >
-          <Input />
-        </Form.Item>
+            <Form.Item
+              label="Nombre del candidato"
+              name="candidateName"
+              rules={[{ required: true, message: 'Agregar el nombre del candidato' }]}
+              style={{ width: buttonWidth }}
+            >
+              <Input />
+            </Form.Item>
 
-        <Form.Item
-          label="Rol del candidato"
-          name="candidateRole"
-          rules={[{ required: true, message: 'Agregar el rol del candidato' }]}
-        >
-          <Input />
-        </Form.Item>
+            <Form.Item
+              label="Rol del candidato"
+              name="candidateRole"
+              rules={[{ required: true, message: 'Agregar el rol del candidato' }]}
+              style={{ width: buttonWidth }}
+            >
+              <Input />
+            </Form.Item>
 
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit">
-            Enviar
-          </Button>
-        </Form.Item>
-      </Form> 
+            <Form.Item>
+              <Button type="primary" htmlType="submit" style={{ width: buttonWidth }}>
+                Enviar
+              </Button>
+            </Form.Item>
+          </Form> 
+        </Col>
+        <Col span={24} align='middle'>
+          <Button style={{ width: buttonWidth }} onClick={() => navigate('/admin')}>Volver</Button>
+        </Col>
+      </Row>
     </div>
   );
 }
