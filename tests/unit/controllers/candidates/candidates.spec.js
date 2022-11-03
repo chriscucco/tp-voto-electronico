@@ -20,8 +20,8 @@ describe('Testing candidates functions', () => {
         const res = {};
         tracker.on('query', function sendResult(query) {
           query.response([
-            {candidate_id: '1', list_id:'1', name: 'testName', role: 'President'},
-            {candidate_id: '2', list_id:'1', name: 'testName2', role: 'Other'},
+            {candidate_id: '1', list_id:'1', name: 'testName', role: 'Presidente'},
+            {candidate_id: '2', list_id:'1', name: 'testName2', role: 'Otro'},
           ]);
         });
   
@@ -38,7 +38,7 @@ describe('Testing candidates functions', () => {
         const res = {};
         tracker.on('query', function sendResult(query) {
           query.response([
-            {candidate_id: '1', list_id:'1', name: 'testName', role: 'President'},
+            {candidate_id: '1', list_id:'1', name: 'testName', role: 'Presidente'},
           ]);
         });
   
@@ -49,13 +49,13 @@ describe('Testing candidates functions', () => {
     test('testGetCandidatesByRoles', async () => {
         const req = {
             query: {
-                role: 'President'
+                role: 'Presidente'
             }
         };
         const res = {};
         tracker.on('query', function sendResult(query) {
           query.response([
-            {candidate_id: '1', list_id:'1', name: 'testName', role: 'President'},
+            {candidate_id: '1', list_id:'1', name: 'testName', role: 'Presidente'},
           ]);
         });
   
@@ -72,7 +72,7 @@ describe('Testing candidates functions', () => {
         const res = {};
         tracker.on('query', function sendResult(query) {
           query.response([
-            {candidate_id: '1', list_id:'1', name: 'testName', role: 'President'},
+            {candidate_id: '1', list_id:'1', name: 'testName', role: 'Presidente'},
           ]);
         });
   
@@ -89,7 +89,7 @@ describe('Testing candidates functions', () => {
         const res = {};
         tracker.on('query', function sendResult(query) {
           query.response([
-            {candidate_id: '1', list_id:'1', name: 'testName', role: 'President'},
+            {candidate_id: '1', list_id:'1', name: 'testName', role: 'Presidente'},
           ]);
         });
   
@@ -100,14 +100,14 @@ describe('Testing candidates functions', () => {
     test('testGetCandidatesFromListIDAndRole', async () => {
         const req = {
             query: {
-                role: 'President',
+                role: 'Presidente',
                 list_id: '1',
             }
         };
         const res = {};
         tracker.on('query', function sendResult(query) {
           query.response([
-            {candidate_id: '1', list_id:'1', name: 'testName', role: 'President'},
+            {candidate_id: '1', list_id:'1', name: 'testName', role: 'Presidente'},
           ]);
         });
   
@@ -124,7 +124,7 @@ describe('Testing candidates functions', () => {
               candidate_id: '1',
               list_id: '1',
               name: 'testName',
-              role: 'President',
+              role: 'Presidente',
             },
           };
           const res = {};
@@ -141,7 +141,7 @@ describe('Testing candidates functions', () => {
             body: {
               list_id: '1',
               name: 'testName',
-              role: 'President',
+              role: 'Presidente',
             },
           };
           const res = {};
@@ -158,7 +158,7 @@ describe('Testing candidates functions', () => {
             body: {
               candidate_id: '1',
               name: 'testName',
-              role: 'President',
+              role: 'Presidente',
             },
           };
           const res = {};
@@ -175,7 +175,7 @@ describe('Testing candidates functions', () => {
             body: {
               candidate_id: '1',
               list_id: '1',
-              role: 'President',
+              role: 'Presidente',
             },
           };
           const res = {};
@@ -204,7 +204,7 @@ describe('Testing candidates functions', () => {
     test('testCreateCandidateFailsDuplicated', async () => {
         tracker.on('query', function sendResult(query) {
             query.response([
-                {candidate_id: '1', list_id:'1', name: 'testName', role: 'President'},
+                {candidate_id: '1', list_id:'1', name: 'testName', role: 'Presidente'},
             ]);
           });
           const req = {
@@ -212,7 +212,7 @@ describe('Testing candidates functions', () => {
               candidate_id: '1',
               list_id: '1',
               name: 'testName',
-              role: 'President',
+              role: 'Presidente',
             },
           };
           const res = {};

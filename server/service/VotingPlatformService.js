@@ -64,6 +64,28 @@ class VotingPlatformService {
             description: newRoom.description
         }
     }
+
+    async vote(roomId, listId, userId) {
+        const instance = await this._getContractInstance();
+        const response = await instance.vote(parseInt(roomId), 0, parseInt(listId), userId, { from: this.account })
+    }
+
+    async getVotesByRooms(roomId) {
+        const instance = await this._getContractInstance();
+        const intRoomId = parseInt(roomId)
+        const votesResult = await instance.getProposalVotes(intRoomId,  { from: this.account })
+        console.log("////////// Vote Recount Data ///////")
+        console.log(votesResult)
+        console.log("////////////////////")
+        console.log(votesResult.logs)
+        console.log("////////ARGS////////////")
+        console.log(votesResult.logs[0].args)
+    }
+
+    async addListsToRooms(roomId, listArray) {
+        const instance = await this._getContractInstance();
+        await instance.setRoomLists(roomId, listArray,  { from: this.account })
+    }
 }
 
 module.exports = new VotingPlatformService();

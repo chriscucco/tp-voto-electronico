@@ -16,56 +16,19 @@ function MyRooms() {
         navigate('/login');
       }
 
-      // const data = await roomsRequest.json()
-      // console.log(data)
-      // setRooms(data)
-
-      const data = testingData();
-      setRooms(data);
-
-      // await fetchRoom(1)
+      let roomsRequest = await fetch('/my_rooms/rooms')
+      const data = await roomsRequest.json()
+      setRooms(data)
     }
     init();
   }, [navigate]);
   
-  const fetchRoom = async (roomId) => {
-    //console.log("Fetching room")
-    const response = await fetch(`http://localhost:8001/rooms/${roomId}`);
-    const room = await response.json()
-    //console.log(room);
-  }
-
-  const testingData = () => {
-    return [
-      {
-        id: 1,
-        title: 'Room 1',
-        description: 'Room 1 description'
-      },
-      {
-        id: 2,
-        title: 'Room 2',
-        description: 'Room 2 description'
-      },
-      {
-        id: 3,
-        title: 'Room 3',
-        description: 'Room 3 description'
-      },
-      {
-        id: 4,
-        title: 'Room 4',
-        description: 'Room 4 description'
-      }
-    ]
-  }
-  
-  const createCard = (room) =>
+  const createCard = (room) => 
     <Card 
         key={room.id}
         title={room.title} 
         bordered={true} 
-        actions={[<Button onClick={() => goToRoomDetail(room.id)}> Vote!</Button>]}
+        actions={[<Button onClick={() => goToRoomDetail(room.room_id)}> {room.actionName}</Button>]}
       >
         {room.description}
       </Card>

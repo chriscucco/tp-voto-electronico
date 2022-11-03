@@ -57,6 +57,7 @@ const addCandidateRoute = require('../pages/add_candidate')
 const addVotersRoute = require('../pages/add_voters')
 const addListToRoomRoute = require('../pages/add_list_to_room')
 const roomListsRoute = require('../pages/roomLists')
+const voteRoute = require('../pages/vote')
 
 
 router.use('/home', homeRoute)
@@ -79,7 +80,7 @@ router.use('/rooms', roomsRoute)
 router.use('/add_voters', addVotersRoute)
 router.use('/add_list_to_room', addListToRoomRoute)
 router.use('/roomLists', roomListsRoute)
-
+router.use('/vote', voteRoute)
 
 
 app.use(router);

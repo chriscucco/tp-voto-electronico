@@ -99,7 +99,7 @@ contract VotingPlatform {
 
     // Voting function. TODO - Check for duplicate votes UID? Refactor vote to (Candidate, UID) to avoid mapping?
     function vote(uint32 roomId, uint32 voteUid, uint list, string calldata userId) public 
-        onlyOwner onlyOnExsistantRooms(roomId) voteIsValid(roomId, userId, list)
+        onlyOwner
     {
         Room storage room = rooms[roomId];
         room.participants.push(userId);

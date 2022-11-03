@@ -1,6 +1,6 @@
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { Form, Input, Button, Row, Col, Typography } from 'antd';
+import { Form, Input, Button, Row, Col, Typography, Select } from 'antd';
 import { buttonWidth, topMargin } from '../../CommonStyles';
 
 function AddCandidate() {
@@ -87,7 +87,11 @@ function AddCandidate() {
               rules={[{ required: true, message: 'Agregar el rol del candidato' }]}
               style={{ width: buttonWidth }}
             >
-              <Input />
+              <Select>
+                <Select.Option value="Presidente">Presidente</Select.Option>
+                <Select.Option value="VicePresidente">VicePresidente</Select.Option>
+                <Select.Option value="Otro">Otro</Select.Option>
+              </Select>
             </Form.Item>
 
             <Form.Item>

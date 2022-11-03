@@ -14,6 +14,8 @@ import AddCandidate from './pages/add_candidate/AddCandidate';
 import AddVoters from './pages/add_voters/AddVoters';
 import AddListToRoom from './pages/add_list_to_room/AddListToRoom'
 import RoomDetail from './pages/room_detail/RoomDetail'
+import RoomInfo from './pages/room_info/RoomInfo'
+import RoomVoting from './pages/room_voting/RoomVoting'
 import reportWebVitals from './reportWebVitals';
 import 'react-app-polyfill/stable';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -36,6 +38,8 @@ root.render(
         <Route path='add_voters' element={ <AddVoters /> } />
         <Route path='add_list_to_room' element={ <AddListToRoom /> } />
         <Route path='room_detail/:roomId' element={ <RoomDetail /> } />
+        <Route path='room_info/:roomId' element={ <RoomInfo /> } />
+        <Route path='room_vote/:roomId/list/:listId' element={ <RoomVoting /> } />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

@@ -1,4 +1,5 @@
 const {createRoomList, getAllRoomLists, getInfoByRoomAndListId, getRoomByListId, getListsByRoomId, getListsData, getRoomById} = require('../../dao/interface')
+const votingService = require('../../server/service/VotingPlatformService')
 
 
 exports.getAllRoomLists = async(req, res) => {
@@ -87,6 +88,10 @@ exports.addListsToRoom = async(req, res) => {
     for (const listId of listsArray) {
         await createRoomList(room_id, listId)
     }
+
+    const addListResponse = await votingService.addListsToRooms(room_id, listsArray) 
+    console.log("/////////ROOMLIST///////////////")
+    console.log(addListResponse)
 
     return {'valid': true, 'message': 'success', status: 200}
 }

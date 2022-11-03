@@ -24,6 +24,9 @@ exports.createRoom = async(req, res) => {
     const init_date = dates[0]
     const end_date = dates[1]
     const resp = await votingService.createRoom(description, 'description')
+    console.log("//////ADD ROOM/////////////")
+    console.log(resp)
+    console.log("///////////////////")
     const response = await createRoom(resp.id, init_date, end_date, description)
     return {'response': response, 'valid': true, status: 200}
 }
