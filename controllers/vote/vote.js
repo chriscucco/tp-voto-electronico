@@ -1,6 +1,7 @@
 const {getRoomAndUser, getInfoByRoomAndListId, getUserIDAndRoomFromRegisteredVotes, getRoomById, registerUserAndRoom} = require('../../dao/interface');
 const {getRoomProcessedData} = require('../my_rooms/my_rooms')
-const votingService = require('../../server/service/VotingPlatformService')
+const votingService = require('../../server/service/VotingPlatformService');
+const { keyboard } = require('@testing-library/user-event/dist/keyboard');
 
 
 exports.processVote = async(req, res) => {
@@ -42,6 +43,25 @@ exports.processVote = async(req, res) => {
 exports.countVotes = async(req, res) => {
     const roomId = req.params.roomId ? req.params.roomId : ""
     const response = await votingService.getVotesByRooms(roomId)
+
+    const totalVotes = response.length
+    var groupedVotes = {}
+    for (r of response) {
+        const listVoted = r.words[0]
+        groupedVotes[listVoted] = groupedVotes[listVoted] || 0
+        groupedVotes[listVoted] += 1
+    }
+
+    let votes = []
+    let groupedVotesMap = new Map(Object.entries(groupedVotes))
+    for (var r of groupedVotesMap.entries()) {
+        const vote = {'listId': r[0], 'votes': r[1], 'ratio': (r[1] / totalVotes)}
+        votes.push(vote)
+    }
+
+    votes.sort((a, b) => b.votes - a.votes )
+    console.log("///// VOTOS //////")
+    console.log(votes)
     // COMPLETAR
-    return {'data': 'ok', status: 200}
+    return {'data': votes, status: 200}
 }

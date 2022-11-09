@@ -107,6 +107,24 @@ const {processPassword} = require('../controllers/users/commons');
         await database('voters').insert({room_id: '5', user_id: 'fcerquetti'})
         await database('voters').insert({room_id: '5', user_id: 'test1'})
         await database('voters').insert({room_id: '5', user_id: 'test2'})
+
+        await database('voters').insert({room_id: '9', user_id: 'ccucco'})
+        await database('voters').insert({room_id: '9', user_id: 'fcerquetti'})
+        await database('voters').insert({room_id: '9', user_id: 'test1'})
+        await database('voters').insert({room_id: '9', user_id: 'test2'})
+        await database('voters').insert({room_id: '9', user_id: 'test3'})
+
+        await database('voters').insert({room_id: '10', user_id: 'ccucco'})
+        await database('voters').insert({room_id: '10', user_id: 'fcerquetti'})
+        await database('voters').insert({room_id: '10', user_id: 'test1'})
+        await database('voters').insert({room_id: '10', user_id: 'test2'})
+        await database('voters').insert({room_id: '10', user_id: 'test3'})
+
+        await database('voters').insert({room_id: '11', user_id: 'ccucco'})
+        await database('voters').insert({room_id: '11', user_id: 'fcerquetti'})
+        await database('voters').insert({room_id: '11', user_id: 'test1'})
+        await database('voters').insert({room_id: '11', user_id: 'test2'})
+        await database('voters').insert({room_id: '11', user_id: 'test3'})
         console.log('Finished voters seeds!')
 
         //ROOMS SEEDS
@@ -115,6 +133,9 @@ const {processPassword} = require('../controllers/users/commons');
         await database('rooms').insert({room_id: '3', init_date: '2022-09-17T19:18', end_date:'2022-12-17T19:18', description: 'Elección 3'})
         await database('rooms').insert({room_id: '4', init_date: '2022-09-17T19:18', end_date:'2022-12-17T19:18', description: 'Elección 4'})
         await database('rooms').insert({room_id: '5', init_date: '2022-09-17T19:18', end_date:'2022-12-17T19:18', description: 'Elección 5'})
+        await database('rooms').insert({room_id: '9', init_date: '2022-09-17T19:18', end_date:'2022-12-17T19:18', description: 'Elección 9'})
+        await database('rooms').insert({room_id: '10', init_date: '2022-09-17T19:18', end_date:'2022-12-17T19:18', description: 'Elección 10'})
+        await database('rooms').insert({room_id: '11', init_date: '2022-09-17T19:18', end_date:'2022-12-17T19:18', description: 'Elección 11'})
         console.log('Finished rooms seeds!')
 
         //ROOMLISTS SEEDS
@@ -135,6 +156,21 @@ const {processPassword} = require('../controllers/users/commons');
         await database('roomLists').insert({room_id: '2', list_id: '4'})
         await database('roomLists').insert({room_id: '3', list_id: '4'})
         await database('roomLists').insert({room_id: '4', list_id: '4'})
+
+        await database('roomLists').insert({room_id: '9', list_id: '1'})
+        await database('roomLists').insert({room_id: '9', list_id: '2'})
+        await database('roomLists').insert({room_id: '9', list_id: '3'})
+        await database('roomLists').insert({room_id: '9', list_id: '4'})
+        await database('roomLists').insert({room_id: '10', list_id: '1'})
+        await database('roomLists').insert({room_id: '10', list_id: '2'})
+        await database('roomLists').insert({room_id: '10', list_id: '3'})
+        await database('roomLists').insert({room_id: '10', list_id: '4'})
+        await database('roomLists').insert({room_id: '11', list_id: '1'})
+        await database('roomLists').insert({room_id: '11', list_id: '2'})
+        await database('roomLists').insert({room_id: '11', list_id: '3'})
+        await database('roomLists').insert({room_id: '11', list_id: '4'})
+
+
         console.log('Finished roomLists seeds!')
 
         console.log('Finished running all seeds successfully!')

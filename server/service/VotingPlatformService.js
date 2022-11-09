@@ -74,12 +74,7 @@ class VotingPlatformService {
         const instance = await this._getContractInstance();
         const intRoomId = parseInt(roomId)
         const votesResult = await instance.getProposalVotes(intRoomId,  { from: this.account })
-        console.log("////////// Vote Recount Data ///////")
-        console.log(votesResult)
-        console.log("////////////////////")
-        console.log(votesResult.logs)
-        console.log("////////ARGS////////////")
-        console.log(votesResult.logs[0].args)
+        return votesResult.logs[0].args.votes
     }
 
     async addListsToRooms(roomId, listArray) {
