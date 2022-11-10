@@ -21,6 +21,7 @@
     "react-dom": "^18.1.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "4.0.3",
+    "react-spinners": "^0.13.6",
     "universal-cookie": "^4.0.4",
     "web-vitals": "^2.1.4",
     "web3": "^1.7.4"

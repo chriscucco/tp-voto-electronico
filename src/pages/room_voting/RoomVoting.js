@@ -1,11 +1,15 @@
 import { useEffect } from 'react';
-import {  Row} from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
-import { topMargin } from '../../CommonStyles';
+import { Col, Row, Typography} from 'antd';
+import { topMargin, buttonWidth } from '../../CommonStyles';
 
-function MyRooms() {
+
+function RoomVoting() {
     const { roomId, listId } = useParams();
     const navigate = useNavigate();
+
+    const { Title } = Typography;
+
 
     useEffect(() => {
         const init = async () => {
@@ -16,12 +20,10 @@ function MyRooms() {
 
             const roomInfoRequest = await fetch(`/vote/create/${roomId}/list/${listId}`)
             if (roomInfoRequest.status !== 200) {
-                navigate('/vote-error')
+                navigate('/vote_error')
             } else {
-                navigate('/vote-success')
+                navigate('/vote_success')
             }
-
-            //let data = await roomInfoRequest.json()
         }
         init();
     }, [navigate]);
@@ -29,10 +31,12 @@ function MyRooms() {
     return (
     <div>
       <Row gutter={[24, 24]} style={{ marginTop: topMargin }}>
-        <p>Procesando el voto...</p>
-      </Row>    
+        <Col span={24} align='middle'>
+          <Title level={2}>Procesando el voto...</Title>
+        </Col>
+      </Row>  
     </div>
   );
 }
 
-export default MyRooms;
+export default RoomVoting;
