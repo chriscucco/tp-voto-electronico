@@ -23,12 +23,20 @@ exports.createRoom = async(req, res) => {
 
     const init_date = dates[0]
     const end_date = dates[1]
+    const initDate = processDate(init_date)
+    const endDate = processDate(end_date)
+
     const resp = await votingService.createRoom(description, 'description')
     console.log("//////ADD ROOM/////////////")
     console.log(resp)
     console.log("///////////////////")
-    const response = await createRoom(resp.id, init_date, end_date, description)
+    const response = await createRoom(resp.id, initDate, endDate, description)
     return {'response': response, 'valid': true, status: 200}
+}
+
+const processDate = (date) => {
+    const dates = date.split(':')
+    return dates[0]+':'+dates[1]
 }
 
 const validateParams = (dates, description) => {

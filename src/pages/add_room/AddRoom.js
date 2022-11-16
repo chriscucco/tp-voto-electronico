@@ -70,7 +70,7 @@ function AddRoom() {
               name="dates"
               style={{ width: buttonWidth }}
             >
-              <RangePicker />
+              <RangePicker showTime />
             </Form.Item>
             <Form.Item>
               <Button style={{ width: buttonWidth }} htmlType="submit">
