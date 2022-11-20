@@ -31,10 +31,10 @@ function Home() {
           <Title level={3}>Seleccionar la forma de ingreso</Title>
         </Col>
         <Col span={24} align='middle'>
-          <Button style={{ width: buttonWidth }} onClick={() => navigate('/my_rooms')}>Modo Usuario</Button>
+          <Button type='primary' style={{ width: buttonWidth }} onClick={() => navigate('/my_rooms')}>Modo Usuario</Button>
         </Col>
         <Col span={24} align='middle'>
-          <Button style={{ width: buttonWidth }} onClick={() => navigate('/admin')}>Modo Administrador</Button>
+          <Button type='primary' style={{ width: buttonWidth }} onClick={() => navigate('/admin')}>Modo Administrador</Button>
         </Col>
       </Row>
     </div>

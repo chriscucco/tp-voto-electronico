@@ -10,10 +10,10 @@ function App() {
     <div>
       <Row gutter={[24, 24]} align='middle' style={{ marginTop: topMargin }}>
         <Col span={24} align='middle'>
-          <Button style={{ width: buttonWidth }} onClick={() => navigate('/login')}>Ingresar</Button>
+          <Button type="primary" style={{ width: buttonWidth }} onClick={() => navigate('/login')}>Ingresar</Button>
         </Col>
         <Col span={24} align='middle'>
-          <Button style={{ width: buttonWidth }} onClick={() => navigate('/users')}>Crear cuenta</Button>
+          <Button type="primary" style={{ width: buttonWidth }} onClick={() => navigate('/users')}>Crear cuenta</Button>
         </Col>
       </Row>
     </div>

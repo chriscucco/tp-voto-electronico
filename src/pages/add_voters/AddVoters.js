@@ -1,23 +1,10 @@
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Form, Input, Button, Row, Col, Typography } from 'antd';
-import { buttonWidth, topMargin } from '../../CommonStyles';
+import { buttonWidth, topMargin, style } from '../../CommonStyles';
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-
-const style = {
-  align: 'center',
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
 
 function AddVoters() {
   let [searchParams, setSearchParams] = useSearchParams();
@@ -157,7 +144,9 @@ function AddVoters() {
                           </Col>
                         ) : (
                           <Col span={24} align='middle'>
-                            <Button type='primary' 
+                            <Button 
+                              type="primary" 
+                              style={{ width: '30vw' }}
                               onClick={() => handleClose()}>
                               {buttonText}
                             </Button>
