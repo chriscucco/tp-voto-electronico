@@ -2,10 +2,12 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Form, Input, Button, Row, Col, Typography } from 'antd';
 import { buttonWidth, topMargin } from '../../CommonStyles';
+import ClipLoader from 'react-spinners/ClipLoader';
 
 function AddListToRoom() {
 
   let [searchParams, setSearchParams] = useSearchParams();
+  const [isLoading, setLoading] = useState(false);
   const [msg, setMsg] = useState();
   const navigate = useNavigate();
 
@@ -37,6 +39,7 @@ function AddListToRoom() {
   }, [searchParams, navigate]);
 
   const onFinish = (values) => {
+    setLoading(true)
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -94,6 +97,15 @@ function AddListToRoom() {
         <Col span={24} align='middle'>
           <Button style={{ width: buttonWidth }} onClick={() => navigate('/admin')}>Volver</Button>
         </Col>
+        {
+            isLoading ? (
+                <Col span={24} align='middle'>
+                  <ClipLoader color={'#505050'} size={120} />
+                  Agregando lista/s a acto electoral...
+                </Col>
+
+            ) : ""
+        }
       </Row>
     </div>
   );

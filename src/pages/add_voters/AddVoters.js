@@ -2,12 +2,44 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Form, Input, Button, Row, Col, Typography } from 'antd';
 import { buttonWidth, topMargin } from '../../CommonStyles';
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+
+const style = {
+  align: 'center',
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
 function AddVoters() {
-
   let [searchParams, setSearchParams] = useSearchParams();
   const [msg, setMsg] = useState();
+  const [modalTitle, setModalTitle] = useState()
+  const [redirectUrl, setRedirectUrl] = useState();
+  const [showRedirectButton, setShowRedirectButton] = useState(false);
+  const [buttonText, setButtonText] = useState();
+  const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleRedirect = () => {
+    navigate(redirectUrl)
+  }
 
   const { Title } = Typography;
 
@@ -22,16 +54,6 @@ function AddVoters() {
       if (data.role !== 'admin') {
         navigate('/my_rooms');
       }
-
-      let value = searchParams.get('retry')
-      if (value != null && value === "true") {
-        let retryMessage = searchParams.get('msg')
-        if (retryMessage) {
-          setMsg('Error: ' + retryMessage)
-        } else {
-          setMsg('Error en los datos ingresados')
-        }
-      }
     }
     init();
   }, [searchParams, navigate]);
@@ -44,18 +66,35 @@ function AddVoters() {
     };
     fetch('/voters/add', requestOptions).then( function(response) {
       if (response.ok) {
-        window.location.href = "/admin"
         return undefined
       } else {
         return response.json()
       }
     }).then( function(data) {
       if (data !== undefined) {
-        window.location.href = "/add_voters?retry=true&msg=" + data
+        setMsg(data)
+        setModalTitle("Error al procesar la solicitud")
+        setButtonText("Reintentar")
+        setShowRedirectButton(false)
+        setShowModal(true)
+        handleOpen()
       } else {
-        window.location.href = "/admin"
+        setMsg("Todos los votantes fueron agregados correctamente al acto electoral")
+        setRedirectUrl("/admin")
+        setModalTitle("¡Votantes agregados!")
+        setShowRedirectButton(true)
+        setButtonText("Continuar")
+        setShowModal(true)
+        handleOpen()
       }
-    }).catch((err) => {  window.location.href = "/add_voters?retry=true"})
+    }).catch((err) => {  
+      setModalTitle("Error al procesar la solicitud")
+      setMsg("Error en el servicio de agregado de votantes a actos electorales")
+      setButtonText("Reintentar")
+      setShowRedirectButton(false)
+      setShowModal(true)
+      handleOpen()
+    })
   };
 
   return (
@@ -94,6 +133,42 @@ function AddVoters() {
         <Col span={24} align='middle'>
           <Button style={{ width: buttonWidth }} onClick={() => navigate('/admin')}>Volver</Button>
         </Col>
+        {
+            showModal ? (
+                <Col span={24} align='middle'>
+                  <Modal
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="parent-modal-title"
+                    aria-describedby="parent-modal-description"
+                  >
+                    <Box sx={{ ...style, width: 400, alignItems:'center', alignContent:'center', alignSelf:'center' }}>
+                      <h2 align='center' id="parent-modal-title">{modalTitle}</h2>
+                      <p align='center' id="parent-modal-description">
+                        {msg}
+                      </p>
+                      {
+                        showRedirectButton ? (
+                          <Col span={24} align='middle'>
+                            <Button type='primary' 
+                              onClick={() => handleRedirect()}>
+                              {buttonText}
+                            </Button>
+                          </Col>
+                        ) : (
+                          <Col span={24} align='middle'>
+                            <Button type='primary' 
+                              onClick={() => handleClose()}>
+                              {buttonText}
+                            </Button>
+                          </Col>
+                        )
+                      }
+                    </Box>
+                  </Modal>
+                </Col>
+            ) : ""
+        }
       </Row>  
     </div>
   );

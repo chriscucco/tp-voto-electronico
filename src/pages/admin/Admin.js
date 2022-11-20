@@ -37,19 +37,19 @@ function Admin() {
         </Col>
 
         <Col span={24} align='middle'>
-          <Button style={{ width: buttonWidth }} onClick={() => navigate('/add_candidate')}>Crear nuevo candidato</Button>
+          <Button type='primary' style={{ width: buttonWidth }} onClick={() => navigate('/add_candidate')}>Crear nuevo candidato</Button>
         </Col>
 
         <Col span={24} align='middle'>
-          <Button style={{ width: buttonWidth }} onClick={() => navigate('/add_voters')}>Agregar votantes a acto electoral</Button>
+          <Button type='primary' style={{ width: buttonWidth }} onClick={() => navigate('/add_voters')}>Agregar votantes a acto electoral</Button>
         </Col>
 
         <Col span={24} align='middle'>
-          <Button style={{ width: buttonWidth }} onClick={() => navigate('/add_list_to_room')}>Agregar listas a acto electoral</Button>
+          <Button type='primary' style={{ width: buttonWidth }} onClick={() => navigate('/add_list_to_room')}>Agregar listas a acto electoral</Button>
         </Col>
 
         <Col span={24} align='middle'>
-          <Button style={{ width: buttonWidth }} onClick={() => navigate('/home')}>Volver</Button>
+          <Button type='primary' style={{ width: buttonWidth }} onClick={() => navigate('/home')}>Volver</Button>
         </Col>
       </Row>
     </>
