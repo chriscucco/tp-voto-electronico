@@ -27,7 +27,7 @@ function VoteError() {
           <Title level={2}>Hubo un error al procesar el voto</Title>
         </Col>
         <Col span={24} align='middle'>
-          <Button style={{ width: buttonWidth }} onClick={() => navigate('/home')}>Volver</Button>
+          <Button type='primary' style={{ width: buttonWidth }} onClick={() => navigate('/home')}>Volver</Button>
         </Col>
       </Row>  
     </div>

@@ -4,8 +4,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { topMargin, buttonWidth } from '../../CommonStyles';
 
 function MyRooms() {
-    
-    // const [vote, setVote] = useState('');
     const [lists, setLists] = useState([]);
     const { roomId } = useParams();
     const navigate = useNavigate();
@@ -14,16 +12,6 @@ function MyRooms() {
     }
 
      const { Title } = Typography;
-
-    // const onChangeRadio = (e) => setVote(e.target.value);
-
-    // const hasSelectedVote = () => vote !== ''
-
-    // let roomData = {
-    //     id: roomId,
-    //     title: `¡Emití tu voto!`,
-    //     lists: ['List1', 'List2', 'List3']
-    // }
 
     useEffect(() => {
         const init = async () => {
@@ -59,7 +47,7 @@ function MyRooms() {
         key={list.list_id}
         title={list.name} 
         bordered={true} 
-        actions={[<Button onClick={() => emitVote(list.list_id)}> Votar</Button>]}
+        actions={[<Button type='primary' onClick={() => emitVote(list.list_id)}> Votar</Button>]}
     >
     {
         list.candidates.president.map( candidate =>
@@ -92,34 +80,11 @@ function MyRooms() {
           )
         }
         <Col span={24} align='middle'>
-          <Button style={{ width: '30vw' }} onClick={() => navigate('/home')}>Volver</Button>
+          <Button type='primary' style={{ width: '30vw' }} onClick={() => navigate('/home')}>Volver</Button>
         </Col>
       </Row>    
     </div>
   );
 }
-  /*return (
-        <div>
-            <Row gutter={[24, 24]} style={{ marginTop: topMargin }}>
-                <Col span={24} align='middle'>
-                    <Title>{roomData.title}</Title>
-                </Col>
-                <Col span={24} align='middle'>
-                    <Title level={4}>Listas:</Title>
-                </Col>
-                <Col span={24} align='middle'>
-                    <Radio.Group onChange={onChangeRadio}>
-                        {roomData.lists.map(list => <Radio key={list} value={list}>{list}</Radio>)}
-                    </Radio.Group>
-                </Col>
-                <Col span={24} align='middle'>
-                    <Button disabled={!hasSelectedVote()} style={{ width: buttonWidth }} onClick={() => console.log(vote)}>Votar</Button>
-                </Col>
-                <Col span={24} align='middle'>
-                    <Button style={{ width: buttonWidth }} onClick={() => navigate('/my_rooms')}>Volver</Button>
-                </Col>
-            </Row>
-         </div>
-  );*/
 
 export default MyRooms;

@@ -1,12 +1,15 @@
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Form, Input, Button, Row, Col, Typography, Select } from 'antd';
-import { buttonWidth, topMargin } from '../../CommonStyles';
+import { topMargin, buttonWidth, style } from '../../CommonStyles';
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
 
 function AddCandidate() {
-
   let [searchParams, setSearchParams] = useSearchParams();
-  const [msg, setMsg] = useState();
+  const [showModal, setShowModal] = useState(false);
+  const [success, setSuccess] = useState(false)
   const navigate = useNavigate();
 
   const { Title } = Typography;
@@ -22,14 +25,18 @@ function AddCandidate() {
       if (data.role !== 'admin') {
         navigate('/my_rooms');
       }
-
-      let value = searchParams.get('retry')
-      if (value != null && value === "true") {
-        setMsg('Error en los datos ingresados')
-      }
     }
     init();
   }, [searchParams, navigate]);
+
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const onFinish = (values) => {
     const requestOptions = {
@@ -39,11 +46,19 @@ function AddCandidate() {
     };
     fetch('/candidates', requestOptions).then( function(response) {
       if (response.ok){
-        window.location.href = "/admin"
+        setShowModal(true)
+        setSuccess(true)
+        handleOpen()
       } else {
-        window.location.href = "/add_candidate?retry=true"
+        setShowModal(true)
+        setSuccess(false)
+        handleOpen()
       }
-    }).catch((err) => {  window.location.href = "/add_candidate?retry=true" })
+    }).catch((err) => {  
+      setShowModal(true)
+      setSuccess(false)
+      handleOpen()
+    })
   };
 
   return (
@@ -102,8 +117,58 @@ function AddCandidate() {
           </Form> 
         </Col>
         <Col span={24} align='middle'>
-          <Button style={{ width: buttonWidth }} onClick={() => navigate('/admin')}>Volver</Button>
+          <Button type='primary' style={{ width: buttonWidth }} onClick={() => navigate('/admin')}>Volver</Button>
         </Col>
+        {
+        showModal ? ( success ? (
+          <Col span={24} align='middle'>
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="parent-modal-title"
+              aria-describedby="parent-modal-description"
+            >
+              <Box sx={{ ...style, width: 400, alignItems:'center', alignContent:'center', alignSelf:'center' }}>
+                <h2 align='center' id="parent-modal-title">¡Candidato creado!</h2>
+                <p align='center' id="parent-modal-description">
+                  El candidato fue creado correctamente y agregado a la lista.
+                </p>
+                {
+                  <Col span={24} align='middle'>
+                    <Button type='primary' onClick={() => navigate('/admin')}>
+                      Continuar
+                    </Button>
+                  </Col>
+                }
+              </Box>
+            </Modal>
+          </Col>
+        ) : (
+          <Col span={24} align='middle'>
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="parent-modal-title"
+              aria-describedby="parent-modal-description"
+            >
+              <Box sx={{ ...style, width: 400, alignItems:'center', alignContent:'center', alignSelf:'center' }}>
+                <h2 align='center' id="parent-modal-title">Error</h2>
+                <p align='center' id="parent-modal-description">
+                  Error en los datos ingresados, revisar y volver a intentarlo
+                </p>
+                {
+                  <Col span={24} align='middle'>
+                    <Button type='primary' onClick={() => handleClose()}>
+                      Reintentar
+                    </Button>
+                  </Col>
+                }
+              </Box>
+            </Modal>
+          </Col>
+          )
+        ) : ""
+      }
       </Row>
     </div>
   );

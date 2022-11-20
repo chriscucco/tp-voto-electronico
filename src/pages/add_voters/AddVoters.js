@@ -118,7 +118,7 @@ function AddVoters() {
           </Form>  
         </Col>
         <Col span={24} align='middle'>
-          <Button style={{ width: buttonWidth }} onClick={() => navigate('/admin')}>Volver</Button>
+          <Button type='primary' style={{ width: buttonWidth }} onClick={() => navigate('/admin')}>Volver</Button>
         </Col>
         {
             showModal ? (
@@ -146,7 +146,6 @@ function AddVoters() {
                           <Col span={24} align='middle'>
                             <Button 
                               type="primary" 
-                              style={{ width: '30vw' }}
                               onClick={() => handleClose()}>
                               {buttonText}
                             </Button>

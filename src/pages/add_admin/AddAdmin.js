@@ -1,12 +1,17 @@
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { Form, Input, Button, Row, Col, Typography } from 'antd';
-import { buttonWidth, topMargin } from '../../CommonStyles';
+import { Form, Input, Button, Row, Col, Typography} from 'antd';
+import { topMargin, buttonWidth, style } from '../../CommonStyles';
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+
 
 function AddAdmin() {
 
   let [searchParams, setSearchParams] = useSearchParams();
-  const [msg, setMsg] = useState();
+  const [showModal, setShowModal] = useState(false);
+  const [success, setSuccess] = useState(false)
   const navigate = useNavigate();
 
   const { Title } = Typography;
@@ -22,14 +27,19 @@ function AddAdmin() {
       if (data.role !== 'admin') {
         navigate('/my_rooms');
       }
-
-      let value = searchParams.get('retry')
-      if (value != null && value === "true") {
-        setMsg('Usuario invalido')
-      }
     }
     init();
   }, [searchParams, navigate]);
+
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
 
   const onFinish = (values) => {
     const requestOptions = {
@@ -39,11 +49,19 @@ function AddAdmin() {
     };
     fetch('/roles/add', requestOptions).then( function(response) {
       if (response.ok){
-        window.location.href = "/admin"
+        setShowModal(true)
+        setSuccess(true)
+        handleOpen()
       } else {
-        window.location.href = "/add_admin?retry=true"
+        setShowModal(true)
+        setSuccess(false)
+        handleOpen()
       }
-    }).catch((err) => {  window.location.href = "/add_admin?retry=true" })
+    }).catch((err) => {  
+      setShowModal(true)
+      setSuccess(false)
+      handleOpen()
+    })
   };
   
   return (
@@ -63,15 +81,64 @@ function AddAdmin() {
               <Input />
             </Form.Item>
             <Form.Item>
-              <Button style={{ width: buttonWidth }} htmlType="submit">
+              <Button type='primary' style={{ width: buttonWidth }} htmlType="submit">
                 Enviar
               </Button>
             </Form.Item>
           </Form>  
         </Col>
         <Col span={24} align='middle'>
-          <Button style={{ width: buttonWidth }} onClick={() => navigate('/admin')}>Volver</Button>
+          <Button type='primary' style={{ width: buttonWidth }} onClick={() => navigate('/admin')}>Volver</Button>
         </Col>
+        {
+          showModal ? ( success ? (
+            <Col span={24} align='middle'>
+              <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="parent-modal-title"
+                aria-describedby="parent-modal-description"
+              >
+                <Box sx={{ ...style, width: 400, alignItems:'center', alignContent:'center', alignSelf:'center' }}>
+                  <h2 align='center' id="parent-modal-title">¡Usuario modificado!</h2>
+                  <p align='center' id="parent-modal-description">
+                    Se dieron permisos de administrador al usuario solicitado.
+                  </p>
+                  {
+                    <Col span={24} align='middle'>
+                      <Button type='primary' onClick={() => navigate('/admin')}>
+                        Continuar
+                      </Button>
+                    </Col>
+                  }
+                </Box>
+              </Modal>
+            </Col>
+          ) : (
+            <Col span={24} align='middle'>
+              <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="parent-modal-title"
+                aria-describedby="parent-modal-description"
+              >
+                <Box sx={{ ...style, width: 400, alignItems:'center', alignContent:'center', alignSelf:'center' }}>
+                  <h2 align='center' id="parent-modal-title">Error</h2>
+                  <p align='center' id="parent-modal-description">
+                    Error en los datos ingresados, usuario inválido.
+                  </p>
+                  {
+                    <Col span={24} align='middle'>
+                      <Button type='primary' onClick={() => handleClose()}>
+                        Reintentar
+                      </Button>
+                    </Col>
+                  }
+                </Box>
+              </Modal>
+            </Col>
+          )) : ""
+        }
       </Row>
     </div>
   );

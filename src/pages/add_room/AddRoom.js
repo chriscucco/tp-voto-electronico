@@ -1,14 +1,19 @@
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Form, DatePicker, Button, Input, Typography, Row, Col } from 'antd';
-import { buttonWidth, topMargin } from '../../CommonStyles';
 import ClipLoader from 'react-spinners/ClipLoader';
+import { topMargin, buttonWidth, style } from '../../CommonStyles';
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
 
 function AddRoom() {
 
   let [searchParams, setSearchParams] = useSearchParams();
   const [isLoading, setLoading] = useState(false);
-  const [msg, setMsg] = useState();
+  const [showModal, setShowModal] = useState(false);
+  const [success, setSuccess] = useState(false)
+  const [roomId, setRoomId] = useState()
   const navigate = useNavigate();
 
   const { Title } = Typography;
@@ -24,14 +29,18 @@ function AddRoom() {
       if (data.role !== 'admin') {
         navigate('/my_rooms');
       }
-
-      let value = searchParams.get('retry')
-      if (value != null && value === "true") {
-        setMsg('Error en los datos ingresados')
-      }
     }
     init();
   }, [searchParams, navigate]);
+
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const onFinish = (values) => {
     setLoading(true)
@@ -41,12 +50,30 @@ function AddRoom() {
       body: JSON.stringify(values)
     };
     fetch('/rooms', requestOptions).then( function(response) {
-      if (response.ok){
-        window.location.href = "/admin"
+      if (response.ok) {
+        return response.json()
       } else {
-        window.location.href = "/add_room?retry=true"
+        return undefined
       }
-    }).catch((err) => {  window.location.href = "/add_room?retry=true" })
+    }).then( function(data) {
+      if (data !== undefined) {
+        setRoomId(data)
+        setLoading(false)
+        setShowModal(true)
+        setSuccess(true)
+        handleOpen()
+      } else {
+        setLoading(false)
+        setShowModal(true)
+        setSuccess(false)
+        handleOpen()
+      }
+    }).catch((err) => {  
+      setLoading(false)
+      setShowModal(true)
+      setSuccess(false)
+      handleOpen() 
+    })
   };
 
 
@@ -76,23 +103,72 @@ function AddRoom() {
               <RangePicker showTime />
             </Form.Item>
             <Form.Item>
-              <Button style={{ width: buttonWidth }} htmlType="submit">
+              <Button type='primary' style={{ width: buttonWidth }} htmlType="submit">
                 Enviar
               </Button>
             </Form.Item>
           </Form> 
         </Col>
         <Col span={24} align='middle'>
-          <Button style={{ width: buttonWidth }} onClick={() => navigate('/admin')}>Volver</Button>
+          <Button  type='primary' style={{ width: buttonWidth }} onClick={() => navigate('/admin')}>Volver</Button>
         </Col>
         {
             isLoading ? (
                 <Col span={24} align='middle'>
                   <ClipLoader color={'#505050'} size={120} />
-                  Creando el acto electoral...
+                  <h4>Creando el acto electoral...</h4>
                 </Col>
 
             ) : ""
+        }
+        {
+          showModal ? ( success ? (
+            <Col span={24} align='middle'>
+              <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="parent-modal-title"
+                aria-describedby="parent-modal-description"
+              >
+                <Box sx={{ ...style, width: 400, alignItems:'center', alignContent:'center', alignSelf:'center' }}>
+                  <h2 align='center' id="parent-modal-title">¡Sala Creada!</h2>
+                  <p align='center' id="parent-modal-description">
+                    Se creo la sala correctamente con identificador de sala: <b>{roomId}</b>.
+                  </p>
+                  {
+                    <Col span={24} align='middle'>
+                      <Button type='primary' onClick={() => navigate('/admin')}>
+                        Continuar
+                      </Button>
+                    </Col>
+                  }
+                </Box>
+              </Modal>
+            </Col>
+          ) : (
+            <Col span={24} align='middle'>
+              <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="parent-modal-title"
+                aria-describedby="parent-modal-description"
+              >
+                <Box sx={{ ...style, width: 400, alignItems:'center', alignContent:'center', alignSelf:'center' }}>
+                  <h2 align='center' id="parent-modal-title">Error</h2>
+                  <p align='center' id="parent-modal-description">
+                    Error en la creación de la sala.
+                  </p>
+                  {
+                    <Col span={24} align='middle'>
+                      <Button type='primary' onClick={() => handleClose()}>
+                        Reintentar
+                      </Button>
+                    </Col>
+                  }
+                </Box>
+              </Modal>
+            </Col>
+          )) : ""
         }
       </Row>
     </div>

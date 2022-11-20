@@ -68,7 +68,7 @@ function MyRooms() {
             )
         }
         <Col span={24} align='middle'>
-          <Button style={{ width: '30vw' }} onClick={() => navigate('/home')}>Volver</Button>
+          <Button type='primary' style={{ width: '30vw' }} onClick={() => navigate('/home')}>Volver</Button>
         </Col>
       </Row>    
     </div>

@@ -1,14 +1,19 @@
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Form, Input, Button, Row, Col, Typography } from 'antd';
-import { buttonWidth, topMargin } from '../../CommonStyles';
 import ClipLoader from 'react-spinners/ClipLoader';
+import { topMargin, buttonWidth, style } from '../../CommonStyles';
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
 
 function AddListToRoom() {
 
   let [searchParams, setSearchParams] = useSearchParams();
-  const [isLoading, setLoading] = useState(false);
   const [msg, setMsg] = useState();
+  const [isLoading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [success, setSuccess] = useState(false)  
   const navigate = useNavigate();
 
   const { Title } = Typography;
@@ -24,19 +29,19 @@ function AddListToRoom() {
       if (data.role !== 'admin') {
         navigate('/my_rooms');
       }
-
-      let value = searchParams.get('retry')
-      if (value != null && value === "true") {
-        let retryMessage = searchParams.get('msg')
-        if (retryMessage) {
-          setMsg('Error: ' + retryMessage)
-        } else {
-          setMsg('Error en los datos ingresados')
-        }
-      }
     }
     init();
   }, [searchParams, navigate]);
+
+
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const onFinish = (values) => {
     setLoading(true)
@@ -47,18 +52,30 @@ function AddListToRoom() {
     };
     fetch('/roomLists/add', requestOptions).then( function(response) {
       if (response.ok) {
-        window.location.href = "/admin"
         return undefined
       } else {
         return response.json()
       }
     }).then( function(data) {
       if (data !== undefined) {
-        window.location.href = "/add_list_to_room?retry=true&msg=" + data
+        setMsg(data)
+        setLoading(false)
+        setShowModal(true)
+        setSuccess(false)
+        handleOpen()
       } else {
-        window.location.href = "/admin"
+        setLoading(false)
+        setShowModal(true)
+        setSuccess(true)
+        handleOpen()
       }
-    }).catch((err) => {  window.location.href = "/add_list_to_room?retry=true"})
+    }).catch((err) => {
+      setMsg("Error agregando listas al acto electoral")
+      setLoading(false)
+      setShowModal(true)
+      setSuccess(false)
+      handleOpen()  
+    })
   };
 
   return (
@@ -95,16 +112,65 @@ function AddListToRoom() {
           </Form>
         </Col>
         <Col span={24} align='middle'>
-          <Button style={{ width: buttonWidth }} onClick={() => navigate('/admin')}>Volver</Button>
+          <Button type='primary' style={{ width: buttonWidth }} onClick={() => navigate('/admin')}>Volver</Button>
         </Col>
         {
             isLoading ? (
                 <Col span={24} align='middle'>
                   <ClipLoader color={'#505050'} size={120} />
-                  Agregando lista/s a acto electoral...
+                  <h4>Agregando lista/s a acto electoral...</h4>
                 </Col>
 
             ) : ""
+        }
+        {
+          showModal ? ( success ? (
+            <Col span={24} align='middle'>
+              <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="parent-modal-title"
+                aria-describedby="parent-modal-description"
+              >
+                <Box sx={{ ...style, width: 400, alignItems:'center', alignContent:'center', alignSelf:'center' }}>
+                  <h2 align='center' id="parent-modal-title">¡Listas agregadas!</h2>
+                  <p align='center' id="parent-modal-description">
+                    Se agregaron correctamente las listas al acto electoral.
+                  </p>
+                  {
+                    <Col span={24} align='middle'>
+                      <Button type='primary' onClick={() => navigate('/admin')}>
+                        Continuar
+                      </Button>
+                    </Col>
+                  }
+                </Box>
+              </Modal>
+            </Col>
+          ) : (
+            <Col span={24} align='middle'>
+              <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="parent-modal-title"
+                aria-describedby="parent-modal-description"
+              >
+                <Box sx={{ ...style, width: 400, alignItems:'center', alignContent:'center', alignSelf:'center' }}>
+                  <h2 align='center' id="parent-modal-title">Error</h2>
+                  <p align='center' id="parent-modal-description">
+                    {msg}
+                  </p>
+                  {
+                    <Col span={24} align='middle'>
+                      <Button type='primary' onClick={() => handleClose()}>
+                        Reintentar
+                      </Button>
+                    </Col>
+                  }
+                </Box>
+              </Modal>
+            </Col>
+          )) : ""
         }
       </Row>
     </div>

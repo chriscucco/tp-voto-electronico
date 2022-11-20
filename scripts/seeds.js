@@ -136,6 +136,7 @@ const {processPassword} = require('../controllers/users/commons');
         await database('rooms').insert({room_id: '9', init_date: '2022-09-17T19:18', end_date:'2022-11-10T19:18', description: 'Elección 9'})
         await database('rooms').insert({room_id: '10', init_date: '2022-09-17T19:18', end_date:'2022-11-10T19:18', description: 'Elección 10'})
         await database('rooms').insert({room_id: '11', init_date: '2022-09-17T19:18', end_date:'2022-11-08T19:18', description: 'Elección 11'})
+        await database('rooms').insert({room_id: '14', init_date: '2022-09-17T19:18', end_date:'2022-12-08T19:18', description: 'Elección 14'})
         console.log('Finished rooms seeds!')
 
         //ROOMLISTS SEEDS

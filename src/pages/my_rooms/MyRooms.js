@@ -28,7 +28,7 @@ function MyRooms() {
         key={room.id}
         title={room.title} 
         bordered={true} 
-        actions={[<Button onClick={() => goToRoomDetail(room.room_id)}> {room.actionName}</Button>]}
+        actions={[<Button type='primary' onClick={() => goToRoomDetail(room.room_id)}> {room.actionName}</Button>]}
       >
         {room.description}
       </Card>
@@ -44,7 +44,7 @@ function MyRooms() {
           )
         }
         <Col span={24} align='middle'>
-          <Button style={{ width: '30vw' }} onClick={() => navigate('/home')}>Volver</Button>
+          <Button type='primary' style={{ width: '30vw' }} onClick={() => navigate('/home')}>Volver</Button>
         </Col>
       </Row>    
   </div>

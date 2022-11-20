@@ -11,7 +11,6 @@ function Users() {
   const { Title } = Typography;
   const [showModal, setShowModal] = useState(false);
   const [success, setSuccess] = useState(false)
-  const [msg, setMsg] = useState();
   const navigate = useNavigate();
 
   useEffect(() => {
