@@ -1,7 +1,8 @@
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Form, Input, Button, Row, Col, Typography } from 'antd';
-import { topMargin, buttonWidth, style } from '../../CommonStyles';
+import { topMargin, buttonWidth, style, smallButtonWidth, smallMaginTop, smallMarginRight, smallMarginLeft, logoWidth, smallMarginBottom } from '../../CommonStyles';
+import Logo from './../../logo.png'
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -63,9 +64,26 @@ function AddList() {
   };
 
 
+  const logout = () => {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({})
+    };
+    fetch('/logout', requestOptions).then( function(response) {
+      navigate('/')
+    }).catch((err) => {  
+      navigate('/')
+    })
+  };
+
   return (
     <div>
-      <Row gutter={[24, 24]} style={{ marginTop: topMargin }}>
+      <Col>
+          <Button  style={{ float: 'right', width: smallButtonWidth, marginTop: smallMaginTop, marginRight: smallMarginRight }} onClick={() => logout()}>Cerrar Sesión</Button>
+          <img  style={{float: 'left', marginTop: smallMaginTop, width: logoWidth, marginLeft: smallMarginLeft }} src={Logo} alt="Logo"/>
+      </Col>
+      <Row gutter={[24, 24]} style={{ marginTop: topMargin}}>
         <Col span={24} align='middle'>
           <Title level={2}>Ingresar los datos de la nueva lista</Title>
         </Col>
@@ -97,7 +115,7 @@ function AddList() {
           </Form> 
         </Col>
         <Col span={24} align='middle'>
-          <Button type='primary' style={{ width: buttonWidth }} onClick={() => navigate('/admin')}>Volver</Button>
+          <Button type='primary' style={{ width: buttonWidth, marginBottom: smallMarginBottom }} onClick={() => navigate('/admin')}>Volver</Button>
         </Col>
         {
         showModal ? ( success ? (

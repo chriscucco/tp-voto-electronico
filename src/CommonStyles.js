@@ -1,6 +1,12 @@
 module.exports = {
     buttonWidth: '50vw',
+    smallButtonWidth: '10vw',
+    smallMaginTop: '1vw',
+    smallMarginRight: '1vw',
+    smallMarginLeft: '1vw',
+    smallMarginBottom : '2vw',
     topMargin: '10vh',
+    logoWidth: '5vw',
     style : {
         align: 'center',
         position: 'absolute',

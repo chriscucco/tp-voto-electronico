@@ -1,10 +1,12 @@
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Form, Input, Button, Row, Col, Typography} from 'antd';
-import { topMargin, buttonWidth, style } from '../../CommonStyles';
+import { topMargin, buttonWidth, style, smallMaginTop, smallMarginLeft, logoWidth, smallMarginBottom } from '../../CommonStyles';
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
+import Logo from './../../logo.png'
+
 
 function Users() {
   let [searchParams, setSearchParams] = useSearchParams();
@@ -58,6 +60,9 @@ function Users() {
 
   return (
     <div>
+      <Col>
+          <img  style={{float: 'left', marginTop: smallMaginTop, width: logoWidth, marginLeft: smallMarginLeft }} src={Logo} alt="Logo"/>
+      </Col>
       <Row gutter={[24, 24]} style={{ marginTop: topMargin }}>
       <Col span={24} align='middle'>
           <Title level={3}>Ingresa tus datos para registrarte</Title>
@@ -117,7 +122,7 @@ function Users() {
         </Form>
       </Col>
       <Col span={24} align='middle'>
-          <Button type="primary" style={{ width: '30vw' }} onClick={() => navigate('/')}>Volver</Button>
+          <Button type="primary" style={{ width: '30vw', marginBottom: smallMarginBottom }} onClick={() => navigate('/')}>Volver</Button>
       </Col>
       {
         showModal ? ( success ? (

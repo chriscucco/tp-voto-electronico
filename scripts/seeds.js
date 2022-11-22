@@ -125,6 +125,8 @@ const {processPassword} = require('../controllers/users/commons');
         await database('voters').insert({room_id: '11', user_id: 'test1'})
         await database('voters').insert({room_id: '11', user_id: 'test2'})
         await database('voters').insert({room_id: '11', user_id: 'test3'})
+
+        await database('voters').insert({room_id: '14', user_id: 'ccucco'})
         console.log('Finished voters seeds!')
 
         //ROOMS SEEDS

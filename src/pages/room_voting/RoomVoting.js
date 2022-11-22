@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Col, Row, Typography} from 'antd';
-import { topMargin, buttonWidth } from '../../CommonStyles';
+import { Col, Row, Button, Typography} from 'antd';
+import { topMargin, buttonWidth, smallButtonWidth, smallMaginTop, smallMarginRight, smallMarginLeft, logoWidth, smallMarginBottom } from '../../CommonStyles';
+import Logo from './../../logo.png'
 import ClipLoader from 'react-spinners/ClipLoader';
 
 
@@ -29,8 +30,25 @@ function RoomVoting() {
         init();
     }, [navigate]);
 
+    const logout = () => {
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({})
+      };
+      fetch('/logout', requestOptions).then( function(response) {
+        navigate('/')
+      }).catch((err) => {  
+        navigate('/')
+      })
+    };
+
     return (
     <div>
+      <Col>
+        <Button  style={{ float: 'right', width: smallButtonWidth, marginTop: smallMaginTop, marginRight: smallMarginRight }} onClick={() => logout()}>Cerrar Sesión</Button>
+        <img  style={{float: 'left', marginTop: smallMaginTop, width: logoWidth, marginLeft: smallMarginLeft }} src={Logo} alt="Logo"/>
+      </Col>
       <Row gutter={[24, 24]} style={{ marginTop: topMargin }}>
         <Col span={24} align='middle'>
           <Title level={2}>Procesando el voto...</Title>

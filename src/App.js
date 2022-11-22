@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { Button, Row, Col } from 'antd';
 import { buttonWidth, topMargin } from './CommonStyles'
+import Logo from './logo.png'
 
 function App() {
 
@@ -9,6 +10,9 @@ function App() {
   return (
     <div>
       <Row gutter={[24, 24]} align='middle' style={{ marginTop: topMargin }}>
+        <Col span={24} align='middle'>
+          <img src={Logo} alt="Logo"/>
+        </Col>
         <Col span={24} align='middle'>
           <Button type="primary" style={{ width: buttonWidth }} onClick={() => navigate('/login')}>Ingresar</Button>
         </Col>
