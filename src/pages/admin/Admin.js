@@ -67,6 +67,14 @@ function Admin() {
         </Col>
 
         <Col span={24} align='middle'>
+          <Button type='primary' style={{ width: buttonWidth }} onClick={() => navigate('/show_lists')}>Ver listas creadas</Button>
+        </Col>
+
+        <Col span={24} align='middle'>
+          <Button type='primary' style={{ width: buttonWidth }} onClick={() => navigate('/show_rooms')}>Ver Actos Electorales creados</Button>
+        </Col>
+
+        <Col span={24} align='middle'>
           <Button type='primary' style={{ width: buttonWidth, marginBottom: smallMarginBottom }} onClick={() => navigate('/home')}>Volver</Button>
         </Col>
       </Row>

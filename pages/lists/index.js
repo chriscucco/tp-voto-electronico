@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const {getLists, getListsByID, getListByName, createList} = require('../../controllers/lists/lists')
+const {getLists, getListsByID, getListByName, createList, showAllLists} = require('../../controllers/lists/lists')
 
 router.get("/all", async(req,res) => {
     const lists =  await getLists(req, res)
@@ -14,6 +14,11 @@ router.get("/list", async(req,res) => {
 
 router.get("/name", async(req,res) => {
     const lists =  await getListByName(req, res)
+    res.json(lists)
+})
+
+router.get("/show/all", async(req, res) => {
+    const lists =  await showAllLists(req, res)
     res.json(lists)
 })
 

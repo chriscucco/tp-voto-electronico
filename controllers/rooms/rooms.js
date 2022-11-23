@@ -47,3 +47,22 @@ const validateParams = (dates, description) => {
 
     return true
 }
+
+exports.showAllRooms = async(req, res) => {
+    const rooms = await getAllRooms()
+    let response = []
+
+    for (const room of rooms) {
+        let currentRoom = {room_id: room.room_id, name: room.description, initDate: makeReadableDate(room.init_date), endDate: makeReadableDate(room.end_date)}
+        response.push(currentRoom)
+    }
+    return response
+}
+
+const makeReadableDate = (date) => {
+    const dateHour = date.split('T')
+    const dateProcessed = dateHour[0].split('-')
+    const hourProcessed = dateHour[1].split(':')
+
+    return dateProcessed[2]+ '/' + dateProcessed[1] + '/' + dateProcessed[0] + ' ' + hourProcessed[0] + ':' + hourProcessed[1]
+}

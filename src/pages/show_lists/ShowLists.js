@@ -4,9 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { topMargin, buttonWidth, smallButtonWidth, smallMaginTop, smallMarginRight, smallMarginLeft, logoWidth, smallMarginBottom } from '../../CommonStyles';
 import Logo from './../../logo.png'
 
-function MyRooms() {
+function ShowLists() {
     const [lists, setLists] = useState([]);
-    const { roomId } = useParams();
     const navigate = useNavigate();
 
     const { Title } = Typography;
@@ -17,14 +16,20 @@ function MyRooms() {
             if (response.status !== 200) {
                 navigate('/login')
             }
+            
 
-            const roomInfoRequest = await fetch(`/my_rooms/rooms/info/${roomId}`)
-            if (roomInfoRequest.status !== 200) {
+            const data = await response.json()
+            if (data.role !== 'admin') {
+                navigate('/my_rooms');
+            }
+
+            const listInfoRequest = await fetch(`/lists/show/all`)
+            if (listInfoRequest.status !== 200) {
                 navigate('/home')
             }
 
-            let data = await roomInfoRequest.json()
-            setLists(data)
+            let listsData = await listInfoRequest.json()
+            setLists(listsData)
         }
         init();
     }, [navigate]);
@@ -75,7 +80,7 @@ function MyRooms() {
       </Col>
       <Row gutter={[24, 24]} style={{ marginTop: topMargin, marginLeft: smallMarginLeft, marginRight: smallMarginRight}}>
         <Col span={24} align='middle'>
-            <Title>Información del acto</Title>
+            <Title>Listas creadas</Title>
         </Col>
         {
           lists.map(list =>
@@ -92,4 +97,4 @@ function MyRooms() {
   );
 }
 
-export default MyRooms;
+export default ShowLists;

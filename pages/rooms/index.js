@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var path = require("path");
 
-const {createRoom, getAllRooms, getRoomByID} = require('../../controllers/rooms/rooms');
+const {createRoom, getAllRooms, getRoomByID, showAllRooms} = require('../../controllers/rooms/rooms');
 const votingPlatformService = require('../../server/service/VotingPlatformService')
 
 
@@ -25,5 +25,10 @@ router.get("", async (req, res) => {
   const response = await getAllRooms(req, res)
   res.json(response)
 });
+
+router.get("/show/all", async (req, res) => {
+  const response = await showAllRooms(req, res)
+  res.json(response)
+})
 
 module.exports = router;

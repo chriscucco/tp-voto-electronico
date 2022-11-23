@@ -19,6 +19,9 @@ import RoomInfo from './pages/room_info/RoomInfo'
 import RoomVoting from './pages/room_voting/RoomVoting'
 import VoteSuccess from './pages/vote_success/VoteSuccess'
 import VoteError from './pages/vote_error/VoteError'
+import ShowLists from './pages/show_lists/ShowLists'
+import ShowRooms from './pages/show_rooms/ShowRooms'
+
 
 import reportWebVitals from './reportWebVitals';
 import 'react-app-polyfill/stable';
@@ -47,6 +50,8 @@ root.render(
         <Route path='room_vote/:roomId/list/:listId' element={ <RoomVoting /> } />
         <Route path='vote_success' element={ <VoteSuccess /> } />
         <Route path='vote_error' element={ <VoteError /> } />
+        <Route path='show_lists' element={ <ShowLists />} />
+        <Route path='show_rooms' element={ <ShowRooms />} />
 
       </Routes>
     </BrowserRouter>

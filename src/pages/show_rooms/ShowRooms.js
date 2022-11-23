@@ -4,9 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { topMargin, buttonWidth, smallButtonWidth, smallMaginTop, smallMarginRight, smallMarginLeft, logoWidth, smallMarginBottom } from '../../CommonStyles';
 import Logo from './../../logo.png'
 
-function MyRooms() {
-    const [lists, setLists] = useState([]);
-    const { roomId } = useParams();
+function ShowRooms() {
+    const [rooms, setRooms] = useState([]);
     const navigate = useNavigate();
 
     const { Title } = Typography;
@@ -17,14 +16,20 @@ function MyRooms() {
             if (response.status !== 200) {
                 navigate('/login')
             }
+            
 
-            const roomInfoRequest = await fetch(`/my_rooms/rooms/info/${roomId}`)
+            const data = await response.json()
+            if (data.role !== 'admin') {
+                navigate('/my_rooms');
+            }
+
+            const roomInfoRequest = await fetch(`/rooms/show/all`)
             if (roomInfoRequest.status !== 200) {
                 navigate('/home')
             }
 
-            let data = await roomInfoRequest.json()
-            setLists(data)
+            let roomData = await roomInfoRequest.json()
+            setRooms(roomData)
         }
         init();
     }, [navigate]);
@@ -44,26 +49,17 @@ function MyRooms() {
     
   
   
-    const createCard = (list) => 
+    const createCard = (room) => 
     <Card 
-        key={list.list_id}
-        title={list.name} 
+        key={room.room_id}
+        title={room.name} 
         bordered={true} 
     >
     {
-        list.candidates.president.map( candidate =>
-            <p><b>{candidate.name}</b></p>
-        )
+        <p><b>Inicio: </b>{room.initDate}</p>   
     }
     {
-        list.candidates.vicepresident.map( candidate =>
-            <p><b>{candidate.name}</b></p>
-        )
-    }
-    {
-        list.candidates.other.map( candidate =>
-            <p>{candidate.name}</p>
-        )
+        <p><b>Finaliza: </b>{room.endDate}</p>     
     }
     </Card>
 
@@ -75,12 +71,12 @@ function MyRooms() {
       </Col>
       <Row gutter={[24, 24]} style={{ marginTop: topMargin, marginLeft: smallMarginLeft, marginRight: smallMarginRight}}>
         <Col span={24} align='middle'>
-            <Title>Información del acto</Title>
+            <Title>Actos electorales creados</Title>
         </Col>
         {
-          lists.map(list =>
-            <Col key={list.list_id} span={8}>
-              {createCard(list)}
+          rooms.map(room =>
+            <Col key={room.room_id} span={8}>
+              {createCard(room)}
             </Col> 
           )
         }
@@ -92,4 +88,4 @@ function MyRooms() {
   );
 }
 
-export default MyRooms;
+export default ShowRooms;
