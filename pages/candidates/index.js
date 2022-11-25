@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const {getAllCandidates, getCandidatesByListID, getCandidatesByRoles, getCandidatesByID, getCandidatesByName, getCandidatesFromListIDAndRole, createCandidate} = require('../../controllers/candidates/candidates')
+const {getAllCandidates, getCandidatesByListID, getCandidatesByRoles, getCandidatesByID, getCandidatesByName, getCandidatesFromListIDAndRole, createCandidate, deleteCandidate} = require('../../controllers/candidates/candidates')
 
 router.get("/all", async(req,res) => {
     const candidates =  await getAllCandidates(req, res)
@@ -37,5 +37,10 @@ router.post("", async (req, res) => {
     const response = await createCandidate(req, res)
     res.status(response.status).json(response.message)
 });
+
+router.post("/delete", async (req, res) => {
+    const response = await deleteCandidate(req, res)
+    res.status(response.status).json(response.message)
+})
 
 module.exports = router;

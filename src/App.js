@@ -9,7 +9,7 @@ function App() {
 
   return (
     <div>
-      <Row gutter={[24, 24]} align='middle' style={{ marginTop: topMargin }}>
+      <Row gutter={[24, 24]} align='middle'>
         <Col span={24} align='middle'>
           <img src={Logo} alt="Logo"/>
         </Col>

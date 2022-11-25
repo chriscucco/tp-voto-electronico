@@ -1,4 +1,4 @@
-const {createNewCandidate, getCandidatesFromList, getCandidatesFromListAndRole, getCandidatesByRoles, getCandidatesDataByName, getCandidatesDataByID, getAllCandidates, getListsData} = require('../../dao/interface');
+const {createNewCandidate, getCandidatesFromList, getCandidatesFromListAndRole, getCandidatesByRoles, getCandidatesDataByName, getCandidatesDataByID, getAllCandidates, getListsData, deleteCandidateByID} = require('../../dao/interface');
 
 exports.getAllCandidates = async(req, res) => {
     const response = await getAllCandidates()
@@ -70,4 +70,19 @@ const validateParams = (list_id, candidate_id, name, role) => {
     const validName = name == "" ? false : true
     const validRole = role == "" ? false : true
     return validListID && validCandidateID && validName && validRole
+}
+
+exports.deleteCandidate = async(req, res) => {
+    const candidate_id = req.body.candidateId ? req.body.candidateId : "0"
+    if (candidate_id == "0") {
+        return {'message': 'Candidate not sent', status: 400}
+    }
+
+    const data = await getCandidatesDataByID(candidate_id)
+    if (data.length == 0){
+        return {'message': 'Candidate does not exist', status: 400}
+    }
+
+    await deleteCandidateByID(candidate_id)
+    return {'message': 'Success', status: 200}
 }

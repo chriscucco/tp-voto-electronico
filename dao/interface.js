@@ -137,6 +137,10 @@ exports.getAllCandidates = async() => {
     return lists
 }
 
+exports.deleteCandidateByID = async(candidate_id) => {
+    await database.del().from('candidates').where('candidate_id', candidate_id)
+}
+
 // Voters
 
 exports.addVoterToRoom = async(room_id, user_id) => {

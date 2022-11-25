@@ -60,6 +60,7 @@ const roomListsRoute = require('../pages/roomLists')
 const voteRoute = require('../pages/vote')
 const showListsRoute = require('../pages/show_lists')
 const showRoomsRoute = require('../pages/show_rooms')
+const deleteCandidatesRoute = require('../pages/delete_candidates')
 
 
 router.use('/home', homeRoute)
@@ -85,6 +86,7 @@ router.use('/roomLists', roomListsRoute)
 router.use('/vote', voteRoute)
 router.use('/show_rooms', showRoomsRoute)
 router.use('/show_lists', showListsRoute)
+router.use('/delete_candidate', deleteCandidatesRoute)
 
 
 

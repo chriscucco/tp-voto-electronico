@@ -75,6 +75,10 @@ function Admin() {
         </Col>
 
         <Col span={24} align='middle'>
+          <Button type='primary' style={{ width: buttonWidth }} onClick={() => navigate('/delete_candidate')}>Eliminar candidato</Button>
+        </Col>
+
+        <Col span={24} align='middle'>
           <Button type='primary' style={{ width: buttonWidth, marginBottom: smallMarginBottom }} onClick={() => navigate('/home')}>Volver</Button>
         </Col>
       </Row>

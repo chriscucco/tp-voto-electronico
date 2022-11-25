@@ -21,6 +21,7 @@ import VoteSuccess from './pages/vote_success/VoteSuccess'
 import VoteError from './pages/vote_error/VoteError'
 import ShowLists from './pages/show_lists/ShowLists'
 import ShowRooms from './pages/show_rooms/ShowRooms'
+import DeleteCandidate from './pages/delete_candidate/DeleteCandidate'
 
 
 import reportWebVitals from './reportWebVitals';
@@ -52,7 +53,7 @@ root.render(
         <Route path='vote_error' element={ <VoteError /> } />
         <Route path='show_lists' element={ <ShowLists />} />
         <Route path='show_rooms' element={ <ShowRooms />} />
-
+        <Route path='delete_candidate' element={ <DeleteCandidate />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
