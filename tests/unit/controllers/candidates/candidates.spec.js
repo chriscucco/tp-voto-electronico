@@ -1,4 +1,4 @@
-const {getAllCandidates, getCandidatesByListID, getCandidatesByRoles, getCandidatesByID, getCandidatesByName, getCandidatesFromListIDAndRole, createCandidate} = require('../../../../controllers/candidates/candidates')
+const {getAllCandidates, getCandidatesByListID, getCandidatesByRoles, getCandidatesByID, getCandidatesByName, getCandidatesFromListIDAndRole, createCandidate, deleteCandidate} = require('../../../../controllers/candidates/candidates')
 var mockDb = require('mock-knex');
 
 var db = require('../../../../dao/db')
@@ -121,10 +121,10 @@ describe('Testing candidates functions', () => {
           });
           const req = {
             body: {
-              candidate_id: '1',
-              list_id: '1',
-              name: 'testName',
-              role: 'Presidente',
+              candidateId: '1',
+              listId: '1',
+              candidateName: 'testName',
+              candidateRole: 'Presidente',
             },
           };
           const res = {};
@@ -139,9 +139,9 @@ describe('Testing candidates functions', () => {
           });
           const req = {
             body: {
-              list_id: '1',
-              name: 'testName',
-              role: 'Presidente',
+              listId: '1',
+              candidateName: 'testName',
+              candidateRole: 'Presidente',
             },
           };
           const res = {};
@@ -156,9 +156,9 @@ describe('Testing candidates functions', () => {
           });
           const req = {
             body: {
-              candidate_id: '1',
-              name: 'testName',
-              role: 'Presidente',
+              candidateId: '1',
+              candidateName: 'testName',
+              candidateRole: 'Presidente',
             },
           };
           const res = {};
@@ -173,9 +173,9 @@ describe('Testing candidates functions', () => {
           });
           const req = {
             body: {
-              candidate_id: '1',
-              list_id: '1',
-              role: 'Presidente',
+              candidateId: '1',
+              listId: '1',
+              candidateRole: 'Presidente',
             },
           };
           const res = {};
@@ -190,9 +190,9 @@ describe('Testing candidates functions', () => {
           });
           const req = {
             body: {
-              candidate_id: '1',
-              list_id: '1',
-              name: 'testName',
+              candidateId: '1',
+              listId: '1',
+              candidateName: 'testName',
             },
           };
           const res = {};
@@ -209,10 +209,10 @@ describe('Testing candidates functions', () => {
           });
           const req = {
             body: {
-              candidate_id: '1',
-              list_id: '1',
-              name: 'testName',
-              role: 'Presidente',
+              candidateId: '1',
+              listId: '1',
+              candidateName: 'testName',
+              candidateRole: 'Presidente',
             },
           };
           const res = {};
@@ -220,4 +220,53 @@ describe('Testing candidates functions', () => {
           const response = await createCandidate(req, res);
           expect(response.valid).toEqual(false);
     });
+
+    test('testDeleteCandidate', async () => {
+      tracker.on('query', function sendResult(query) {
+        query.response([
+            {candidate_id: '1', list_id:'1', name: 'testName', role: 'Presidente'},
+        ]);
+      });
+      const req = {
+        body: {
+          candidateId: '1',
+        
+        },
+      };
+      const res = {};
+
+      const response = await deleteCandidate(req, res);
+      expect(response.status).toEqual(200);
+    })
+
+    test('testDeleteCandidateFailsNoID', async () => {
+      tracker.on('query', function sendResult(query) {
+        query.response([
+            {candidate_id: '1', list_id:'1', name: 'testName', role: 'Presidente'},
+        ]);
+      });
+      const req = {
+        body: {},
+      };
+      const res = {};
+
+      const response = await deleteCandidate(req, res);
+      expect(response.status).toEqual(400);
+    })
+
+    test('testDeleteCandidateNotExists', async () => {
+      tracker.on('query', function sendResult(query) {
+        query.response([]);
+      });
+      const req = {
+        body: {
+          candidateId: '1',
+        
+        },
+      };
+      const res = {};
+
+      const response = await deleteCandidate(req, res);
+      expect(response.status).toEqual(400);
+    })
 });

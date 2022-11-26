@@ -1,4 +1,4 @@
-const {getRoomByID, getAllRooms, createRoom} = require('../../../../controllers/rooms/rooms')
+const {getRoomByID, getAllRooms, createRoom, showAllRooms} = require('../../../../controllers/rooms/rooms')
 var mockDb = require('mock-knex');
 
 var db = require('../../../../dao/db')
@@ -46,13 +46,13 @@ describe('Testing rooms functions', () => {
         expect(response.length).toEqual(1);
     })
 
-    test('testCreateNewRoomListNoInitDate', async () => {
+    test('testCreateNewRoomListNoDates', async () => {
         tracker.on('query', function sendResult(query) {
             query.response([]);
           });
           const req = {
             body: {
-                end_date:'2022-12-17T19:18'
+                description:'test'
             },
           };
           const res = {};
@@ -61,13 +61,13 @@ describe('Testing rooms functions', () => {
           expect(response.valid).toEqual(false);
     })
 
-    test('testCreateNewRoomListNoEndDate', async () => {
+    test('testCreateNewRoomListNoDescription', async () => {
         tracker.on('query', function sendResult(query) {
             query.response([]);
           });
           const req = {
             body: {
-                init_date:'2022-12-17T19:18'
+              dates: ["1234", "5678"]
             },
           };
           const res = {};
@@ -76,4 +76,14 @@ describe('Testing rooms functions', () => {
           expect(response.valid).toEqual(false);
     })
 
+    test('testShowAllRooms', async () => {
+      tracker.on('query', function sendResult(query) {
+          query.response([{room_id: '1', init_date: '2022-09-17T19:18', end_date:'2022-12-17T19:18', description: 'Elección 1'}]);
+        });
+        const req = {};
+        const res = {};
+  
+        const response = await showAllRooms(req, res);
+        expect(response.length).toEqual(1);
+  })
 });

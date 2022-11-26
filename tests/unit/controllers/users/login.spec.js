@@ -23,7 +23,7 @@ describe('Testing login functions', () => {
 
         const req = {
             body: {
-                user_id: '123',
+                username: '123',
                 password: 'abc123'
             },
             session: {}
@@ -42,7 +42,7 @@ describe('Testing login functions', () => {
 
         const req = {
             body: {
-                user_id: '123',
+                username: '123',
                 password: 'abc123'
             },
         }
@@ -58,7 +58,7 @@ describe('Testing login functions', () => {
 
         const req = {
             body: {
-                user_id: '123',
+                username: '123',
                 password: 'abc123'
             },
         }

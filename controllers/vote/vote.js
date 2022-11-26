@@ -56,7 +56,6 @@ exports.countVotes = async(req, res) => {
             return {'data': 'Aun no se pueden ver los resultados de la votación', status: 400}
         }
     
-        console.log("//////// SEARCH VOTES //////")
         const response = await votingService.getVotesByRooms(roomId)
         const totalVotes = response.length
         var groupedVotes = {}

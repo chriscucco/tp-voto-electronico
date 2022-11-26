@@ -37,11 +37,11 @@ const processDate = (date) => {
 }
 
 const validateParams = (dates, description) => {
-    if (dates.length != 2) {
+    if (description == "") {
         return false
     }
-
-    if (description == "") {
+    
+    if (dates.length != 2) {
         return false
     }
 

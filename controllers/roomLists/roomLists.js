@@ -89,10 +89,7 @@ exports.addListsToRoom = async(req, res) => {
         await createRoomList(room_id, listId)
     }
 
-    const addListResponse = await votingService.addListsToRooms(room_id, listsArray) 
-    console.log("/////////ROOMLIST///////////////")
-    console.log(addListResponse)
-
+    await votingService.addListsToRooms(room_id, listsArray) 
     return {'valid': true, 'message': 'success', status: 200}
 }
 

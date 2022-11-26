@@ -179,7 +179,7 @@ describe('Testing roles functions', () => {
     });
     const req = {
       body: {
-        userInput: '123'
+        newAdmin: '123'
       },
     };
     const res = {};
@@ -194,7 +194,7 @@ describe('Testing roles functions', () => {
     });
     const req = {
       body: {
-        userInput: '123'
+        newAdmin: '123'
       },
     };
     const res = {};

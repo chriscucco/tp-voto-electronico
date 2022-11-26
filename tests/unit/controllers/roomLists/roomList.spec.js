@@ -139,8 +139,8 @@ describe('Testing roomLists functions', () => {
           });
           const req = {
             body: {
-              list_id: '1,2,3',
-              room_id: '1',
+              listsId: '1,2,3',
+              roomId: '1',
             },
           };
           const res = {};
@@ -157,7 +157,7 @@ describe('Testing roomLists functions', () => {
           });
           const req = {
             body: {
-              list_id: '1,2,3',
+              listsId: '1,2,3',
             },
           };
           const res = {};
@@ -174,7 +174,7 @@ describe('Testing roomLists functions', () => {
           });
           const req = {
             body: {
-              room_id: '1',
+              roomId: '1',
             },
           };
           const res = {};
@@ -189,8 +189,8 @@ describe('Testing roomLists functions', () => {
           });
           const req = {
             body: {
-              list_id: '1,2,3',
-              room_id: '1',
+              listsId: '1,2,3',
+              roomId: '1',
             },
           };
           const res = {};

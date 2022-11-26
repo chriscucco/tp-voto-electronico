@@ -133,8 +133,8 @@ describe('Testing voters functions', () => {
         });
         const req = {
           body: {
-            voters: '123,456',
-            room_id: '1',
+            voterIds: '123,456',
+            roomId: '1',
           },
         };
         const res = {};
@@ -151,8 +151,8 @@ describe('Testing voters functions', () => {
       });
       const req = {
         body: {
-          voters: '123,456',
-          room_id: '1',
+          voterIds: '123,456',
+          roomId: '1',
         },
       };
       const res = {};
@@ -167,7 +167,7 @@ describe('Testing voters functions', () => {
       });
       const req = {
         body: {
-          room_id: '1',
+          roomId: '1',
         },
       };
       const res = {};

@@ -1,4 +1,4 @@
-const {getLists, getListsByID, getListByName, createList} = require('../../../../controllers/lists/lists')
+const {getLists, getListsByID, getListByName, createList, showAllLists} = require('../../../../controllers/lists/lists')
 var mockDb = require('mock-knex');
 
 var db = require('../../../../dao/db')
@@ -32,7 +32,7 @@ describe('Testing lists functions', () => {
     test('testGetListsByID', async () => {
         const req = {
             query: {
-                list_id: '1'
+              list_id: '1'
             }
         };
         const res = {};
@@ -49,7 +49,7 @@ describe('Testing lists functions', () => {
     test('testGetListByName', async () => {
         const req = {
             query: {
-                name: 'Partido 1'
+              name: 'Partido 1'
             }
         };
         const res = {};
@@ -69,8 +69,8 @@ describe('Testing lists functions', () => {
           });
           const req = {
             body: {
-              list_id: '1',
-              name: 'Partido 1',
+              listId: '1',
+              listName: 'Partido 1',
             },
           };
           const res = {};
@@ -85,7 +85,7 @@ describe('Testing lists functions', () => {
           });
           const req = {
             body: {
-              list_id: '1',
+              listId: '1',
             },
           };
           const res = {};
@@ -100,7 +100,7 @@ describe('Testing lists functions', () => {
           });
           const req = {
             body: {
-              name: 'Partido 1',
+              listName: 'Partido 1',
             },
           };
           const res = {};
@@ -117,8 +117,8 @@ describe('Testing lists functions', () => {
           });
           const req = {
             body: {
-              list_id: '1',
-              name: 'Partido 1',
+              listId: '1',
+              listName: 'Partido 1',
             },
           };
           const res = {};
@@ -126,4 +126,24 @@ describe('Testing lists functions', () => {
           const response = await createList(req, res);
           expect(response.valid).toEqual(false);
     });
+
+    test('testShowAllLists', async () => {
+      tracker.on('query', function sendResult(query) {
+        query.response([
+            {list_id: '1', name:'Partido 1', candidate_id: '1', role: 'Presidente' },
+            {list_id: '2', name:'Partido 1', candidate_id: '2', role: 'VicePresidente'},
+            {list_id: '3', name:'Partido 1', candidate_id: '3', role: 'Otro'},
+        ]);
+      });
+      const req = {
+        body: {
+          listId: '1',
+          listName: 'Partido 1',
+        },
+      };
+      const res = {};
+
+      const response = await showAllLists(req, res);
+      expect(response.length).toEqual(3);
+    })
 });

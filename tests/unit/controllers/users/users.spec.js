@@ -20,10 +20,10 @@ describe('Testing user functions', () => {
       });
       const req = {
         body: {
-          user_id: '123',
+          userId: '123',
           dni: '123',
-          name: 'testName',
-          last_name: 'testLasName',
+          userFirstName: 'testName',
+          userLastName: 'testLasName',
           password: 'abc123'
         },
       };
@@ -41,10 +41,10 @@ describe('Testing user functions', () => {
       });
       const req = {
         body: {
-          user_id: '123',
+          userId: '123',
           dni: '123',
-          name: 'testName',
-          last_name: 'testLasName',
+          userFirstName: 'testName',
+          userLastName: 'testLasName',
           password: 'abc123'
         },
       };
@@ -58,8 +58,8 @@ describe('Testing user functions', () => {
    test('testCreateFailsInvalidUserID', async () => {
       const req = {
         body: {
-          name: 'testName',
-          last_name: 'testLasName',
+          userFirstName: 'testName',
+          userLastName: 'testLasName',
           password: 'abc123'
         },
       };
@@ -73,8 +73,8 @@ describe('Testing user functions', () => {
     test('testCreateFailsInvalidName', async () => {
       const req = {
         body: {
-          user_id: '123',
-          last_name: 'testLasName',
+          userId: '123',
+          userLastName: 'testLasName',
           password: 'abc123'
         },
       };
@@ -88,8 +88,8 @@ describe('Testing user functions', () => {
     test('testCreateFailsInvalidLastName', async () => {
       const req = {
         body: {
-          user_id: '123',
-          name: 'testName',
+          userId: '123',
+          userFirstName: 'testName',
           password: 'abc123'
         },
       };
@@ -103,9 +103,9 @@ describe('Testing user functions', () => {
     test('testCreateFailsInvalidPassword', async () => {
       const req = {
         body: {
-          user_id: '123',
-          name: 'testName',
-          last_name: 'testLasName',
+          userId: '123',
+          userFirstName: 'testName',
+          userLastName: 'testLasName',
         },
       };
       const res = {};
