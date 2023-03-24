@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const {createRole, updateRole, getRoles, getRoleByID, updateRoleByUserOrDNI} = require('../../controllers/roles/roles');
+const {createRole, updateRole, getRoles, getRoleByID, updateRoleByUserOrDNI, updateReviewerRole, updateReviewerRoleByUserOrDNI} = require('../../controllers/roles/roles');
 
 router.get("/all", async(req,res) => {
     const roles =  await getRoles(req, res)
@@ -32,6 +32,20 @@ router.get("/all", async(req,res) => {
 
   router.post("/add", async (req, res) => {
     const response = await updateRoleByUserOrDNI(req, res)
+    res.status(response.status).json(response.message)
+  });
+
+  router.put("/reviewer", async (req, res) => {
+    const response = await updateReviewerRole(req, res)
+    if (response.valid) {
+      res.status(200).json(response.response)
+    } else {
+      res.status(response.status).json(response.message)
+    }
+  });
+
+  router.post("/reviewer/add", async (req, res) => {
+    const response = await updateReviewerRoleByUserOrDNI(req, res)
     res.status(response.status).json(response.message)
   });
 

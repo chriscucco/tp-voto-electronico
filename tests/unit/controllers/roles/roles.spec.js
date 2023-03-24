@@ -21,7 +21,7 @@ describe('Testing roles functions', () => {
       const res = {};
       tracker.on('query', function sendResult(query) {
         query.response([
-          {user_id: '1234', role: 'nominal'},
+          {user_id: '1234', role: 'normal'},
           {user_id: '5678', role: 'admin'},
         ]);
       });
@@ -39,7 +39,7 @@ describe('Testing roles functions', () => {
       const res = {};
       tracker.on('query', function sendResult(query) {
         query.response([
-          {user_id: '1234', role: 'nominal'}
+          {user_id: '1234', role: 'normal'}
         ]);
       });
 
@@ -67,7 +67,7 @@ describe('Testing roles functions', () => {
         const req = {
           body: {
             user_id: '123',
-            role: 'nominal'
+            role: 'normal'
           },
         };
         const res = {};
@@ -79,13 +79,13 @@ describe('Testing roles functions', () => {
     test('testCreateFailsDuplicated', async () => {
       tracker.on('query', function sendResult(query) {
         query.response([
-          {user_id: '123', role: 'nominal'},
+          {user_id: '123', role: 'normal'},
         ]);
       });
       const req = {
         body: {
           user_id: '123',
-          role: 'nominal'
+          role: 'normal'
         },
       };
       const res = {};
@@ -100,7 +100,7 @@ describe('Testing roles functions', () => {
         });
         const req = {
           body: {
-            role: 'nominal'
+            role: 'normal'
           },
         };
         const res = {};
@@ -127,7 +127,7 @@ describe('Testing roles functions', () => {
   test('testUpdateRole', async () => {
       tracker.on('query', function sendResult(query) {
         query.response([
-          {user_id: '123', role: 'nominal'},
+          {user_id: '123', role: 'normal'},
         ]);
       });
       const req = {
@@ -144,7 +144,7 @@ describe('Testing roles functions', () => {
   test('testUpdateRoleFailsNoUserID', async () => {
     tracker.on('query', function sendResult(query) {
       query.response([
-        {user_id: '123', role: 'nominal'},
+        {user_id: '123', role: 'normal'},
       ]);
     });
     const req = {
@@ -174,7 +174,7 @@ describe('Testing roles functions', () => {
   test('testUpdateRoleByUserOrDNI', async () => {
     tracker.on('query', function sendResult(query) {
       query.response([
-        {user_id: '123', role: 'nominal'},
+        {user_id: '123', role: 'normal'},
       ]);
     });
     const req = {
@@ -206,7 +206,7 @@ describe('Testing roles functions', () => {
   test('testUpdateRoleByUserOrDNIFailsInvalidUserID', async () => {
     tracker.on('query', function sendResult(query) {
       query.response([
-        {user_id: '123', role: 'nominal'},
+        {user_id: '123', role: 'normal'},
       ]);
     });
     const req = {

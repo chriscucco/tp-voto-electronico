@@ -38,6 +38,8 @@ router.use(function (req, res, next) {
  */
 
 const homeRoute = require('../pages/home')
+const reviewerHomeRoute = require('../pages/reviewer_home')
+const reviewerRoute = require('../pages/reviewer')
 const loginRoute = require('../pages/login')
 const logoutRoute = require('../pages/logout')
 const usersRoute = require('../pages/users')
@@ -50,6 +52,7 @@ const candidatesRoute = require('../pages/candidates')
 const myRoomsRoute = require('../pages/my_rooms')
 const adminRoute = require('../pages/admin')
 const addAdminRoute = require('../pages/add_admin')
+const addReviewerRoute = require('../pages/add_reviewer')
 const addRoomRoute = require('../pages/add_room')
 const roomsRoute = require('../pages/rooms')
 const addListRoute = require('../pages/add_list')
@@ -61,9 +64,12 @@ const voteRoute = require('../pages/vote')
 const showListsRoute = require('../pages/show_lists')
 const showRoomsRoute = require('../pages/show_rooms')
 const deleteCandidatesRoute = require('../pages/delete_candidates')
+const deleteReviewerRoute = require('../pages/delete_reviewer')
+
 
 
 router.use('/home', homeRoute)
+router.use('/reviewer_home', reviewerHomeRoute)
 router.use('/login', loginRoute)
 router.use('/logout', logoutRoute)
 router.use('/users', usersRoute)
@@ -76,6 +82,7 @@ router.use('/candidates', candidatesRoute)
 router.use('/my_rooms', myRoomsRoute)
 router.use('/admin', adminRoute)
 router.use('/add_admin', addAdminRoute)
+router.use('/add_reviewer', addReviewerRoute)
 router.use('/add_room', addRoomRoute)
 router.use('/add_list', addListRoute)
 router.use('/add_candidate', addCandidateRoute)
@@ -87,6 +94,8 @@ router.use('/vote', voteRoute)
 router.use('/show_rooms', showRoomsRoute)
 router.use('/show_lists', showListsRoute)
 router.use('/delete_candidate', deleteCandidatesRoute)
+router.use('/delete_reviewer', deleteReviewerRoute)
+router.use('/reviewer', reviewerRoute)
 
 
 

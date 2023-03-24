@@ -1,4 +1,4 @@
-const { createNewList, getListsData, getListsDataByName, getAllLists, getCandidatesDataFromList} = require('../../dao/interface');
+const { getUserByUserId, createNewList, getListsData, getListsDataByName, getAllLists, getCandidatesDataFromList, getReviewersByList} = require('../../dao/interface');
 
 exports.getLists = async(req, res) => {
     const response = await getAllLists()
@@ -55,7 +55,8 @@ exports.showAllLists = async(req, res) => {
             const list = await getListsData(listId)
             const candidates = await getCandidatesDataFromList(listId)
             const processedCandidates = await processCandidatesLists(candidates)
-            let processedListInfo = {'name': list[0].name, 'list_id': list[0].list_id, 'candidates': processedCandidates}
+            const reviewers = await processListReviewers(listId)
+            let processedListInfo = {'name': list[0].name, 'list_id': list[0].list_id, 'candidates': processedCandidates, reviewers: reviewers}
             listData.push(processedListInfo)
         } catch(Exception) {}
     }
@@ -78,4 +79,16 @@ const processCandidatesLists = async(candidates) => {
     }
 
     return {president, vicepresident, other}
+}
+
+const processListReviewers = async(listId) => {
+    let reviewers = []
+    const reviewersFromList = await getReviewersByList(listId)
+    for (const reviewer of reviewersFromList) {
+        const userData = await getUserByUserId(reviewer.user_id)
+        const r = {dni: userData[0].dni, name: userData[0].name, last_name: userData[0].last_name}
+        reviewers.push(r)
+    }
+
+    return reviewers
 }

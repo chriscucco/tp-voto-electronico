@@ -8,7 +8,7 @@ import Modal from '@mui/material/Modal';
 import Logo from './../../logo.png'
 
 
-function AddAdmin() {
+function AddReviewer() {
 
   let [searchParams, setSearchParams] = useSearchParams();
   const [showModal, setShowModal] = useState(false);
@@ -65,7 +65,7 @@ function AddAdmin() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(values)
     };
-    fetch('/roles/add', requestOptions).then( function(response) {
+    fetch('/reviewer/add', requestOptions).then( function(response) {
       if (response.ok){
         setShowModal(true)
         setSuccess(true)
@@ -90,14 +90,22 @@ function AddAdmin() {
       </Col>
       <Row gutter={[24, 24]} style={{ marginTop: topMargin}}>
         <Col span={24} align='middle'>
-          <Title level={4}>Ingresar nombre de usuario o DNI del usuario a agregar como administrador</Title>
+          <Title level={4}>Ingresar los datos para incorporar un usuario como fiscal de una lista</Title>
         </Col>
         <Col span={24} align='middle'>
           <Form onFinish={onFinish}>
             <Form.Item
-              label="Usuario o DNI"
-              name="newAdmin"
-              rules={[{ required: true, message: 'Agregar el usuario o DNI del nuevo administrador' }]}
+              label="DNI"
+              name="newReviewer"
+              rules={[{ required: true, message: 'Agregar el DNI del nuevo fiscal' }]}
+              style={{ width: buttonWidth }}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              label="Numero de lista"
+              name="listId"
+              rules={[{ required: true, message: 'Agregar el numero de lista a fiscalizar' }]}
               style={{ width: buttonWidth }}
             >
               <Input />
@@ -110,7 +118,7 @@ function AddAdmin() {
           </Form>  
         </Col>
         <Col span={24} align='middle'>
-          <Button type='primary' style={{ width: buttonWidth, marginBottom: smallMarginBottom }} onClick={() => navigate('/admin')}>Volver</Button>
+          <Button type='primary' style={{ width: buttonWidth, marginBottom: smallMarginBottom }} onClick={() => navigate('/reviewer_home')}>Volver</Button>
         </Col>
         {
           showModal ? ( success ? (
@@ -124,11 +132,11 @@ function AddAdmin() {
                 <Box sx={{ ...style, width: 400, alignItems:'center', alignContent:'center', alignSelf:'center' }}>
                   <h2 align='center' id="parent-modal-title">¡Usuario modificado!</h2>
                   <p align='center' id="parent-modal-description">
-                    Se dieron permisos de administrador al usuario solicitado.
+                    Se dieron permisos de fiscal al usuario solicitado.
                   </p>
                   {
                     <Col span={24} align='middle'>
-                      <Button type='primary' onClick={() => navigate('/admin')}>
+                      <Button type='primary' onClick={() => navigate('/reviewer_home')}>
                         Continuar
                       </Button>
                     </Col>
@@ -147,7 +155,7 @@ function AddAdmin() {
                 <Box sx={{ ...style, width: 400, alignItems:'center', alignContent:'center', alignSelf:'center' }}>
                   <h2 align='center' id="parent-modal-title">Error</h2>
                   <p align='center' id="parent-modal-description">
-                    Error en los datos ingresados, usuario inválido.
+                    Error en los datos ingresados, usuario o lista inválidos.
                   </p>
                   {
                     <Col span={24} align='middle'>
@@ -166,4 +174,4 @@ function AddAdmin() {
   );
 }
 
-export default AddAdmin;
+export default AddReviewer;

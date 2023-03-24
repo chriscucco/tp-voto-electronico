@@ -22,7 +22,9 @@ import VoteError from './pages/vote_error/VoteError'
 import ShowLists from './pages/show_lists/ShowLists'
 import ShowRooms from './pages/show_rooms/ShowRooms'
 import DeleteCandidate from './pages/delete_candidate/DeleteCandidate'
-
+import ReviewerHome from './pages/reviewer_home/ReviewerHome';
+import AddReviewer from './pages/add_reviewer/addReviewer';
+import DeleteReviewer from './pages/delete_reviewer/DeleteReviewer';
 
 import reportWebVitals from './reportWebVitals';
 import 'react-app-polyfill/stable';
@@ -54,6 +56,10 @@ root.render(
         <Route path='show_lists' element={ <ShowLists />} />
         <Route path='show_rooms' element={ <ShowRooms />} />
         <Route path='delete_candidate' element={ <DeleteCandidate />} />
+        <Route path='reviewer_home' element={ <ReviewerHome />} />
+        <Route path='add_reviewer' element={ <AddReviewer />} />
+        <Route path='delete_reviewer' element={ <DeleteReviewer />} />
+
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

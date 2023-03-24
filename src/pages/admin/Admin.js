@@ -30,7 +30,11 @@ function Admin() {
 
       const data = await response.json()
       if (data.role !== 'admin') {
-        navigate('/my_rooms')
+        if (data.role === 'reviewer'){
+          navigate('/reviewer_home')
+        } else {
+          navigate('/my_rooms')
+        }
       }
     }
     init();
@@ -44,6 +48,10 @@ function Admin() {
       <Row gutter={[24, 24]} style={{ marginTop: topMargin }}>
         <Col span={24} align='middle'>
           <Button type='primary' style={{ width: buttonWidth }} onClick={() => navigate('/add_admin')}>Dar permisos de Administrador</Button>
+        </Col>
+
+        <Col span={24} align='middle'>
+          <Button type='primary' style={{ width: buttonWidth }} onClick={() => navigate('/add_reviewer')}>Agregar fiscal a una lista</Button>
         </Col>
 
         <Col span={24} align='middle'>
@@ -76,6 +84,10 @@ function Admin() {
 
         <Col span={24} align='middle'>
           <Button type='primary' style={{ width: buttonWidth }} onClick={() => navigate('/delete_candidate')}>Eliminar candidato</Button>
+        </Col>
+
+        <Col span={24} align='middle'>
+          <Button type='primary' style={{ width: buttonWidth }} onClick={() => navigate('/delete_reviewer')}>Eliminar fiscal</Button>
         </Col>
 
         <Col span={24} align='middle'>

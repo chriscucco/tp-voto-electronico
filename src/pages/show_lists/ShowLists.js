@@ -20,7 +20,11 @@ function ShowLists() {
 
             const data = await response.json()
             if (data.role !== 'admin') {
-                navigate('/my_rooms');
+              if (data.role === 'reviewer'){
+                navigate('/reviewer_home')
+              } else {
+                navigate('/my_rooms')
+              }
             }
 
             const listInfoRequest = await fetch(`/lists/show/all`)
@@ -68,6 +72,14 @@ function ShowLists() {
     {
         list.candidates.other.map( candidate =>
             <p>{candidate.name}</p>
+        )
+    }
+    {
+      <p><b>Fiscales autorizados:</b></p>
+    }
+    {
+        list.reviewers.map( reviewer =>
+            <p> - {reviewer.dni}: {reviewer.name} {reviewer.last_name}</p>
         )
     }
     </Card>

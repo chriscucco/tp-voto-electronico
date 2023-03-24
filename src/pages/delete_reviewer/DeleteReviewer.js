@@ -8,8 +8,7 @@ import Modal from '@mui/material/Modal';
 import Logo from './../../logo.png'
 
 
-function AddAdmin() {
-
+function DeleteReviewer() {
   let [searchParams, setSearchParams] = useSearchParams();
   const [showModal, setShowModal] = useState(false);
   const [success, setSuccess] = useState(false)
@@ -65,7 +64,7 @@ function AddAdmin() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(values)
     };
-    fetch('/roles/add', requestOptions).then( function(response) {
+    fetch('/reviewer/delete', requestOptions).then( function(response) {
       if (response.ok){
         setShowModal(true)
         setSuccess(true)
@@ -90,14 +89,14 @@ function AddAdmin() {
       </Col>
       <Row gutter={[24, 24]} style={{ marginTop: topMargin}}>
         <Col span={24} align='middle'>
-          <Title level={4}>Ingresar nombre de usuario o DNI del usuario a agregar como administrador</Title>
+          <Title level={4}>Ingresar DNI del fiscal para eliminarlo</Title>
         </Col>
         <Col span={24} align='middle'>
           <Form onFinish={onFinish}>
             <Form.Item
-              label="Usuario o DNI"
-              name="newAdmin"
-              rules={[{ required: true, message: 'Agregar el usuario o DNI del nuevo administrador' }]}
+              label="Fiscal"
+              name="reviewer"
+              rules={[{ required: true, message: 'DNI del fiscal requerido' }]}
               style={{ width: buttonWidth }}
             >
               <Input />
@@ -124,7 +123,7 @@ function AddAdmin() {
                 <Box sx={{ ...style, width: 400, alignItems:'center', alignContent:'center', alignSelf:'center' }}>
                   <h2 align='center' id="parent-modal-title">¡Usuario modificado!</h2>
                   <p align='center' id="parent-modal-description">
-                    Se dieron permisos de administrador al usuario solicitado.
+                    Fiscal eliminado correctamente.
                   </p>
                   {
                     <Col span={24} align='middle'>
@@ -147,7 +146,7 @@ function AddAdmin() {
                 <Box sx={{ ...style, width: 400, alignItems:'center', alignContent:'center', alignSelf:'center' }}>
                   <h2 align='center' id="parent-modal-title">Error</h2>
                   <p align='center' id="parent-modal-description">
-                    Error en los datos ingresados, usuario inválido.
+                    Error en los datos ingresados, fiscal inválido.
                   </p>
                   {
                     <Col span={24} align='middle'>
@@ -166,4 +165,4 @@ function AddAdmin() {
   );
 }
 
-export default AddAdmin;
+export default DeleteReviewer;

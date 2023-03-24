@@ -4,7 +4,7 @@ import { Button, Row, Col, Typography } from 'antd';
 import { topMargin, buttonWidth, smallButtonWidth, smallMaginTop, smallMarginRight, smallMarginLeft, smallMarginBottom, logoWidth } from '../../CommonStyles';
 import Logo from './../../logo.png'
 
-function Home() {
+function ReviewerHome() {
 
   const navigate = useNavigate();
 
@@ -18,9 +18,9 @@ function Home() {
       }
 
       const data = await response.json()
-      if (data.role !== 'admin') {
-        if (data.role === 'reviewer'){
-          navigate('/reviewer_home')
+      if (data.role !== 'reviewer') {
+        if (data.role === 'admin'){
+          navigate('/home')
         } else {
           navigate('/my_rooms')
         }
@@ -56,11 +56,11 @@ function Home() {
           <Button type='primary' style={{ width: buttonWidth }} onClick={() => navigate('/my_rooms')}>Modo Usuario</Button>
         </Col>
         <Col span={24} align='middle'>
-          <Button type='primary' style={{ width: buttonWidth, marginBottom: smallMarginBottom }} onClick={() => navigate('/admin')}>Modo Administrador</Button>
+          <Button type='primary' style={{ width: buttonWidth, marginBottom: smallMarginBottom }} onClick={() => navigate('/reviewer')}>Modo Fiscal</Button>
         </Col>
       </Row>
     </div>
   );
 }
 
-export default Home;
+export default ReviewerHome;

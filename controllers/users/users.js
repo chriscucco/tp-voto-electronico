@@ -32,7 +32,7 @@ exports.createUser = async(req, res) => {
     }
 
     const response = await createUser(user_id, dni, name, last_name, processPassword(password))
-    await createRole(user_id, 'nominal')
+    await createRole(user_id, 'normal')
     return {'message': response, 'valid': true, status: 200}
 };
 

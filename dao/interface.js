@@ -211,3 +211,34 @@ exports.getInfoByRoomAndListId = async(room_id, list_id) => {
     const data = await database.select().from('roomLists').where('list_id', list_id).andWhere('room_id', room_id)
     return data
 }
+
+// Reviewers
+
+exports.getAllReviewers = async() => {
+    const rooms = await database.select().from('reviewers')
+    return rooms
+}
+
+exports.getReviewersByList = async(list_id) => {
+    const data = await database.select().from('reviewers').where('list_id', list_id)
+    return data
+}
+
+exports.getReviewersByUserId = async(user_id) => {
+    const data = await database.select().from('reviewers').where('user_id', user_id)
+    return data
+}
+
+exports.getReviewersByListAndUserId = async(user_id, list_id) => {
+    const data = await database.select().from('reviewers').where('list_id', list_id).andWhere('user_id', user_id)
+    return data
+}
+
+exports.createReviewer = async(user_id, list_id) => {
+    const result = await database('reviewers').insert({user_id, list_id}).returning('*')
+    return result
+}
+
+exports.deleteReviewer = async(user_id) => {
+    await database.del().from('reviewers').where('user_id', user_id)
+}

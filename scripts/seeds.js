@@ -13,6 +13,11 @@ const {processPassword} = require('../controllers/users/commons');
         await database('users').insert({user_id: 'test1', dni: '1', name: 'Test1', last_name: 'Test', password: processPassword('TEST1')})
         await database('users').insert({user_id: 'test2', dni: '2', name: 'Test2', last_name: 'Test', password: processPassword('TEST2')})
         await database('users').insert({user_id: 'test3', dni: '3', name: 'Test3', last_name: 'Test', password: processPassword('TEST3')})
+        await database('users').insert({user_id: 'fiscal1', dni: '4', name: 'Fiscal1', last_name: 'Test', password: processPassword('FISCAL1')})
+        await database('users').insert({user_id: 'fiscal2', dni: '5', name: 'Fiscal2', last_name: 'Test', password: processPassword('FISCAL2')})
+        await database('users').insert({user_id: 'fiscal3', dni: '6', name: 'Fiscal3', last_name: 'Test', password: processPassword('FISCAL3')})
+        await database('users').insert({user_id: 'fiscal4', dni: '7', name: 'Fiscal4', last_name: 'Test', password: processPassword('FISCAL4')})
+        await database('users').insert({user_id: 'fiscal5', dni: '8', name: 'Fiscal5', last_name: 'Test', password: processPassword('FISCAL5')})
         console.log('Finished users seeds!')
 
 
@@ -20,6 +25,11 @@ const {processPassword} = require('../controllers/users/commons');
         console.log('Starting roles seeds...')
         await database('roles').insert({user_id: 'ccucco', role: 'admin'})
         await database('roles').insert({user_id: 'fcerquetti', role: 'admin'})
+        await database('roles').insert({user_id: 'fiscal1', role: 'reviewer'})
+        await database('roles').insert({user_id: 'fiscal2', role: 'reviewer'})
+        await database('roles').insert({user_id: 'fiscal3', role: 'reviewer'})
+        await database('roles').insert({user_id: 'fiscal4', role: 'reviewer'})
+        await database('roles').insert({user_id: 'fiscal5', role: 'reviewer'})
         await database('roles').insert({user_id: 'test1', role: 'normal'})
         await database('roles').insert({user_id: 'test2', role: 'normal'})
         await database('roles').insert({user_id: 'test3', role: 'normal'})
@@ -172,9 +182,17 @@ const {processPassword} = require('../controllers/users/commons');
         await database('roomLists').insert({room_id: '11', list_id: '2'})
         await database('roomLists').insert({room_id: '11', list_id: '3'})
         await database('roomLists').insert({room_id: '11', list_id: '4'})
-
-
         console.log('Finished roomLists seeds!')
+
+
+        //REVIEWERS SEEDS
+        await database('reviewers').insert({user_id: 'fiscal1', list_id: '1'})
+        await database('reviewers').insert({user_id: 'fiscal5', list_id: '1'})
+        await database('reviewers').insert({user_id: 'fiscal2', list_id: '2'})
+        await database('reviewers').insert({user_id: 'fiscal3', list_id: '3'})
+        await database('reviewers').insert({user_id: 'fiscal4', list_id: '4'})
+
+        console.log('Finished reviewers seeds!')
 
         console.log('Finished running all seeds successfully!')
         process.exit(0)

@@ -67,6 +67,43 @@ exports.updateRoleByUserOrDNI = async(req, res) => {
     return {'message': response, 'valid': true, status: 200}
 }
 
+exports.updateReviewerRole = async(req, res) => {
+    const user_id = req.body.user_id ? req.body.user_id : "0"
+    if (user_id == "0") {
+        return {'valid': false, 'message': 'Error processing params', status: 400}
+    }
+
+    const rolesFound = await getRoleByID(user_id)
+    if (rolesFound.length == 0) {
+        return {'valid': false, 'message': 'User does not exists in database', status: 400}
+    }
+
+    const response = await updateRole(user_id, 'reviewer')
+    return {'response': response, 'valid': true}
+}
+
+exports.updateReviewerRoleByUserOrDNI = async(req, res) => {
+    const user_id = req.body.newReviewer ? req.body.newReviewer : "0"
+    if (user_id == "0") {
+        return {'valid': false, 'message': 'Error processing params', status: 400}
+    }
+
+    let user;
+    const userFound = await getUserById(user_id)
+    if (userFound.length > 0) {
+        user = userFound[0].user_id;
+    } else {
+        const rolesFound = await getRoleByID(user_id)
+        if (rolesFound.length == 0) {
+            return {'valid': false, 'message': 'User does not exists in database', status: 400}
+        }
+        user = user_id;
+    }
+
+    const response = await updateRole(user, 'reviewer')
+    return {'message': response, 'valid': true, status: 200}
+}
+
 
 const validateParams = (user_id, role) => {
     const validUser = user_id == "0" ? false : true

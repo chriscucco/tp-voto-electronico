@@ -28,7 +28,11 @@ function AddRoom() {
 
       const data = await response.json()
       if (data.role !== 'admin') {
-        navigate('/my_rooms');
+        if (data.role === 'reviewer'){
+          navigate('/reviewer_home')
+        } else {
+          navigate('/my_rooms')
+        }
       }
     }
     init();
