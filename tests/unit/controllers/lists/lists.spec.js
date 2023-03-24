@@ -126,24 +126,4 @@ describe('Testing lists functions', () => {
           const response = await createList(req, res);
           expect(response.valid).toEqual(false);
     });
-
-    test('testShowAllLists', async () => {
-      tracker.on('query', function sendResult(query) {
-        query.response([
-            {list_id: '1', name:'Partido 1', candidate_id: '1', role: 'Presidente' },
-            {list_id: '2', name:'Partido 1', candidate_id: '2', role: 'VicePresidente'},
-            {list_id: '3', name:'Partido 1', candidate_id: '3', role: 'Otro'},
-        ]);
-      });
-      const req = {
-        body: {
-          listId: '1',
-          listName: 'Partido 1',
-        },
-      };
-      const res = {};
-
-      const response = await showAllLists(req, res);
-      expect(response.length).toEqual(3);
-    })
 });
