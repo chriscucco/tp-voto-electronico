@@ -4,7 +4,7 @@ import { Button, Row, Col, Typography } from 'antd';
 import { topMargin, buttonWidth, smallButtonWidth, smallMaginTop, smallMarginRight, smallMarginLeft, smallMarginBottom, logoWidth } from '../../CommonStyles';
 import Logo from './../../logo.png'
 
-function ReviewerHome() {
+function ShowReviews() {
 
   const navigate = useNavigate();
 
@@ -56,11 +56,11 @@ function ReviewerHome() {
           <Button type='primary' style={{ width: buttonWidth }} onClick={() => navigate('/my_rooms')}>Modo Usuario</Button>
         </Col>
         <Col span={24} align='middle'>
-          <Button type='primary' style={{ width: buttonWidth, marginBottom: smallMarginBottom }} onClick={() => navigate('/show_reviews')}>Modo Fiscal</Button>
+          <Button type='primary' style={{ width: buttonWidth, marginBottom: smallMarginBottom }} onClick={() => navigate('/reviewer')}>Modo Fiscal</Button>
         </Col>
       </Row>
     </div>
   );
 }
 
-export default ReviewerHome;
+export default ShowReviews;

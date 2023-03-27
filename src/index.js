@@ -25,10 +25,14 @@ import DeleteCandidate from './pages/delete_candidate/DeleteCandidate'
 import ReviewerHome from './pages/reviewer_home/ReviewerHome';
 import AddReviewer from './pages/add_reviewer/addReviewer';
 import DeleteReviewer from './pages/delete_reviewer/DeleteReviewer';
+import ShowReviews from './pages/show_reviews/ShowReviews';
+import FinishRooms from './pages/finish_rooms/FinishRooms';
+
 
 import reportWebVitals from './reportWebVitals';
 import 'react-app-polyfill/stable';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import FinishRoom from './pages/finish_room/FinishRoom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -59,7 +63,9 @@ root.render(
         <Route path='reviewer_home' element={ <ReviewerHome />} />
         <Route path='add_reviewer' element={ <AddReviewer />} />
         <Route path='delete_reviewer' element={ <DeleteReviewer />} />
-
+        <Route path='show_reviews' element={ <ShowReviews />} />
+        <Route path='finish_rooms' element={ <FinishRooms />} />
+        <Route path='finish_room/:roomId' element={ <FinishRoom />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

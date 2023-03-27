@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var path = require("path");
 
-const {createRoom, getAllRooms, getRoomByID, showAllRooms} = require('../../controllers/rooms/rooms');
+const {createRoom, getAllRooms, getRoomByID, showAllRooms, showAllRoomsNotReadyForReview, updateRoomForReview} = require('../../controllers/rooms/rooms');
 const votingPlatformService = require('../../server/service/VotingPlatformService')
 
 
@@ -26,8 +26,18 @@ router.get("", async (req, res) => {
   res.json(response)
 });
 
+router.get("/set_ready_review/:id", async (req, res) => {
+  const response = await updateRoomForReview(req, res)
+  res.json(response)
+});
+
 router.get("/show/all", async (req, res) => {
   const response = await showAllRooms(req, res)
+  res.json(response)
+})
+
+router.get("/show/all/not_ready_for_review", async (req, res) => {
+  const response = await showAllRoomsNotReadyForReview(req, res)
   res.json(response)
 })
 

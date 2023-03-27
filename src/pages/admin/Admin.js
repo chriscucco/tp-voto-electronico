@@ -79,7 +79,11 @@ function Admin() {
         </Col>
 
         <Col span={24} align='middle'>
-          <Button type='primary' style={{ width: buttonWidth }} onClick={() => navigate('/show_rooms')}>Ver Actos Electorales creados</Button>
+          <Button type='primary' style={{ width: buttonWidth }} onClick={() => navigate('/show_rooms')}>Ver actos electorales creados</Button>
+        </Col>
+
+        <Col span={24} align='middle'>
+          <Button type='primary' style={{ width: buttonWidth }} onClick={() => navigate('/finish_rooms')}>Marcar actos electorales como listos para revisar</Button>
         </Col>
 
         <Col span={24} align='middle'>

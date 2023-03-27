@@ -140,15 +140,15 @@ const {processPassword} = require('../controllers/users/commons');
         console.log('Finished voters seeds!')
 
         //ROOMS SEEDS
-        await database('rooms').insert({room_id: '1', init_date: '2022-09-17T19:18', end_date:'2022-12-17T19:18', description: 'Elección 1'})
-        await database('rooms').insert({room_id: '2', init_date: '2022-09-17T19:18', end_date:'2022-10-17T19:18', description: 'Elección 2'})
-        await database('rooms').insert({room_id: '3', init_date: '2022-09-17T19:18', end_date:'2022-12-17T19:18', description: 'Elección 3'})
-        await database('rooms').insert({room_id: '4', init_date: '2022-09-17T19:18', end_date:'2022-12-17T19:18', description: 'Elección 4'})
-        await database('rooms').insert({room_id: '5', init_date: '2022-09-17T19:18', end_date:'2022-12-17T19:18', description: 'Elección 5'})
-        await database('rooms').insert({room_id: '9', init_date: '2022-09-17T19:18', end_date:'2022-11-10T19:18', description: 'Elección 9'})
-        await database('rooms').insert({room_id: '10', init_date: '2022-09-17T19:18', end_date:'2022-11-10T19:18', description: 'Elección 10'})
-        await database('rooms').insert({room_id: '11', init_date: '2022-09-17T19:18', end_date:'2022-11-08T19:18', description: 'Elección 11'})
-        await database('rooms').insert({room_id: '14', init_date: '2022-09-17T19:18', end_date:'2022-12-08T19:18', description: 'Elección 14'})
+        await database('rooms').insert({room_id: '1', init_date: '2022-09-17T19:18', end_date:'2022-12-17T19:18', description: 'Elección 1', ready_for_review: 'false', ready: 'false'})
+        await database('rooms').insert({room_id: '2', init_date: '2022-09-17T19:18', end_date:'2022-10-17T19:18', description: 'Elección 2', ready_for_review: 'true', ready: 'false'})
+        await database('rooms').insert({room_id: '3', init_date: '2022-09-17T19:18', end_date:'2022-12-17T19:18', description: 'Elección 3', ready_for_review: 'true', ready: 'true'})
+        await database('rooms').insert({room_id: '4', init_date: '2022-09-17T19:18', end_date:'2022-12-17T19:18', description: 'Elección 4', ready_for_review: 'true', ready: 'true'})
+        await database('rooms').insert({room_id: '5', init_date: '2022-09-17T19:18', end_date:'2022-12-17T19:18', description: 'Elección 5', ready_for_review: 'true', ready: 'true'})
+        await database('rooms').insert({room_id: '9', init_date: '2022-09-17T19:18', end_date:'2022-11-10T19:18', description: 'Elección 9', ready_for_review: 'true', ready: 'true'})
+        await database('rooms').insert({room_id: '10', init_date: '2022-09-17T19:18', end_date:'2022-11-10T19:18', description: 'Elección 10', ready_for_review: 'true', ready: 'true'})
+        await database('rooms').insert({room_id: '11', init_date: '2022-09-17T19:18', end_date:'2022-11-08T19:18', description: 'Elección 11', ready_for_review: 'true', ready: 'true'})
+        await database('rooms').insert({room_id: '14', init_date: '2022-09-17T19:18', end_date:'2022-12-08T19:18', description: 'Elección 14', ready_for_review: 'true', ready: 'true'})
         console.log('Finished rooms seeds!')
 
         //ROOMLISTS SEEDS

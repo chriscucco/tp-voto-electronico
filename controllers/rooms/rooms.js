@@ -1,5 +1,5 @@
 const votingService = require('../../server/service/VotingPlatformService')
-const {createRoom, getAllRooms, getRoomById} = require('../../dao/interface')
+const {createRoom, getAllRooms, getRoomById, getAllRoomsNotReadyForReview, markRoomAstReadyForReview} = require('../../dao/interface')
 
 exports.getAllRooms = async(req, res) => {
     const response = await getAllRooms()
@@ -27,7 +27,7 @@ exports.createRoom = async(req, res) => {
     const endDate = processDate(end_date)
 
     const resp = await votingService.createRoom(description, 'description')
-    const response = await createRoom(resp.id, initDate, endDate, description)
+    const response = await createRoom(resp.id, initDate, endDate, description, 'false', 'false')
     return {'response': response, 'message': resp.id, 'valid': true, status: 200}
 }
 
@@ -56,6 +56,24 @@ exports.showAllRooms = async(req, res) => {
         let currentRoom = {room_id: room.room_id, name: room.description, initDate: makeReadableDate(room.init_date), endDate: makeReadableDate(room.end_date)}
         response.push(currentRoom)
     }
+    return response
+}
+
+exports.showAllRoomsNotReadyForReview = async(req, res) => {
+    const rooms = await getAllRoomsNotReadyForReview()
+    let response = []
+
+    for (const room of rooms) {
+        let currentRoom = {room_id: room.room_id, name: room.description, initDate: makeReadableDate(room.init_date), endDate: makeReadableDate(room.end_date)}
+        response.push(currentRoom)
+    }
+    return response
+}
+
+exports.updateRoomForReview = async(req, res) => {
+    const room_id = req.params.id ? req.params.id : ""
+    console.log("PROCESING!")
+    const response = await markRoomAstReadyForReview(room_id)
     return response
 }
 

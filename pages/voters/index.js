@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const {getAllVotersAndRooms, getVotersByRoom, getRoomsByVoter, createNewVoter, addNewVotersGroup} = require('../../controllers/voters/voters');
+const {getAllVotersAndRooms, getVotersByRoom, getRoomsByVoter, createNewVoter, addNewVotersGroup, getVotersDetailsByRoom} = require('../../controllers/voters/voters');
 
 
 router.get("/all", async(req,res) => {
@@ -12,6 +12,11 @@ router.get("/all", async(req,res) => {
 router.get("/user", async(req,res) => {
     const voters =  await getVotersByRoom(req, res)
     res.json(voters)
+})
+
+router.get("/user_detail", async(req,res) => {
+  const voters = await getVotersDetailsByRoom(req, res)
+  res.json(voters)
 })
 
 router.get("/room", async(req,res) => {

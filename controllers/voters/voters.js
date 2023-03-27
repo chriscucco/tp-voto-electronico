@@ -1,4 +1,4 @@
-const { addVoterToRoom, getRoomsByUserId, getUsersParticipatingByRoom, getAllVotersAndRooms, getRoomAndUser, getUserById, getRoomById } = require('../../dao/interface');
+const { addVoterToRoom, getRoomsByUserId, getUsersParticipatingByRoom, getAllVotersAndRooms, getRoomAndUser, getUserById, getRoomById, markRoomAsNotReady, getUserByUserId } = require('../../dao/interface');
 
 exports.getAllVotersAndRooms = async(req, res) => {
     const response = await getAllVotersAndRooms()
@@ -10,6 +10,19 @@ exports.getVotersByRoom = async(req, res) => {
     const response = await getUsersParticipatingByRoom(room_id)
     return response
 };
+
+exports.getVotersDetailsByRoom = async(req, res) => {
+    const room_id = req.query.room_id ? req.query.room_id : "0"
+    const response = await getUsersParticipatingByRoom(room_id)
+    let usersResponse = []
+
+    for (const v of response) {
+        const user = await getUserByUserId(v.user_id)
+        usersResponse.push(user[0])
+    }
+
+    return usersResponse.sort((a,b) => a.last_name > b.last_name ? 1 : (a.last_name == b.last_name ? (a.name > b.name ? 1 : -1) : -1))
+}
 
 exports.getRoomsByVoter = async(req, res) => {
     const user_id = req.query.user_id ? req.query.user_id : "0"
@@ -79,5 +92,6 @@ exports.addNewVotersGroup = async(req, res) => {
         await addVoterToRoom(room_id, userData[0].user_id)
     }
 
+    await markRoomAsNotReady(room_id)
     return {'valid': true, 'message': 'success', status: 200}
 };

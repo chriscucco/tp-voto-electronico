@@ -170,8 +170,8 @@ exports.getAllVotersAndRooms = async() => {
 
 // Rooms
 
-exports.createRoom = async(room_id, init_date, end_date, description) => {
-    const result = await database('rooms').insert({room_id, init_date, end_date, description}).returning('*')
+exports.createRoom = async(room_id, init_date, end_date, description, ready, ready_for_review) => {
+    const result = await database('rooms').insert({room_id, init_date, end_date, description, ready, ready_for_review}).returning('*')
     return result
 }
 
@@ -184,6 +184,27 @@ exports.getAllRooms = async() => {
     const rooms = await database.select().from('rooms')
     return rooms
 }
+
+exports.getAllRoomsNotReadyForReview = async() => {
+    const rooms = await database.select().from('rooms').where('ready_for_review', 'false')
+    return rooms
+}
+
+exports.markRoomAsNotReady = async(room_id) => {
+    const result = await database('rooms').update('ready', 'false').update('ready_for_review', 'false').where('room_id', room_id).returning('*')
+    return result
+}
+
+exports.markRoomAstReadyForReview = async(room_id) => {
+    const result = await database('rooms').update('ready', 'false').update('ready_for_review', 'true').where('room_id', room_id).returning('*')
+    return result
+}
+
+exports.markRoomAsReady = async(room_id) => {
+    const result = await database('rooms').update('ready', 'true').update('ready_for_review', 'true').where('room_id', room_id).returning('*')
+    return result
+}
+
 
 // RoomLists
 

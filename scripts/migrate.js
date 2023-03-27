@@ -58,6 +58,8 @@ const db = require('../dao/db');
       table.string('init_date')
       table.string('end_date')
       table.string('description')
+      table.string('ready')
+      table.string('ready_for_review')
     })
     console.log('Created rooms table!')
 

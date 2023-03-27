@@ -12,7 +12,9 @@ exports.getRoomsInfoByVoter = async(req, res) => {
     for (const room of rooms) {
         try {
             processedRoomInfo = await this.getRoomProcessedData(room, userId)
-            roomsInfo.push(processedRoomInfo)
+            if (processedRoomInfo.ready === 'true') {
+                roomsInfo.push(processedRoomInfo)
+            }
         } catch(Exception) {}   
     }
 
@@ -47,7 +49,19 @@ exports.getRoomProcessedData = async (room, userId) => {
         actionName = "Detalles"
     }
 
-    return {room_id: room.room_id, title: currentRoom[0].description, description, actionName, init_date: currentRoom[0].init_date, end_date: currentRoom[0].end_date, userVoted, started, expired}
+    return {
+        room_id: room.room_id, 
+        title: currentRoom[0].description, 
+        description, 
+        actionName, 
+        init_date: currentRoom[0].init_date, 
+        end_date: currentRoom[0].end_date, 
+        userVoted, 
+        started, 
+        expired, 
+        ready: currentRoom[0].ready, 
+        ready_for_review: currentRoom[0].ready_for_review
+    }
 }
 
 const validateIfDatePassed = (date, timeNow) => {
@@ -142,6 +156,30 @@ exports.getRoomsInfo = async(req, res) => {
     if (roomVoter.length == 0) {
         return {'data': 'User cant access information from this room', status: 401}
     }
+
+    const roomLists = await getListsByRoomId(room_id)
+    if (roomLists.length == 0) {
+        return {'data': [], status: 200}
+    }
+
+    let listData = []
+    for (const roomList of roomLists) {
+        try {
+            const listId = roomList.list_id
+            const list = await getListsData(listId)
+            const candidates = await getCandidatesDataFromList(listId)
+            const processedCandidates = await processCandidatesLists(candidates)
+            let processedListInfo = {'name': list[0].name, 'list_id': list[0].list_id, 'candidates': processedCandidates}
+            listData.push(processedListInfo)
+        } catch(Exception) {}
+    }
+
+    return {'data': listData, status: 200}
+}
+
+
+exports.getRoomsInfoAdmin = async(req, res) => {
+    const room_id = req.params.id ? req.params.id : ""
 
     const roomLists = await getListsByRoomId(room_id)
     if (roomLists.length == 0) {
