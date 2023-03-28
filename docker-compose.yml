@@ -12,6 +12,8 @@ services:
       DATABASE_URI: postgresql://root:toor@postgres/votoElectronico?sslmode=disable
     ports:
       - '8001:8001'
+    depends_on:
+      - db
   db:
     container_name: voto-electronico-postgres
     image: 'postgres'

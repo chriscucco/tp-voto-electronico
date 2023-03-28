@@ -1,11 +1,13 @@
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { Form, Input, Button, Row, Col, Typography } from 'antd';
+import { Form, Input, Button, Row, Col, Typography, message, Upload } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
 import { topMargin, buttonWidth, style, smallButtonWidth, smallMaginTop, smallMarginRight, smallMarginLeft, logoWidth, smallMarginBottom } from '../../CommonStyles';
 import Logo from './../../logo.png'
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
+import Papa from "papaparse";
 
 function AddVoters() {
   let [searchParams, setSearchParams] = useSearchParams();
@@ -17,7 +19,9 @@ function AddVoters() {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [fileList, setFileList] = useState([]);
+  const [fileData, setFileData] = useState([]);
   const handleOpen = () => {
     setOpen(true);
   };
@@ -50,7 +54,16 @@ function AddVoters() {
     init();
   }, [searchParams, navigate]);
 
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
+    const voterIds = fileData.flatMap(fd => fd.fileData).filter(data => data.voterId !== '').map(data => data.voterId)
+    
+    const requestBody = {
+      roomId: values.roomId,
+      voterIds: voterIds.join()
+    }
+
+    console.log(requestBody);
+
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -103,7 +116,34 @@ function AddVoters() {
     })
   };
 
+  const uploadProps = {
+    accept: ".csv",
+    onRemove: (file) => {
+      const fileListindex = fileList.indexOf(file);
+      const newFileList = fileList.slice();
+      newFileList.splice(fileListindex, 1);
+      setFileList(newFileList);
 
+      const fileDataIndex = fileData.findIndex(f => f.name === file.name)
+      const newFileData = fileData.slice();
+      newFileData.splice(fileDataIndex, 1);
+      setFileData(newFileData);
+    },
+    beforeUpload: (file) => {
+      Papa.parse(file, {
+        header: true,
+        complete: function(results) {
+          const data = { fileName: file.name, fileData: results.data }
+          console.log(data)
+          setFileData([...fileData, data]);
+        }
+      });
+      setFileList([...fileList, file]);
+      return false;
+    },
+    fileList
+  };
+  
   return (
     <div>
       <Col>
@@ -112,17 +152,19 @@ function AddVoters() {
       </Col>
       <Row gutter={[24, 24]} style={{ marginTop: topMargin}}>
         <Col span={24} align='middle'>
-          <Title level={3}>Ingresar DNI de los votantes a agregar separados por coma</Title>
+          <Title level={3}>Agregar padrones a sala de votación</Title>
         </Col>
         <Col span={24} align='middle'>
-          <Form onFinish={onFinish}>
-            <Form.Item
-              label="DNI de votantes"
-              name="voterIds"
-              rules={[{ required: true, message: "Ingresar los DNI's de los votantes" }]}
-              style={{ width: buttonWidth }}
-            >
-              <Input placeholder="Ej: 40128001,18995293..." />
+          <Form onFinish={onFinish}>  
+            <Form.Item style={{ width: buttonWidth }}>
+              <Upload {...uploadProps}>
+                <Button 
+                  icon={<UploadOutlined />}
+                  style={{ width: buttonWidth }}
+                >
+                  Subir archivo de padrón
+                </Button>
+              </Upload>
             </Form.Item>
 
             <Form.Item
