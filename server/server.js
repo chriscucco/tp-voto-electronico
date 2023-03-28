@@ -67,6 +67,7 @@ const deleteCandidatesRoute = require('../pages/delete_candidates')
 const deleteReviewerRoute = require('../pages/delete_reviewer')
 const showReviewsRoute = require('../pages/show_reviews')
 const finishRoomsRoute = require('../pages/finish_rooms')
+const reviewsRoute = require('../pages/reviews')
 
 
 router.use('/home', homeRoute)
@@ -99,6 +100,7 @@ router.use('/delete_reviewer', deleteReviewerRoute)
 router.use('/reviewer', reviewerRoute)
 router.use('/show_reviews', showReviewsRoute)
 router.use('/finish_rooms', finishRoomsRoute)
+router.use('/reviews', reviewsRoute)
 
 
 app.use(router);

@@ -26,6 +26,7 @@ import ReviewerHome from './pages/reviewer_home/ReviewerHome';
 import AddReviewer from './pages/add_reviewer/addReviewer';
 import DeleteReviewer from './pages/delete_reviewer/DeleteReviewer';
 import ShowReviews from './pages/show_reviews/ShowReviews';
+import ShowReviewsDetail from './pages/show_reviews_detail/ShowReviewsDetail';
 import FinishRooms from './pages/finish_rooms/FinishRooms';
 
 
@@ -64,6 +65,7 @@ root.render(
         <Route path='add_reviewer' element={ <AddReviewer />} />
         <Route path='delete_reviewer' element={ <DeleteReviewer />} />
         <Route path='show_reviews' element={ <ShowReviews />} />
+        <Route path='show_reviews_detail/:roomId' element={ <ShowReviewsDetail />} />
         <Route path='finish_rooms' element={ <FinishRooms />} />
         <Route path='finish_room/:roomId' element={ <FinishRoom />} />
       </Routes>

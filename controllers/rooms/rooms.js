@@ -1,5 +1,5 @@
 const votingService = require('../../server/service/VotingPlatformService')
-const {createRoom, getAllRooms, getRoomById, getAllRoomsNotReadyForReview, markRoomAstReadyForReview} = require('../../dao/interface')
+const {createRoom, getAllRooms, getRoomById, getRoomByListId, getAllRoomsNotReadyForReview, markRoomAstReadyForReview, getReviewersByUserId, createReviews, getReviewsByRoomAndList, deleteReviewsByRoom, markRoomAsReady, getListsByRoomId} = require('../../dao/interface')
 
 exports.getAllRooms = async(req, res) => {
     const response = await getAllRooms()
@@ -70,11 +70,56 @@ exports.showAllRoomsNotReadyForReview = async(req, res) => {
     return response
 }
 
+exports.showAllRoomsReadyForReview = async(req, res) => {
+    const user_id = req.params.id ? req.params.id : ""
+    let response = []
+    const reviewerListResponse = await getReviewersByUserId(user_id)
+    const list_id = reviewerListResponse[0].list_id
+    const roomListResponse = await getRoomByListId(list_id)
+    for (roomList of roomListResponse) {
+        const roomDetail = await getRoomById(roomList.room_id)
+        if ((roomDetail[0].ready == 'false') && (roomDetail[0].ready_for_review == 'true')){
+            const reviewsResponse = await getReviewsByRoomAndList(roomDetail[0].room_id, list_id)
+            if (reviewsResponse.length === 0){
+                let currentRoom = {room_id: roomDetail[0].room_id, name: roomDetail[0].description, initDate: makeReadableDate(roomDetail[0].init_date), endDate: makeReadableDate(roomDetail[0].end_date)}
+                response.push(currentRoom)
+            }
+        }
+    }
+
+    return response
+}
+
 exports.updateRoomForReview = async(req, res) => {
     const room_id = req.params.id ? req.params.id : ""
-    console.log("PROCESING!")
     const response = await markRoomAstReadyForReview(room_id)
+    await deleteReviewsByRoom(room_id)
     return response
+}
+
+exports.updateRoomForReady = async(req, res) => {
+    const room_id = req.params.id ? req.params.id : ""
+    const reviewerListResponse = await getReviewersByUserId(req.session.user_id)
+    const list_id = reviewerListResponse[0].list_id
+    await createReviews(room_id, list_id)
+    
+    let ready = await roomIsAlreadyReady(room_id)
+    if (ready == 'true') {
+        await markRoomAsReady(room_id)
+    }
+
+    return {}
+}
+
+const roomIsAlreadyReady = async(room_id) => {
+    const listsOfRoom = await getListsByRoomId(room_id)
+    for (const roomList of listsOfRoom) {
+        const review = await getReviewsByRoomAndList(room_id, roomList.list_id)
+        if (review.length === 0) {
+            return 'false'
+        }
+    }
+    return 'true'
 }
 
 const makeReadableDate = (date) => {

@@ -1,4 +1,4 @@
-const { addVoterToRoom, getRoomsByUserId, getUsersParticipatingByRoom, getAllVotersAndRooms, getRoomAndUser, getUserById, getRoomById, markRoomAsNotReady, getUserByUserId } = require('../../dao/interface');
+const { addVoterToRoom, getRoomsByUserId, getUsersParticipatingByRoom, getAllVotersAndRooms, getRoomAndUser, getUserById, getRoomById, markRoomAsNotReady, deleteReviewsByRoom, getUserByUserId } = require('../../dao/interface');
 
 exports.getAllVotersAndRooms = async(req, res) => {
     const response = await getAllVotersAndRooms()
@@ -93,5 +93,6 @@ exports.addNewVotersGroup = async(req, res) => {
     }
 
     await markRoomAsNotReady(room_id)
+    await deleteReviewsByRoom(room_id)
     return {'valid': true, 'message': 'success', status: 200}
 };

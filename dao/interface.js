@@ -263,3 +263,24 @@ exports.createReviewer = async(user_id, list_id) => {
 exports.deleteReviewer = async(user_id) => {
     await database.del().from('reviewers').where('user_id', user_id)
 }
+
+// Reviews
+
+exports.getAllReviews = async() => {
+    const rooms = await database.select().from('reviews')
+    return rooms
+}
+
+exports.getReviewsByRoomAndList = async(room_id, list_id) => {
+    const rooms = await database.select().from('reviews').where('list_id', list_id).andWhere('room_id', room_id)
+    return rooms
+}
+
+exports.createReviews = async(room_id, list_id) => {
+    const result = await database('reviews').insert({room_id, list_id}).returning('*')
+    return result
+}
+
+exports.deleteReviewsByRoom = async(room_id) => {
+    await database.del().from('reviews').where('room_id', room_id)
+}

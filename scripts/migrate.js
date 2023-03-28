@@ -11,6 +11,7 @@ const db = require('../dao/db');
     await db.schema.dropTableIfExists('candidates')
     await db.schema.dropTableIfExists('voters')
     await db.schema.dropTableIfExists('reviewers')
+    await db.schema.dropTableIfExists('reviews')
 
     await db.schema.withSchema('public').createTable('users', (table) => {
       table.string('user_id')
@@ -74,6 +75,12 @@ const db = require('../dao/db');
       table.string('list_id')
     })
     console.log('Created reviewers table!')
+
+    await db.schema.withSchema('public').createTable('reviews', (table) => {
+      table.string('room_id')
+      table.string('list_id')
+    })
+    console.log('Created reviews table!')
 
 
     process.exit(0)

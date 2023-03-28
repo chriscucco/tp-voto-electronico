@@ -162,11 +162,11 @@ const {processPassword} = require('../controllers/users/commons');
         await database('roomLists').insert({room_id: '3', list_id: '2'})
         await database('roomLists').insert({room_id: '4', list_id: '2'})
         await database('roomLists').insert({room_id: '1', list_id: '3'})
-        await database('roomLists').insert({room_id: '2', list_id: '3'})
+        //await database('roomLists').insert({room_id: '2', list_id: '3'})
         await database('roomLists').insert({room_id: '3', list_id: '3'})
         await database('roomLists').insert({room_id: '4', list_id: '3'})
         await database('roomLists').insert({room_id: '1', list_id: '4'})
-        await database('roomLists').insert({room_id: '2', list_id: '4'})
+        //await database('roomLists').insert({room_id: '2', list_id: '4'})
         await database('roomLists').insert({room_id: '3', list_id: '4'})
         await database('roomLists').insert({room_id: '4', list_id: '4'})
 
@@ -191,7 +191,6 @@ const {processPassword} = require('../controllers/users/commons');
         await database('reviewers').insert({user_id: 'fiscal2', list_id: '2'})
         await database('reviewers').insert({user_id: 'fiscal3', list_id: '3'})
         await database('reviewers').insert({user_id: 'fiscal4', list_id: '4'})
-
         console.log('Finished reviewers seeds!')
 
         console.log('Finished running all seeds successfully!')
