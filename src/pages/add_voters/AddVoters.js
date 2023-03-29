@@ -67,7 +67,7 @@ function AddVoters() {
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(values)
+      body: JSON.stringify(requestBody)
     };
     fetch('/voters/add', requestOptions).then( function(response) {
       if (response.ok) {
