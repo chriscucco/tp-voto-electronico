@@ -127,5 +127,14 @@ const makeReadableDate = (date) => {
     const dateProcessed = dateHour[0].split('-')
     const hourProcessed = dateHour[1].split(':')
 
-    return dateProcessed[2]+ '/' + dateProcessed[1] + '/' + dateProcessed[0] + ' ' + hourProcessed[0] + ':' + hourProcessed[1]
+    const n = Number(hourProcessed[0]) - 3
+    
+    let hourString = ''
+    if (n < 10) {
+        hourString = '0' + n.toString()
+    } else {
+        hourString = n.toString()
+    }
+
+    return dateProcessed[2]+ '/' + dateProcessed[1] + '/' + dateProcessed[0] + ' ' + hourString + ':' + hourProcessed[1]
 }
