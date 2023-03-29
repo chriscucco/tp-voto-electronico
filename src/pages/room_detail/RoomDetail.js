@@ -1,19 +1,38 @@
 import { useEffect, useState } from 'react';
-import { Col, Row, Button, Card, Typography, Radio } from 'antd';
+import { Col, Row, Button, Card, Typography, Modal } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
 import { topMargin, buttonWidth, smallButtonWidth, smallMaginTop, smallMarginRight, smallMarginLeft, logoWidth, smallMarginBottom } from '../../CommonStyles';
 import Logo from './../../logo.png'
 
 function MyRooms() {
     const [lists, setLists] = useState([]);
+    const [selectedListToVote, setSelectedListToVote] = useState({});
     const { roomId } = useParams();
     const navigate = useNavigate();
     const emitVote = (listId) => {
         navigate(`/room_vote/${roomId}/list/${listId}`);
     }
 
-     const { Title } = Typography;
+    const { Title } = Typography;
 
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const showModal = (list) => {
+      setSelectedListToVote(list);
+      setIsModalOpen(true);
+    };
+
+    const handleOk = () => {
+      emitVote(selectedListToVote.list_id)
+      setIsModalOpen(false);
+    };
+
+    const handleCancel = () => {
+      setSelectedListToVote({});
+      setIsModalOpen(false);
+    };  
+    
     useEffect(() => {
         const init = async () => {
             const response = await fetch('/auth')
@@ -60,7 +79,7 @@ function MyRooms() {
         key={list.list_id}
         title={list.name} 
         bordered={true} 
-        actions={[<Button type='primary' onClick={() => emitVote(list.list_id)}> Votar</Button>]}
+        actions={[<Button type='primary' onClick={() => showModal(list)}> Votar</Button>]}
     >
     {
         list.candidates.president.map( candidate =>
@@ -79,8 +98,13 @@ function MyRooms() {
     }
     </Card>
 
+    console.log(selectedListToVote);
+
     return (
     <div>
+      <Modal title="Está seguro de su voto?" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+        Desea votar a {selectedListToVote.name}?
+      </Modal>
       <Col>
         <Button  style={{ float: 'right', width: smallButtonWidth, marginTop: smallMaginTop, marginRight: smallMarginRight }} onClick={() => logout()}>Cerrar Sesión</Button>
         <img  style={{float: 'left', marginTop: smallMaginTop, width: logoWidth, marginLeft: smallMarginLeft }} src={Logo} alt="Logo"/>
