@@ -4,10 +4,11 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { topMargin, buttonWidth, smallButtonWidth, smallMaginTop, smallMarginRight, smallMarginLeft, logoWidth, smallMarginBottom } from '../../CommonStyles';
 import Logo from './../../logo.png'
 import ClipLoader from 'react-spinners/ClipLoader';
+import Paragraph from 'antd/lib/skeleton/Paragraph';
 
 
 function MyRooms() {
-    const [lists, setLists] = useState([]);
+    const [lists, setLists] = useState();
     const [isLoading, setLoading] = useState(true);
     const { roomId } = useParams();
     const navigate = useNavigate();
@@ -47,7 +48,20 @@ function MyRooms() {
         navigate('/')
       })
     };
-  
+
+    const createDescription = (data) =>
+    <Col span={24} align='middle'>
+      {
+        <p>Votantes en el padrón: <b>{data.totalVoters}</b></p>
+      }
+      {
+        <p>Votos efectuados: <b>{data.totalVotes}</b></p>
+      }
+      {
+        <p>Porcentaje de participación: <b>{data.votesRatio}%</b></p>
+      }
+    </Col>
+
     const createCard = (list) => 
     <Card 
         key={list.list_id}
@@ -78,12 +92,20 @@ function MyRooms() {
                   <ClipLoader color={'#505050'} size={120} />
                 </Col>
             ) : (
-                lists.map(list =>
+                lists.listData.map(list =>
                     <Col key={list.list_id} span={8}>
                       {createCard(list)}
                     </Col> 
                 )
             )
+        };
+        {
+          isLoading ? (
+            <Col span={24} align='middle'>
+            </Col>
+          ) : (
+            createDescription(lists.votingRoomInfo)
+          )
         }
         <Col span={24} align='middle'>
           <Button type='primary' style={{ width: '30vw', marginBottom: smallMarginBottom }} onClick={() => navigate('/home')}>Volver</Button>
