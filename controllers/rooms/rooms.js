@@ -127,7 +127,21 @@ const makeReadableDate = (date) => {
     const dateProcessed = dateHour[0].split('-')
     const hourProcessed = dateHour[1].split(':')
 
-    const n = Number(hourProcessed[0]) - 3
+    const currentN = Number(hourProcessed[0])
+    let n = 0
+    let changeDate = false
+    if (currentN == 2) {
+        n = 23
+        changeDate = true
+    } else if (currentN == 1) {
+        n = 22
+        changeDate = true
+    } else if (currentN == 0) {
+        n = 21
+        changeDate = true
+    } else {
+        n = currentN - 3
+    }
     
     let hourString = ''
     if (n < 10) {
@@ -136,5 +150,12 @@ const makeReadableDate = (date) => {
         hourString = n.toString()
     }
 
-    return dateProcessed[2]+ '/' + dateProcessed[1] + '/' + dateProcessed[0] + ' ' + hourString + ':' + hourProcessed[1]
+    let processedDate = dateProcessed[2]
+    if (changeDate) {
+        let customDateNumber = Number(processedDate)
+        customDateNumber = (customDateNumber - 1)
+        processedDate = customDateNumber.toString()
+    }
+    
+    return processedDate+ '/' + dateProcessed[1] + '/' + dateProcessed[0] + ' ' + hourString + ':' + hourProcessed[1]
 }

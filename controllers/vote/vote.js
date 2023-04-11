@@ -1,4 +1,4 @@
-const {getRoomAndUser, getInfoByRoomAndListId, getUserIDAndRoomFromRegisteredVotes, getRoomById, registerUserAndRoom, getListsData} = require('../../dao/interface');
+const {getRoomAndUser, getInfoByRoomAndListId, getUserIDAndRoomFromRegisteredVotes, getRoomById, registerUserAndRoom, getListsData, getUsersParticipatingByRoom} = require('../../dao/interface');
 const {getRoomProcessedData} = require('../my_rooms/my_rooms')
 const votingService = require('../../server/service/VotingPlatformService');
 const { keyboard } = require('@testing-library/user-event/dist/keyboard');
@@ -74,7 +74,12 @@ exports.countVotes = async(req, res) => {
         }
 
         votes.sort((a, b) => b.votes - a.votes )
-        return {'data': votes, status: 200}
+
+        let votersAvailable = await getUsersParticipatingByRoom(roomId)
+        let totalVoters = votersAvailable.length
+
+        let votingRoomInfo = {totalVoters: totalVoters, totalVotes: totalVotes, votesRatio: ((totalVotes / totalVoters)*100)}
+        return {'data': {listData: votes, votingRoomInfo: votingRoomInfo}, status: 200}
     } catch (err) {
         return {'data': "failed obtaining votes", status: 500}
     }
