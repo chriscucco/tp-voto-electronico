@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Card, Col, Row, Button } from 'antd';
+import { Card, Col, Row, Button, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { topMargin, buttonWidth, smallButtonWidth, smallMaginTop, smallMarginRight, smallMarginLeft, logoWidth, smallMarginBottom } from '../../CommonStyles';
 import Logo from './../../logo.png'
@@ -8,6 +8,8 @@ function MyRooms() {
 
   const [rooms, setRooms] = useState([]);
   const navigate = useNavigate();
+  const { Title } = Typography;
+
   const goToRoomDetail = (roomId) => navigate(`/room_detail/${roomId}`);
 
   useEffect(() => {
@@ -54,6 +56,9 @@ function MyRooms() {
         <img  style={{float: 'left', marginTop: smallMaginTop, width: logoWidth, marginLeft: smallMarginLeft }} src={Logo} alt="Logo"/>
       </Col>
       <Row gutter={[24, 24]} style={{ marginTop: topMargin, marginLeft: smallMarginLeft }}>
+        <Col span={24} align='middle'>
+            <Title>Actos electorales</Title>
+        </Col>
         {
           rooms.map(room =>
             <Col key={room.id} span={8}>
