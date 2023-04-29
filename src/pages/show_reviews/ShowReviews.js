@@ -68,6 +68,9 @@ function ShowReviews() {
     {
         <p><b>Finaliza: </b>{room.endDate}</p>     
     }
+    {
+        <p>Numero de sala: {room.room_id}</p>
+    }
     </Card>
 
     return (

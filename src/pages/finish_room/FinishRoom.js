@@ -144,7 +144,7 @@ function FinishRoom() {
           <Button type='primary' style={{ width: '30vw', marginBottom: '1vw' }} onClick={() => {onFinish()}}>Marcar como lista para revisar</Button>
         </Col>
         <Col span={24} align='middle'>
-          <Button type='primary' style={{ width: '30vw', marginBottom: smallMarginBottom }} onClick={() => navigate('/home')}>Volver</Button>
+          <Button type='primary' style={{ width: '30vw', marginBottom: smallMarginBottom }} onClick={() => navigate('/admin')}>Volver</Button>
         </Col>
         {
         showModal ? ( success ? (

@@ -118,7 +118,7 @@ function AddReviewer() {
           </Form>  
         </Col>
         <Col span={24} align='middle'>
-          <Button type='primary' style={{ width: buttonWidth, marginBottom: smallMarginBottom }} onClick={() => navigate('/reviewer_home')}>Volver</Button>
+          <Button type='primary' style={{ width: buttonWidth, marginBottom: smallMarginBottom }} onClick={() => navigate('/admin')}>Volver</Button>
         </Col>
         {
           showModal ? ( success ? (

@@ -102,7 +102,7 @@ function ShowLists() {
           )
         }
         <Col span={24} align='middle'>
-          <Button type='primary' style={{ width: '30vw' , marginBottom: smallMarginBottom }} onClick={() => navigate('/home')}>Volver</Button>
+          <Button type='primary' style={{ width: '30vw' , marginBottom: smallMarginBottom }} onClick={() => navigate('/admin')}>Volver</Button>
         </Col>
       </Row>    
     </div>
