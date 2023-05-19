@@ -58,7 +58,7 @@ function MyRooms() {
         <p>Votos efectuados: <b>{data.totalVotes}</b></p>
       }
       {
-        <p>Porcentaje de participación: <b>{data.votesRatio}%</b></p>
+        <p>Porcentaje de participación: <b>{Number((data.votesRatio).toFixed(2))}%</b></p>
       }
     </Col>
 
@@ -72,7 +72,7 @@ function MyRooms() {
       <p>Votos totales: <b>{list.votes}</b></p>
     }
     {
-      <p>Porcentaje de votos: <b>{list.ratio}%</b></p>
+      <p>Porcentaje de votos: <b>{Number((list.ratio).toFixed(2))}%</b></p>
     }
     </Card>
 
@@ -98,7 +98,7 @@ function MyRooms() {
                     </Col> 
                 )
             )
-        };
+        }
         {
           isLoading ? (
             <Col span={24} align='middle'>
